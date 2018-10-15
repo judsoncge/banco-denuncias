@@ -4,20 +4,35 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/model/Model.php';
 
 class ServidoresModel extends Model{
 
-	private $funcao;
-	private $setor;
 	private $nome;
+	private $matricula;
+	private $email;
+	private $telefone;
+	private $orgao;
+	private $foto;	
+	private $tipo;
 	private $cpf;
-	private $foto;
 	private $senha;
 	private $confirmaSenha;
 	
-	public function setFuncao($funcao){
-		$this->funcao = $funcao;
+	public function setTipo($tipo){
+		$this->tipo = $tipo;
 	}
 	
-	public function setSetor($setor){
-		$this->setor = $setor;
+	public function setMatricula($matricula){
+		$this->matricula = $matricula;
+	}
+	
+	public function setTelefone($telefone){
+		$this->telefone = $telefone;
+	}
+	
+	public function setEmail($email){
+		$this->email = $email;
+	}
+	
+	public function setOrgao($orgao){
+		$this->orgao = $orgao;
 	}
 	
 	public function setNome($nome){
@@ -50,17 +65,13 @@ class ServidoresModel extends Model{
 		
 		SELECT 
 		
-		a.ID, a.DS_FUNCAO, a.ID_SETOR, a.DS_NOME, a.DS_FOTO, 
+		ID, DS_NOME, ID_ORGAO, DS_FOTO, DS_TIPO, DS_CPF
 		
-		b.DS_ABREVIACAO NOME_SETOR 
+		FROM tb_servidores
 		
-		FROM tb_servidores a, tb_setores b
+		WHERE DS_CPF = '$this->cpf' 
 		
-		WHERE a.ID_SETOR = b.ID
-		
-		AND a.DS_CPF = '$this->cpf' 
-		
-		AND a.SENHA = '$this->senha'";
+		AND SENHA = '$this->senha'";
 		
 		$dadosUsuario = $this->executarQueryLista($query);
 		
@@ -68,21 +79,19 @@ class ServidoresModel extends Model{
 	
 	}
 	
-	public function getListaServidoresStatus(){
+	public function getServidores(){
 		
 		$query = "
 		
 		SELECT 
 		
-		s1.ID, s1.DS_CPF, s1.DS_NOME, s1.DS_FUNCAO, s1.DS_STATUS, s2.DS_ABREVIACAO
+		s1.ID, s1.DS_CPF, s1.DS_NOME, s1.DS_EMAIL, s1.DS_TELEFONE, s1.DS_TIPO, s2.DS_ABREVIACAO
 		
 		FROM tb_servidores s1
 		
-		INNER JOIN tb_setores s2 ON s1.ID_SETOR = s2.ID 
+		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID  
 		
-		WHERE DS_STATUS= '$this->status' 
-		
-		ORDER BY DS_NOME";
+		ORDER BY s1.DS_NOME";
 		
 		$lista = $this->executarQueryLista($query);
 		
@@ -96,11 +105,11 @@ class ServidoresModel extends Model{
 		
 		SELECT 
 		
-		s1.ID, s1.DS_CPF, s1.DS_NOME, s1.DS_FUNCAO, s2.ID ID_SETOR, s2.DS_NOME NOME_SETOR
+		s1.ID, s1.DS_NOME, s1.DS_MATRICULA, s1.DS_CPF, s1.DS_TELEFONE, s1.DS_EMAIL, s1.DS_TIPO, s2.ID ID_ORGAO, s2.DS_NOME NOME_ORGAO
 		
 		FROM tb_servidores s1
 		
-		INNER JOIN tb_setores s2 ON s1.ID_SETOR = s2.ID 
+		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID 
 
 		WHERE s1.ID = '$this->id'
 		
@@ -115,17 +124,18 @@ class ServidoresModel extends Model{
 	
 	public function cadastrar(){
 		
-		$existe = $this->verificaExisteRegistro('DS_CPF', $this->cpf);
+		$existeCPF = $this->verificaExisteRegistro('DS_CPF', $this->cpf);
+		$existeMatricula = $this->verificaExisteRegistro('DS_MATRICULA', $this->matricula);
 		
-		if($existe){
+		if($existeCPF or $existeMatricula){
 			
-			$this->setMensagemResposta('Já existe um(a) servidor(a) com este CPF. Por favor, tente outro.');
+			$this->setMensagemResposta('Já existe um(a) servidor(a) com este(a) CPF ou matrícula. Por favor, tente outro(a).');
 			
 			return 0;
 		
 		}else{
 			
-			$query = "INSERT INTO tb_servidores (DS_FUNCAO, ID_SETOR, DS_NOME, DS_CPF) VALUES ('$this->funcao', $this->setor, '$this->nome','$this->cpf')";
+			$query = "INSERT INTO tb_servidores (DS_NOME, DS_MATRICULA, DS_EMAIL, DS_TELEFONE, ID_ORGAO, DS_TIPO, DS_CPF) VALUES ('$this->nome', '$this->matricula', '$this->email','$this->telefone', '$this->orgao', '$this->tipo', '$this->cpf')";
 			
 			$resultado = $this->executarQuery($query);
 			
@@ -148,9 +158,23 @@ class ServidoresModel extends Model{
 		
 			}
 			
-		}		
+		}	
+
+		if($this->matricula != NULL){
+			
+			$existe = $this->verificaExisteRegistroId('DS_MATRICULA', $this->cpf);
 		
-		$query  = "UPDATE tb_servidores SET DS_FUNCAO = '$this->funcao', ID_SETOR = $this->setor, DS_NOME = '$this->nome', DS_CPF = '$this->cpf' WHERE ID = $this->id";
+			if($existe){
+			
+				$this->setMensagemResposta('Já existe um(a) servidor(a) com esta matrícula. Por favor, tente outra.');
+			
+				return 0;
+		
+			}
+			
+		}			
+		
+		$query  = "UPDATE tb_servidores SET  DS_NOME = '$this->nome', DS_MATRICULA = '$this->matricula', DS_EMAIL = '$this->email', DS_TELEFONE = '$this->telefone', ID_ORGAO = $this->orgao, DS_TIPO = '$this->tipo', DS_CPF = '$this->cpf' WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -202,6 +226,16 @@ class ServidoresModel extends Model{
 		}
 	
 	}	
+	
+	public function excluir(){
+		
+		$query = "DELETE FROM tb_servidores WHERE ID = $this->id";
+			
+		$resultado = $this->executarQuery($query);
+			
+		return $resultado;
+		
+	}
 	
 }	
 

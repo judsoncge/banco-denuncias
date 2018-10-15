@@ -8,7 +8,7 @@ class ServidoresController extends Controller{
 	function __construct(){
 
 		$this->servidoresModel = new ServidoresModel();		
-		$this->setoresModel = new SetoresModel();
+		$this->orgaosModel = new OrgaosModel();
 		$this->servidoresModel->setTabela('tb_servidores');
 		
 		$tipoView = $_SESSION['TYPE_VIEW'];
@@ -19,7 +19,7 @@ class ServidoresController extends Controller{
 	
 	public function carregarCadastro(){
 		
-		$_REQUEST['LISTA_SETORES'] = $this->setoresModel->getSetores();
+		$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
 	
 		$this->servidoresView->setTitulo('SERVIDORES > CADASTRAR');
 		
@@ -31,13 +31,9 @@ class ServidoresController extends Controller{
 
 	public function listar(){
 		
-		$this->servidoresModel->setStatus($_GET['status']);
+		$listaServidores = $this->servidoresModel->getServidores();
 		
-		$listaServidores = $this->servidoresModel->getListaServidoresStatus();
-		
-		$titulo = ($_GET['status']=='ATIVO') ? 'SERVIDORES > ATIVOS' : 'SERVIDORES > INATIVOS';
-		
-		$this->servidoresView->setTitulo($titulo);
+		$this->servidoresView->setTitulo('SERVIDORES > LISTAR');
 		
 		$this->servidoresView->setConteudo('listar');
 		
@@ -51,26 +47,38 @@ class ServidoresController extends Controller{
 		
 		$nome = $_POST['nome'];
 		
+		$matricula = $_POST['matricula'];
+		
 		$cpf = $_POST['CPF'];
 		
-		$setor = $_POST['setor'];
+		$telefone = $_POST['telefone'];
 		
-		$funcao = $_POST['funcao'];
+		$email = $_POST['email'];
+		
+		$orgao = $_POST['orgao'];
+		
+		$tipo = $_POST['tipo'];
 		
 		$this->servidoresModel->setNome($nome);
 		
+		$this->servidoresModel->setMatricula($matricula);
+		
 		$this->servidoresModel->setCPF($cpf);
 		
-		$this->servidoresModel->setSetor($setor);
+		$this->servidoresModel->setTelefone($telefone);
 		
-		$this->servidoresModel->setFuncao($funcao);
+		$this->servidoresModel->setEmail($email);
+		
+		$this->servidoresModel->setOrgao($orgao);
+		
+		$this->servidoresModel->setTipo($tipo);
 		
 		$_SESSION['RESULTADO_OPERACAO'] = $this->servidoresModel->cadastrar();
 		
 		$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
 		
 		if($_SESSION['RESULTADO_OPERACAO']){
-			Header('Location: /servidores/ativos/');
+			Header('Location: /servidores/listar/');
 		}else{
 			Header('Location: /servidores/cadastrar/');
 		}
@@ -85,44 +93,42 @@ class ServidoresController extends Controller{
 		
 		switch($_GET['operacao']){
 			
-			case 'status':
-			
-				$status = (isset($_GET['status'])) ? $_GET['status'] : NULL;
-				
-				$this->servidoresModel->setStatus($status);
-				
-				$_SESSION['RESULTADO_OPERACAO'] = $this->servidoresModel->editarStatus();
-				
-				$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
-				
-				Header('Location: /servidores/ativos/');
-				
-				break;
-			
 			case 'info':
 				
-				$funcao = (isset($_POST['funcao'])) ? $_POST['funcao'] : NULL;
+				$nome = $_POST['nome'];
 		
-				$setor = (isset($_POST['setor'])) ? $_POST['setor'] : NULL;
-	
-				$nome = (isset($_POST['nome'])) ? $_POST['nome'] : NULL;
-		
-				$cpf = (isset($_POST['CPF'])) ? $_POST['CPF'] : NULL;
+				$matricula = $_POST['matricula'];
+				
+				$cpf = $_POST['CPF'];
+				
+				$telefone = $_POST['telefone'];
+				
+				$email = $_POST['email'];
+				
+				$orgao = $_POST['orgao'];
+				
+				$tipo = $_POST['tipo'];
 				
 				$this->servidoresModel->setNome($nome);
-		
+				
+				$this->servidoresModel->setMatricula($matricula);
+				
 				$this->servidoresModel->setCPF($cpf);
 				
-				$this->servidoresModel->setSetor($setor);
+				$this->servidoresModel->setTelefone($telefone);
 				
-				$this->servidoresModel->setFuncao($funcao);
+				$this->servidoresModel->setEmail($email);
+				
+				$this->servidoresModel->setOrgao($orgao);
+				
+				$this->servidoresModel->setTipo($tipo);
 				
 				$_SESSION['RESULTADO_OPERACAO'] = $this->servidoresModel->editar();
 				
 				$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
 				
 				if($_SESSION['RESULTADO_OPERACAO']){
-					Header('Location: /servidores/ativos/');
+					Header('Location: /servidores/listar/');
 				}else{
 					Header('Location: /servidores/editar/'.$id);
 				}
@@ -189,7 +195,7 @@ class ServidoresController extends Controller{
 				
 				}else{
 					
-					$_REQUEST['LISTA_SETORES']  = $this->setoresModel->getSetores();
+					$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
 				
 					$this->servidoresView->setTitulo("SERVIDORES > ".strtoupper($listaDados['DS_NOME'])." > EDITAR");
 					
@@ -212,6 +218,18 @@ class ServidoresController extends Controller{
 		$this->servidoresView->setTipoEdicao($_GET['tipo']);
 		
 		$this->servidoresView->carregar();
+		
+	}
+	
+	public function excluir(){
+		
+		$this->servidoresModel->setID($_GET['id']);
+		
+		$_SESSION['RESULTADO_OPERACAO'] = $this->servidoresModel->excluir();
+		
+		$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
+		
+		Header('Location: /servidores/ativos/');
 		
 	}
 	

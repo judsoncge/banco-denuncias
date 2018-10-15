@@ -38,7 +38,7 @@ class ProcessosView extends View{
 	public function carregarFiltro(){
 		
 		
-		$listaUsuarios = $_REQUEST['LISTA_SERVIDORES']; 
+		$listaServidores = $_REQUEST['LISTA_SERVIDORES']; 
 		
 		$listaSetores = $_REQUEST['LISTA_SETORES']; 
 
@@ -50,10 +50,10 @@ class ProcessosView extends View{
 					
 					<div class='col-md-4'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Filtro de servidor</label><br>
+							<label class='control-label' >Filtro de servidor</label><br>
 							<select id='filtroservidor' name='filtroservidor' >
 								<option value='%'>Todos</option>
-								<?php foreach($listaUsuarios as $servidor){ ?>
+								<?php foreach($listaServidores as $servidor){ ?>
 										<option value='<?php echo $servidor['ID'] ?>'>
 											<?php echo $servidor['DS_NOME']; ?>
 										</option>
@@ -64,7 +64,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Filtro de setor</label><br>
+							<label class='control-label' >Filtro de setor</label><br>
 								<select id='filtrosetor' name='filtrosetor' >
 									<option value='%'>Todos</option>
 									<?php foreach($listaSetores as $setor){ ?>
@@ -78,7 +78,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Filtro de situação</label><br>
+							<label class='control-label' >Filtro de situação</label><br>
 								<select id='filtrosituacao' name='filtrosituacao' >
 									<option value='%'>Todos</option>
 									<option value='0'>NO PRAZO</option>
@@ -89,7 +89,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-1'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Sobrestado</label><br>
+							<label class='control-label' >Sobrestado</label><br>
 							<select id='filtrosobrestado' name='filtrosobrestado' >
 								<option value='%'>Todos</option>
 								<option value='0'>NÃO</option>
@@ -100,7 +100,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-1'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Recebido</label><br>
+							<label class='control-label' >Recebido</label><br>
 							<select id='filtrorecebido' name='filtrorecebido' >
 								<option value='%'>Todos</option>
 								<option value='0'>NÃO</option>
@@ -111,7 +111,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' for='exampleInputEmail1'>Dias</label><br>
+							<label class='control-label' >Dias</label><br>
 							<select id='filtrodias' name='filtrodias'>
 								<option value='%'>Todos</option>
 								<option value='0-15'>0-15</option>
@@ -432,7 +432,7 @@ class ProcessosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Número do processo</label>
+						<label class='control-label' >Número do processo</label>
 						<div class='row'>
 							<div class='col-md-4'>
 								<input class='form-control' id='numeroParte1' name='numeroParte1' placeholder='Órgão' type='text' maxlength='6' value="<?php if($this->conteudo=='editar'){echo $numeroParte1;} ?>" required />
@@ -448,7 +448,7 @@ class ProcessosView extends View{
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Assunto</label>
+						<label class='control-label' >Assunto</label>
 						<select class='form-control' id='assunto' name='assunto' required />
 							<option value="<?php if($this->conteudo=='edicao'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ASSUNTO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaAssuntos as $assunto){ ?>
@@ -461,7 +461,7 @@ class ProcessosView extends View{
 			<div class='row'>						
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Órgão Interessado</label>
+						<label class='control-label' >Órgão Interessado</label>
 						<select class='form-control' id='orgao' name='orgao' required />
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
@@ -474,13 +474,13 @@ class ProcessosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Nome do Interessado</label>
+						<label class='control-label' >Nome do Interessado</label>
 						<input class='form-control' id='interessado' name='interessado' placeholder='Digite o interessado' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
 					</div>  
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Detalhes</label>
+						<label class='control-label' >Detalhes</label>
 						<input class='form-control' id='detalhes' name='detalhes' placeholder='Digite os detalhes do processo' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_DETALHES'];} ?>" required />
 					</div>  
 				</div>
@@ -515,7 +515,7 @@ class ProcessosView extends View{
 		
 		$apensado = $_REQUEST['APENSADO'];
 		
-		$listaUsuarios = $_REQUEST['LISTA_SERVIDORES'];
+		$listaServidores = $_REQUEST['LISTA_SERVIDORES'];
 		
 		$listaPodemSerResponsaveis = $_REQUEST['LISTA_PODEM_SER_RESPONSAVEIS'];
 		
@@ -810,14 +810,14 @@ class ProcessosView extends View{
 					<form method='POST' action="/editar/processo/anexardocumento/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-6'>
 							<div class='form-group'>
-								<label class='control-label' for='exampleInputEmail1'><b>Anexar documento:</b></label>
+								<label class='control-label' ><b>Anexar documento:</b></label>
 									
 									<?php $this->carregarSelectTiposDocumento(); ?>
 							</div>  
 						</div>
 						<div class='col-md-4'>
 							<div class='form-group'>
-								<label class='control-label' for='exampleInputEmail1'>Enviar anexo</label><br>
+								<label class='control-label' >Enviar anexo</label><br>
 								<input type='file' class='' name='arquivoAnexo' id='arquivoAnexo'/>
 							</div>
 						</div>	
@@ -836,7 +836,7 @@ class ProcessosView extends View{
 			
 ?>					
 					<div class='row linha-modal-processo'>
-						<label class='control-label' for='exampleInputEmail1'><b>Solicitar Sobrestado:</b></label>
+						<label class='control-label' ><b>Solicitar Sobrestado:</b></label>
 						<form method='POST' action="/editar/processo/solicitarsobrestado/<?php echo $lista['ID']?>" enctype='multipart/form-data'>	
 							<div class='col-md-10'>
 								<input class='form-control' id='justificativa' name='justificativa' placeholder='Digite aqui a sua justificativa (Máximo de 100 caracteres)' type='text' maxlength='100' required />	
@@ -854,7 +854,7 @@ class ProcessosView extends View{
 				<div class='row linha-modal-processo'>
 					<form method='POST' action="/editar/processo/definirresponsaveis/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-10'>
-							<label class='control-label' for='exampleInputEmail1'><b>Defina os responsáveis</b>:</label><br>
+							<label class='control-label' ><b>Defina os responsáveis</b>:</label><br>
 							<select multiple id='responsaveis' name='responsaveis[]' style='width: 96%;' required>
 <?php 								
 									foreach($listaPodemSerResponsaveis as $podeSerResponsavel){			
@@ -880,7 +880,7 @@ class ProcessosView extends View{
 					<form name='teste' method='POST' action="/editar/processo/definirlider/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>
 						<div class='row linha-modal-processo'>
 							<div class='col-md-10'>
-								<label class='control-label' for='exampleInputEmail1'><b>Defina o responsável líder</b>:</label><br>
+								<label class='control-label' ><b>Defina o responsável líder</b>:</label><br>
 								<select class='form-control' id='lider' name='lider' required >
 									<option value=''>Selecione</option>
 <?php									foreach($listaResponsaveis as $responsavel){ ?>	
@@ -904,7 +904,7 @@ class ProcessosView extends View{
 				<div class='row linha-modal-processo'>
 					<form method='POST' action="/editar/processo/apensar/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-10'>
-							<label class='control-label' for='exampleInputEmail1'><b>Defina os Apensos</b>:</label><br>
+							<label class='control-label' ><b>Defina os Apensos</b>:</label><br>
 							<select multiple id='apensos' name='apensos[]' style='width: 96%;' required>
 <?php 							
 								foreach($listaProcessosApensar as $processo){
@@ -929,7 +929,7 @@ class ProcessosView extends View{
 							<select class='form-control' id='tramitar' name='tramitar' required />
 								<option value=''>Selecione o servidor para tramitar</option>
 <?php 
-									foreach($listaUsuarios as $servidor){
+									foreach($listaServidores as $servidor){
 ?>	
 										<option value='<?php echo $servidor['ID'] ?>'><?php echo $servidor['DS_NOME'] ?></option>		
 										

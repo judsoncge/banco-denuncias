@@ -2,7 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/view/View.php';
 
-class UsuariosView extends View{
+class ServidoresView extends View{
 	
 	
 	private $tipoEdicao;
@@ -22,8 +22,10 @@ class UsuariosView extends View{
 					<tr>
 						<th>CPF</th>
 						<th>Nome</th>
-						<th>Setor</th>
-						<th>Função</th>
+						<th>Órgão</th>
+						<th>Tipo</th>
+						<th>E-mail</th>
+						<th>Telefone</th>
 						<th>Ação</th>
 					</tr>	
 				</thead>
@@ -39,32 +41,24 @@ class UsuariosView extends View{
 								<td><?php echo $servidor['DS_CPF']; ?></td>
 								<td><?php echo $servidor['DS_NOME']; ?></td>
 								<td><?php echo $servidor['DS_ABREVIACAO']; ?></td>
-								<td><?php echo $servidor['DS_FUNCAO']; ?></td>										
-									
+								<td><?php echo $servidor['DS_TIPO']; ?></td>										
+								<td><?php echo $servidor['DS_EMAIL']; ?></td>										
+								<td><?php echo $servidor['DS_TELEFONE']; ?></td>
 								<td>
-									<a href="/usuarios/editar/<?php echo $servidor['ID'] ?>">
+									<a href="/servidores/editar/<?php echo $servidor['ID'] ?>">
 										<button type='button' class='btn btn-secondary btn-sm' title='Editar'>
 											<i class='fa fa-pencil' aria-hidden='true'></i>
 										</button>
 									</a>
 									
-									<?php
-										
-										if($servidor['DS_STATUS'] == 'ATIVO'){
-											$getStatus = 'INATIVO';
-											$title = 'Inativar';
-										}else{
-											$getStatus = 'ATIVO';
-											$title = 'Ativar';
-										}
-									
-									?>
-										
-									<a href='/editar/servidor/status/<?php echo $servidor['ID'] ?>/<?php echo $getStatus ?>'>
-										<button type='button' class='btn btn-secondary btn-sm' title='<?php echo $title ?>'>
-											<i class='fa fa-minus-square-o' aria-hidden='true'></i>
-										</button>
-									</a>
+									<?php if($_SESSION['ID'] != $servidor['ID']){ ?>
+										<a href="/excluir/servidor/<?php echo $servidor['ID'] ?>" type='submit' onclick="return confirm('Você tem certeza que deseja apagar este servidor?');" >
+											<button type='button' class='btn btn-secondary btn-sm' title='Excluir'>
+												<i class='fa fa-trash' aria-hidden='true'></i>
+											</button>
+										</a>
+									<?php } ?>
+																			
 								</td>
 							</tr>
 					<?php
@@ -111,26 +105,26 @@ class UsuariosView extends View{
 	public function carregarFormulario(){ 
 	
 		
-		$listaSetores = $_REQUEST['LISTA_SETORES'];
+		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];
 		
 		
 		if($this->conteudo == 'editar'){
 			
 			$listaDados = $_REQUEST['DADOS_SERVIDOR'];
 			$action = "/editar/servidor/info/".$listaDados['ID']."/";
-			$idSetor = $listaDados['ID_SETOR'];
-			$nomeSetor = $listaDados['NOME_SETOR'];
-			$valueFuncao = $listaDados['DS_FUNCAO'];
-			$nomeFuncao = $listaDados['DS_FUNCAO'];
+			$idOrgao = $listaDados['ID_ORGAO'];
+			$nomeOrgao = $listaDados['NOME_ORGAO'];
+			$valueTipo = $listaDados['DS_TIPO'];
+			$nomeTipo = $listaDados['DS_TIPO'];
 			$nomeBotao = 'Editar';
 			
 		}else{
 			
 			$action = '/cadastrar/servidor/';
-			$idSetor = '';
-			$nomeSetor = 'Selecione';
-			$valueFuncao = '';
-			$nomeFuncao = 'Selecione';
+			$idOrgao = '';
+			$nomeOrgao = 'Selecione';
+			$valueTipo = '';
+			$nomeTipo = 'Selecione';
 			$nomeBotao = 'Cadastrar';
 		
 		}
@@ -141,26 +135,45 @@ class UsuariosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Nome</label>
-						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='255' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
+						<label class='control-label' >Nome</label>
+						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
 					</div> 
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>CPF</label>
+						<label class='control-label' >Matrícula</label>
+						<input class='form-control' id='matricula' name='matricula' placeholder='Digite o nome (somente letras)' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
+					</div> 
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-4'>
+					<div class='form-group'>
+						<label class='control-label' >CPF</label>
 						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>' required />				  
+					</div>				
+				</div>
+				<div class='col-md-4'>
+					<div class='form-group'>
+						<label class='control-label' >Telefone</label>
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
+					</div>				
+				</div>
+				<div class='col-md-4'>
+					<div class='form-group'>
+						<label class='control-label' >E-mail</label>
+						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>' required />				  
 					</div>				
 				</div>
 			</div>
 			<div class='row'> 
-				
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Setor</label>
-						<select class='form-control' id='setor' name='setor' required />
-							<option value='<?php echo $idSetor ?>'><?php echo $nomeSetor ?></option>
-							<?php foreach($listaSetores as $setor){ ?>
-								<option value='<?php echo $setor['ID'] ?>'><?php echo $setor['DS_NOME']; ?></option>
+						<label class='control-label' >Órgão</label>
+						<select class='form-control' id='orgao' name='orgao' required />
+							<option value='<?php echo $idOrgao ?>'><?php echo $nomeOrgao ?></option>
+							<?php foreach($listaOrgaos as $orgao){ ?>
+								<option value='<?php echo $orgao['ID'] ?>'><?php echo $orgao['DS_NOME']; ?></option>
 							<?php } ?>
 						</select>
 					</div> 
@@ -168,21 +181,12 @@ class UsuariosView extends View{
 				
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Função no sistema</label>
-						<select class='form-control' id='funcao' name='funcao' required />
-							<option value='<?php echo $valueFuncao ?>'><?php echo $nomeFuncao ?></option>
-							<option value='ASSESSOR TÉCNICO'>ASSESSOR TÉCNICO</option>
-							<option value='CHEFE DE GABINETE'>CHEFE DE GABINETE</option>
-							<option value='COMUNICAÇÃO'>COMUNICAÇÃO</option>
-							<option value='CONTROLADOR'>CONTROLADOR</option>
-							<option value='GABINETE'>GABINETE</option>
-							<option value='PROTOCOLO'>PROTOCOLO	</option>
-							<option value='SUPERINTENDENTE'>SUPERINTENDENTE</option>
-							<option value='TÉCNICO ANALISTA'>TÉCNICO ANALISTA</option>
-							<option value='TÉCNICO ANALISTA CORREÇÃO'>TÉCNICO ANALISTA CORREÇÃO</option>
-							<option value='TI'>TI</option>
-							
-							
+						<label class='control-label' >Tipo</label>
+						<select class='form-control' id='tipo' name='tipo' required />
+							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
+							<option value='OUVIDORIA'>OUVIDORIA</option>
+							<option value='UNIDADE DE APURAÇÃO'>UNIDADE DE APURAÇÃO</option>
+							<option value='ADMINISTRADOR'>ADMINISTRADOR</option>
 						</select>
 					</div> 
 				</div>
@@ -208,13 +212,13 @@ class UsuariosView extends View{
 		<div class='row'>
 			<div class='col-md-5'>
 				<div class='form-group'>
-					<label class='control-label' for='exampleInputEmail1'>Nova senha</label>
+					<label class='control-label' >Nova senha</label>
 					<input class='form-control' type='password' id='nova_senha' name='senha'/>
 				</div>	
 			</div>
 			<div class='col-md-5'>
 				<div class='form-group'>
-					<label class='control-label' for='exampleInputEmail1'>Confirme a nova senha</label>
+					<label class='control-label' >Confirme a nova senha</label>
 					<input class='form-control' type='password' id='confirmaSenha' name='confirmaSenha'/>
 				</div>	
 			</div>
@@ -242,7 +246,7 @@ class UsuariosView extends View{
 		<div class='row'>
 			<div class='col-md-10'>
 				<div class='form-group'>
-					<label class='control-label' for='exampleInputEmail1'>Selecione a nova foto</label>
+					<label class='control-label' >Selecione a nova foto</label>
 					<input class='form-control' type='file' id='arquivoFoto' name='arquivoFoto' enctype='multipart/form-data'/>
 				</div>	
 			</div>

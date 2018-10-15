@@ -25,63 +25,21 @@ class LoginController extends Controller{
 		if($dadosUsuario != NULL){
 			
 			$_SESSION['ID'] = $dadosUsuario[0]['ID'];
-			$_SESSION['FUNCAO'] = $dadosUsuario[0]['DS_FUNCAO'];
-			$_SESSION['SETOR'] = $dadosUsuario[0]['ID_SETOR'];
 			$_SESSION['NOME'] = $dadosUsuario[0]['DS_NOME'];
+			$_SESSION['ORGAO'] = $dadosUsuario[0]['ID_ORGAO'];			
 			$_SESSION['FOTO'] = $dadosUsuario[0]['DS_FOTO'];
-			$_SESSION['NOME_SETOR'] = $dadosUsuario[0]['NOME_SETOR'];
+			$_SESSION['TIPO'] = $dadosUsuario[0]['DS_TIPO'];
 			
-			switch($_SESSION['FUNCAO']){
+			switch($_SESSION['TIPO']){
 				
-				case 'PROTOCOLO':
-					$pasta = 'protocolo';
-					$_SESSION['TYPE_VIEW'] = 'Pro';
-					break;
-				
-				case 'SUPERINTENDENTE':
-					$pasta = 'superintendente';
-					$_SESSION['TYPE_VIEW'] = 'Sup';
+				case 'OUVIDORIA':
+					$pasta = 'ouvidoria';
+					$_SESSION['TYPE_VIEW'] = 'Ouv';
 					break;
 				
-				case 'ASSESSOR TÉCNICO':
-					$pasta = 'assessor-tecnico';
-					$_SESSION['TYPE_VIEW'] = 'Ass';
-					break;
-				
-				case 'TÉCNICO ANALISTA':
-					$pasta = 'tecnico-analista';
-					$_SESSION['TYPE_VIEW'] = 'Ta';
-					break;
-					
-				case 'GABINETE':
-					$pasta = 'gabinete';
-					$_SESSION['TYPE_VIEW'] = 'Gab';
-					break;
-					
-				case 'CONTROLADOR':
-					$pasta = 'controlador';
-					$_SESSION['TYPE_VIEW'] = 'Con';
-					break;
-					
-				case 'TI':
-					$pasta = 'ti';
-					$_SESSION['TYPE_VIEW'] = 'Ti';
-					break;
-				
-				case 'COMUNICAÇÃO':
-					$pasta = 'comunicacao';
-					$_SESSION['TYPE_VIEW'] = 'Com';
-					break;
-					
-				case 'CHEFE DE GABINETE':
-					$pasta = 'chefe-gabinete';
-					$_SESSION['TYPE_VIEW'] = 'CGab';
-					break;
-					
-				
-				case 'TÉCNICO ANALISTA CORREÇÃO':
-					$pasta = 'tecnico-analista-correcao';
-					$_SESSION['TYPE_VIEW'] = 'Tac';
+				case 'UNIDADE DE APURAÇÃO':
+					$pasta = 'unidade-de-apuracao';
+					$_SESSION['TYPE_VIEW'] = 'Uap';
 					break;
 				
 			}

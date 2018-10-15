@@ -65,7 +65,7 @@ class ChamadosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					 <div class='form-group'>
-						<label class='control-label' for='exampleInputEmail1'>Natureza do problema:</label>
+						<label class='control-label' >Natureza do problema:</label>
 						<select class='form-control' id='natureza' name='natureza' required />
 							<option value=''>Selecione a natureza do problema</option>
 							<option value='WORD'>WORD</option>

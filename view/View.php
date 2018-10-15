@@ -42,11 +42,9 @@ class View{
 			<link rel='shortcut icon' href='/view/_libs/img/shortcut.ico'>
 			<meta name='interfaceport' content='width=device-width, initial-scale=1.0'>
 			<meta name='author' content='Judson Bandeira'>
-			<meta name='author' content='Denys Rocha'>
-			<meta name='author' content='Romero Malaquias'>
 			<meta name='author' content='Vilker Tenório'>
 
-			<title>Painel de Gestão - CGE</title>
+			<title>Banco de Denúncias</title>
 			
 			<script src='/view/_libs/js/jquery.js'></script>
 			<script src='/view/_libs/js/utils.js'></script>
@@ -87,7 +85,6 @@ class View{
 				
 				<div>
 					<a href='#menu-toggle' class='btn btn-default' id='menu-toggle'><i class='fa fa-bars' aria-hidden='true'></i></a>
-					<img src='/view/_libs/img/gestao-cge.png' id='logo-home'>
 				</div>
 				
 				
@@ -118,11 +115,11 @@ class View{
 								
 								<div id='mensagem'>
 									<center>
-										<a href='/usuarios/senha/' id='alterar-senha'>
+										<a href='/servidores/senha/' id='alterar-senha'>
 											<i class='fa fa-edit' aria-hidden='true'></i>  
 											Alterar senha
 										</a>
-										<a href='/usuarios/foto/' id='alterar-foto'>
+										<a href='/servidores/foto/' id='alterar-foto'>
 											<i class='fa fa-edit' aria-hidden='true'></i> 
 											Alterar foto
 										</a>
@@ -133,111 +130,41 @@ class View{
 						<hr>
 						
 						<li>
-							<a href='/home'><i class='fa fa-home icone-menu' aria-hidden='true'></i>Início</a>
+							<a href='/home'><i class='fa fa-tachometer icone-menu' aria-hidden='true'></i>Dashboard</a>
 						</li>
 						
 						
-						<li id='arquivos'>
-							<a href='#'><i class='fa fa-file-archive-o icone-menu' aria-hidden='true'></i>Arquivos</a>
+						<li id='denuncias'>
+							<a href='#'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Denúncias</a>
 						</li>	
 							
-							<li class='arquivos-subitem'>
-								<a href='/arquivos/cadastrar/'><i class='fa fa-file-archive-o icone-menu' aria-hidden='true'></i>Cadastrar</a>
+							<li class='denuncias-subitem'>
+								<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
 							</li>
 							
-							<li class='arquivos-subitem'>
-								<a href='/arquivos/ativos/'><i class='fa fa-file-archive-o icone-menu' aria-hidden='true'></i>Ativos</a>
-							</li>
-							
-							<li class='arquivos-subitem'>
-								<a href='/arquivos/inativos/'><i class='fa fa-file-archive-o icone-menu' aria-hidden='true'></i>Inativos</a>
+							<li class='denuncias-subitem'>
+								<a href='/denuncias/buscar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Buscar</a>
 							</li>
 						
-						<li id='chamados'>
-							<a href='#'><i class='fa fa-headphones icone-menu' aria-hidden='true'></i>Chamados</a>
+						<li id='triagem'>
+							<a href='/triagem/'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Triagem</a>
+						</li>
+						
+						<li id='andamento'>
+							<a href='/andamento/'><i class='fa fa-forward icone-menu' aria-hidden='true'></i>Andamento</a>
 						</li>
 							
-							<li class='chamados-subitem'>
-								<a href='/chamados/cadastrar/'><i class='fa fa-headphones icone-menu' aria-hidden='true'></i>Abrir Chamado</a>
-							</li>
-							
-							<li class='chamados-subitem'>
-								<a href='/chamados/ativos/'><i class='fa fa-headphones icone-menu' aria-hidden='true'></i>Ativos</a>
-							</li>
-							
-							<li class='chamados-subitem'>
-								<a href='/chamados/inativos/' ><i class='fa fa-headphones icone-menu' aria-hidden='true'></i>Inativos</a>
-							</li>
-						
-						<?php if($_SESSION['FUNCAO'] == 'TI' OR $_SESSION['FUNCAO'] == 'COMUNICAÇÃO'){ ?>	
-						
-						
-						<li id='comunicacao'>
-							<a href='#'><i class='fa fa-volume-up icone-menu' aria-hidden='true'></i>Comunicação</a>
-						</li>
-							
-							<li class='comunicacao-subitem'>
-								<a href='/comunicacao/cadastrar/'><i class='fa fa-volume-up icone-menu' aria-hidden='true'></i>Cadastrar</a>
-							</li>
-							
-							<li class='comunicacao-subitem'>
-								<a href='/comunicacao/ativos/'><i class='fa fa-volume-up icone-menu' aria-hidden='true'></i>Ativos</a>
-							</li>
-							
-							<li class='comunicacao-subitem'>
-								<a href='/comunicacao/inativos/' ><i class='fa fa-volume-up icone-menu' aria-hidden='true'></i>Inativos</a>
-							</li>
-							
-						<?php } ?>
-						
-						
-						<li id='processos'>
-							<a href='#'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Processos</a>
-						</li>
-							
-							<?php if($_SESSION['FUNCAO'] == 'TI' OR $_SESSION['FUNCAO'] == 'PROTOCOLO'){ ?>	
-								<li class='processos-subitem'>
-									<a href='/processos/cadastrar/'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Cadastrar</a>
-								</li>
-							<?php } ?>	
-							
-							<li class='processos-subitem'>
-								<a href='/processos/ativos/0'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Ativos</a>
-							</li>
-							
-							<li class='processos-subitem'>
-								<a href='/processos/consulta' ><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Consultar</a>
-							</li>
-							
-							
-							<?php if($_SESSION['FUNCAO'] == 'TI' OR $_SESSION['FUNCAO'] == 'CONTROLADOR' OR $_SESSION['FUNCAO'] == 'CHEFE DE GABINETE'){ ?>
-							
-							<li class='processos-subitem'>
-								<a href='/processos/relatorio/' ><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Relatório</a>
-							</li>
-							
-							<?php } 
-							
-						if($_SESSION['FUNCAO'] == 'TI'){ ?>
-						
-						
-						<li id='usuarios'>
-							<a href='#'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Usuarios</a>
+						<li id='servidores'>
+							<a href='#'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Servidores</a>
 						</li>	
 							
-							<li class='usuarios-subitem'>
-								<a href='/usuarios/cadastrar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Cadastrar</a>
+							<li class='servidores-subitem'>
+								<a href='/servidores/cadastrar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Cadastrar</a>
 							</li>
 							
-							<li class='usuarios-subitem'>
-								<a href='/usuarios/ativos/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Ativos</a>
+							<li class='servidores-subitem'>
+								<a href='/servidores/listar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Listar</a>
 							</li>
-							
-							<li class='usuarios-subitem'>
-								<a href='/usuarios/inativos/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Inativos</a>
-							</li>
-						<?php } ?> 
-						
 						
 						<li>
 							<a href='/sobre/'><i class='fa fa-info-circle icone-menu' aria-hidden='true'></i>Sobre</a>
@@ -349,7 +276,7 @@ class View{
 	}
 	
 	
-	public function carregarSelectUsuarios(){
+	public function carregarSelectServidores(){
 		
 		
 		$lista = $_REQUEST['LISTA_SERVIDORES']; 

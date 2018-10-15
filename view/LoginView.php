@@ -8,7 +8,7 @@ class LoginView extends View{
 	public function carregarBody(){ 
 		$this->carregarMensagem(); 
 ?>
-		<body style='background-color:#3498db;'>
+		<body style='background-color:#c0392b;'>
 			<div class='container' id='container-index' style='max-width: 1400px;'>
 				<div id='sub-container-index'>
 					
@@ -18,7 +18,7 @@ class LoginView extends View{
 								<img src='/view/_libs/img/logo-governo.png' id='logo-governo'>
 							</div>
 							<div class='row'>
-								<p id='nome-sistema'>Painel de Gestão</p>	
+								<p id='nome-sistema'>Banco de Denúncias</p>	
 							</div>
 						</center>
 					</div>

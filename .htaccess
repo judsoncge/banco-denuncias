@@ -26,8 +26,8 @@ RewriteRule ^servidores/editar/(.*)               /index.php?acao=carregarEdicao
 RewriteRule ^servidores/senha/                    /index.php?acao=carregarEdicao&tipo=senha&modulo=Servidores&id=$1
 RewriteRule ^servidores/foto/                     /index.php?acao=carregarEdicao&tipo=foto&modulo=Servidores&id=$1
 RewriteRule ^editar/servidor/(.*)/(.*)/(.*)       /index.php?acao=editar&modulo=Servidores&operacao=$1&id=$2&status=$3
-RewriteRule ^servidores/ativos                    /index.php?acao=listar&modulo=Servidores&status=ATIVO
-RewriteRule ^servidores/inativos                  /index.php?acao=listar&modulo=Servidores&status=INATIVO
+RewriteRule ^excluir/servidor/(.*)                /index.php?acao=excluir&modulo=Servidores&id=$1
+RewriteRule ^servidores/listar                    /index.php?acao=listar&modulo=Servidores
 
 RewriteRule ^chamados/visualizar/(.*)             /index.php?acao=visualizar&modulo=Chamados&id=$1
 RewriteRule ^chamados/cadastrar                   /index.php?acao=carregarCadastro&modulo=Chamados

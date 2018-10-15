@@ -436,7 +436,7 @@ footer{
 .menu-superior{
 	width: 100%;
 	height: 60px;
-	background-color: #3498db;
+	background-color: #c0392b;
 	box-shadow: 2px 1px 3px rgba(0,0,0,0.4);
 	z-index: 100;
 	position: fixed;
@@ -471,7 +471,7 @@ footer{
 }
 
 /*estilo do submenu lateral*/
-.usuarios-subitem, .processos-subitem , .arquivos-subitem, .chamados-subitem, .comunicacao-subitem{
+.servidores-subitem, .denuncias-subitem{
 	margin-left: 20px;
 	display: none;
 	color: rgba(0,0,0,0.7);
@@ -669,7 +669,7 @@ footer{
 	color: rgba(41, 128, 185,1.0);
 }
 
-/*definindo a imagem dos usuarios */
+/*definindo a imagem dos servidores */
 
 .box-servidor{
 	position: relative;
@@ -982,7 +982,7 @@ input[readonly] {
 #submit{
 	margin-top: 10px;
 	padding: 10px;
-	background-color:#3498db;
+	background-color:#c0392b;
     color: white;
     width: 100%;
     border-radius: 0px;
@@ -1260,7 +1260,7 @@ btn.btn.default
 #botao-cadastrar{
 	margin-top: 29px;
 	margin-bottom: 29px;
-	background-color: #3498db;
+	background-color: #c0392b;
     color: white;
     width: 100%;
     border-radius: 0px;
