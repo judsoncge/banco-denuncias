@@ -142,7 +142,7 @@ class ServidoresView extends View{
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label' >Matrícula</label>
-						<input class='form-control' id='matricula' name='matricula' placeholder='Digite o nome (somente letras)' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
+						<input class='form-control' id='matricula' name='matricula' placeholder='Digite a matrícula' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
 					</div> 
 				</div>
 			</div>
@@ -186,7 +186,6 @@ class ServidoresView extends View{
 							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
 							<option value='OUVIDORIA'>OUVIDORIA</option>
 							<option value='UNIDADE DE APURAÇÃO'>UNIDADE DE APURAÇÃO</option>
-							<option value='ADMINISTRADOR'>ADMINISTRADOR</option>
 						</select>
 					</div> 
 				</div>
