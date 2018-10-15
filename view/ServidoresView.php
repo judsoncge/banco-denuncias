@@ -52,8 +52,8 @@ class ServidoresView extends View{
 									</a>
 									
 									<?php if($_SESSION['ID'] != $servidor['ID']){ ?>
-										<a href="/excluir/servidor/<?php echo $servidor['ID'] ?>" type='submit' onclick="return confirm('Você tem certeza que deseja apagar este servidor?');" >
-											<button type='button' class='btn btn-secondary btn-sm' title='Excluir'>
+										<a href="/excluir/servidor/<?php echo $servidor['ID'] ?>" type='submit' onclick="return confirm('Você tem certeza que deseja inativar este servidor?');" >
+											<button type='button' class='btn btn-secondary btn-sm' title='Inativar'>
 												<i class='fa fa-trash' aria-hidden='true'></i>
 											</button>
 										</a>

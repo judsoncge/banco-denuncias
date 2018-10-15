@@ -30,6 +30,8 @@ class LoginController extends Controller{
 			$_SESSION['FOTO'] = $dadosUsuario[0]['DS_FOTO'];
 			$_SESSION['TIPO'] = $dadosUsuario[0]['DS_TIPO'];
 			
+			
+			
 			switch($_SESSION['TIPO']){
 				
 				case 'OUVIDORIA':
@@ -40,6 +42,11 @@ class LoginController extends Controller{
 				case 'UNIDADE DE APURAÇÃO':
 					$pasta = 'unidade-de-apuracao';
 					$_SESSION['TYPE_VIEW'] = 'Uap';
+					break;
+					
+				case 'ADMINISTRADOR':
+					$pasta = 'administrador';
+					$_SESSION['TYPE_VIEW'] = 'Adm';
 					break;
 				
 			}
@@ -57,8 +64,6 @@ class LoginController extends Controller{
 	}
 
 	public function logoff(){
-		
-		$_SESSION = array();
 		
 		session_destroy();
 

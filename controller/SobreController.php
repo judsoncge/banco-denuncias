@@ -15,7 +15,7 @@ class SobreController extends Controller{
 	
 	public function visualizar(){
 		
-		$this->sobreView->setTitulo('Sobre o Painel de Controle da Transparência CGE');
+		$this->sobreView->setTitulo('Sobre o Banco de Denúncias CGE');
 		
 		$this->sobreView->setConteudo('visualizar');
 		

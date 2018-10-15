@@ -71,7 +71,11 @@ class ServidoresModel extends Model{
 		
 		WHERE DS_CPF = '$this->cpf' 
 		
-		AND SENHA = '$this->senha'";
+		AND SENHA = '$this->senha'
+		
+		AND STATUS = 'ATIVO'
+		
+		";
 		
 		$dadosUsuario = $this->executarQueryLista($query);
 		
@@ -89,7 +93,9 @@ class ServidoresModel extends Model{
 		
 		FROM tb_servidores s1
 		
-		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID  
+		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID 
+
+		WHERE STATUS = 'ATIVO'
 		
 		ORDER BY s1.DS_NOME";
 		
@@ -229,7 +235,7 @@ class ServidoresModel extends Model{
 	
 	public function excluir(){
 		
-		$query = "DELETE FROM tb_servidores WHERE ID = $this->id";
+		$query = "UPDATE tb_servidores SET STATUS = 'INATIVO' WHERE ID = $this->id";
 			
 		$resultado = $this->executarQuery($query);
 			

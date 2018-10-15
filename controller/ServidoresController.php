@@ -229,7 +229,7 @@ class ServidoresController extends Controller{
 		
 		$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
 		
-		Header('Location: /servidores/ativos/');
+		Header('Location: /servidores/listar/');
 		
 	}
 	
