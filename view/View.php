@@ -137,14 +137,13 @@ class View{
 						<li id='denuncias'>
 							<a href='#'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Denúncias</a>
 						</li>	
-							
 							<li class='denuncias-subitem'>
 								<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
 							</li>
-							
 							<li class='denuncias-subitem'>
-								<a href='/denuncias/buscar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Buscar</a>
+								<a href='/denuncias/listar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Listar</a>
 							</li>
+						
 						
 						<li id='triagem'>
 							<a href='/triagem/'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Triagem</a>

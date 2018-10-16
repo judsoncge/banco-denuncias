@@ -135,13 +135,13 @@ class ServidoresView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Nome</label>
+						<label class='control-label'>Nome</label>
 						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
 					</div> 
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Matrícula</label>
+						<label class='control-label'>Matrícula</label>
 						<input class='form-control' id='matricula' name='matricula' placeholder='Digite a matrícula' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
 					</div> 
 				</div>
@@ -149,19 +149,19 @@ class ServidoresView extends View{
 			<div class='row'>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label' >CPF</label>
+						<label class='control-label'>CPF</label>
 						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>' required />				  
 					</div>				
 				</div>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label' >Telefone</label>
+						<label class='control-label'>Telefone</label>
 						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
 					</div>				
 				</div>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label' >E-mail</label>
+						<label class='control-label'>E-mail</label>
 						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>' required />				  
 					</div>				
 				</div>
@@ -169,7 +169,7 @@ class ServidoresView extends View{
 			<div class='row'> 
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Órgão</label>
+						<label class='control-label'>Órgão</label>
 						<select class='form-control' id='orgao' name='orgao' required />
 							<option value='<?php echo $idOrgao ?>'><?php echo $nomeOrgao ?></option>
 							<?php foreach($listaOrgaos as $orgao){ ?>
@@ -181,7 +181,7 @@ class ServidoresView extends View{
 				
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Tipo</label>
+						<label class='control-label'>Tipo</label>
 						<select class='form-control' id='tipo' name='tipo' required />
 							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
 							<option value='OUVIDORIA'>OUVIDORIA</option>
@@ -211,13 +211,13 @@ class ServidoresView extends View{
 		<div class='row'>
 			<div class='col-md-5'>
 				<div class='form-group'>
-					<label class='control-label' >Nova senha</label>
+					<label class='control-label'>Nova senha</label>
 					<input class='form-control' type='password' id='nova_senha' name='senha'/>
 				</div>	
 			</div>
 			<div class='col-md-5'>
 				<div class='form-group'>
-					<label class='control-label' >Confirme a nova senha</label>
+					<label class='control-label'>Confirme a nova senha</label>
 					<input class='form-control' type='password' id='confirmaSenha' name='confirmaSenha'/>
 				</div>	
 			</div>
@@ -245,7 +245,7 @@ class ServidoresView extends View{
 		<div class='row'>
 			<div class='col-md-10'>
 				<div class='form-group'>
-					<label class='control-label' >Selecione a nova foto</label>
+					<label class='control-label'>Selecione a nova foto</label>
 					<input class='form-control' type='file' id='arquivoFoto' name='arquivoFoto' enctype='multipart/form-data'/>
 				</div>	
 			</div>

@@ -1,8 +1,8 @@
 <?php 
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/view/View.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/view/DenunciasView.php';
 
-class ProcessosView extends View{
+class OuvDenunciasView extends DenunciasView{
 	
 	
 	public function adicionarScripts(){
@@ -47,10 +47,9 @@ class ProcessosView extends View{
 		<div class='well'>
 			<form>
 				<div class='row'>	
-					
 					<div class='col-md-4'>
 						<div class='form-group'>
-							<label class='control-label' >Filtro de servidor</label><br>
+							<label class='control-label'>Filtro de servidor</label><br>
 							<select id='filtroservidor' name='filtroservidor' >
 								<option value='%'>Todos</option>
 								<?php foreach($listaServidores as $servidor){ ?>
@@ -64,7 +63,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' >Filtro de setor</label><br>
+							<label class='control-label'>Filtro de setor</label><br>
 								<select id='filtrosetor' name='filtrosetor' >
 									<option value='%'>Todos</option>
 									<?php foreach($listaSetores as $setor){ ?>
@@ -78,7 +77,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' >Filtro de situação</label><br>
+							<label class='control-label'>Filtro de situação</label><br>
 								<select id='filtrosituacao' name='filtrosituacao' >
 									<option value='%'>Todos</option>
 									<option value='0'>NO PRAZO</option>
@@ -89,7 +88,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-1'>
 						<div class='form-group'>
-							<label class='control-label' >Sobrestado</label><br>
+							<label class='control-label'>Sobrestado</label><br>
 							<select id='filtrosobrestado' name='filtrosobrestado' >
 								<option value='%'>Todos</option>
 								<option value='0'>NÃO</option>
@@ -100,7 +99,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-1'>
 						<div class='form-group'>
-							<label class='control-label' >Recebido</label><br>
+							<label class='control-label'>Recebido</label><br>
 							<select id='filtrorecebido' name='filtrorecebido' >
 								<option value='%'>Todos</option>
 								<option value='0'>NÃO</option>
@@ -111,7 +110,7 @@ class ProcessosView extends View{
 					
 					<div class='col-md-2'>
 						<div class='form-group'>
-							<label class='control-label' >Dias</label><br>
+							<label class='control-label'>Dias</label><br>
 							<select id='filtrodias' name='filtrodias'>
 								<option value='%'>Todos</option>
 								<option value='0-15'>0-15</option>
@@ -145,7 +144,7 @@ class ProcessosView extends View{
 	public function listar(){
 		
 		
-		$listaProcessos = $_REQUEST['LISTA_PROCESSOS'];
+		$listaDenuncias = $_REQUEST['LISTA_DENUNCIAS'];
 		
 ?>		
 		
@@ -158,7 +157,7 @@ class ProcessosView extends View{
 				<font color='green'><?php echo $_REQUEST['FRASE']; ?></font><br><br>
 				
 				<h5>
-					<div id='qtde'>Total: <?php echo sizeof($listaProcessos) . " " ?>
+					<div id='qtde'>Total: <?php echo sizeof($listaDenuncias) . " " ?>
 						<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>
 					</div>
 					
@@ -168,14 +167,12 @@ class ProcessosView extends View{
 			<table class='table table-hover tabela-dados'>
 				<thead>
 					<tr>
-						<th>Número</th>
+						<th>Tipo</th>
+						<th>Município</th>
+						<th>Assunto Macro</th>
+						<th>Assunto Micro</th>
+						<th>Órgão Denunciado</th>
 						<th>Servidor</th>
-						<th>Setor</th>
-						<th>Prazo</th>
-						<th>Status</th>
-						<th>Situação</th>
-						<th>Dias</th>
-						<th>Recebido</th>
 						<th>Ação</th>
 					</tr>	
 				</thead>
@@ -183,65 +180,27 @@ class ProcessosView extends View{
 						
 					<?php 
 					
-						foreach($listaProcessos as $processo){ 
-						
-						
-						if($processo['BL_URGENCIA']){ ?>
+						foreach($listaDenuncias as $denuncia){ 
 				
-						<tr style='background-color:#f1c40f;'>
-					
-						<?php }else{ ?>
-					
+					?>
+						
 						<tr>
-					
-					    <?php } ?>
-							<td><?php echo $processo['DS_NUMERO'] ?></td>
-							
-							<td id="servidorLocalizacao<?php echo $processo['ID'] ?>"><?php echo $processo['NOME_SERVIDOR'] ?></td>
-							<td><?php echo $processo['NOME_SETOR']  ?></td>
-							<td><?php echo $processo['DT_PRAZO'] ?></td>
-							<td><?php echo $processo['DS_STATUS'] ?></td>
-							<td><?php 
-									if($processo['BL_ATRASADO']){
-										echo "<font color='red'>ATRASADO</font>";
-									}else{
-										echo "<font color='green'>DENTRO DO PRAZO</font>";
-									}
-								?>
-							</td>
-							<td><?php echo $processo['NR_DIAS'] ?></td>
-							<td id="recebido<?php echo $processo['ID'] ?>">
-								
-								<?php if(!$processo['BL_RECEBIDO']){ ?>
-									
-										<a id="receber<?php echo $processo['ID'] ?>" onclick="receber(<?php echo $processo['ID'] ?>)" href='javascript:void(0);'>RECEBER</a>
-										
-										<br> 
-												
-										<a href="/editar/processo/devolver/<?php echo $processo['ID'] ?>">DEVOLVER</a>
-								
-								
-								<?php 
-									} else{ ?>
-									
-										<a href="/processos/visualizar/<?php echo $processo['ID'] ?>">
-											<button type='button' class='btn btn-secondary btn-sm' title='Visualizar'>
-												<i class='fa fa-eye' aria-hidden='true'></i>
-											</button>
-										</a>
-
-							  <?php } ?>
-							</td>				
-							
-							<td id="recebido<?php echo $processo['ID'] ?>">
-								
-								<a href="/processos/visualizar/<?php echo $processo['ID'] ?>">
+							<td><?php echo $denuncia['DS_TIPO'] ?></td>
+							<td><?php echo $denuncia['DS_MUNICIPIO'] ?></td>
+							<td><?php echo $denuncia['DS_NOME_MACRO']  ?></td>
+							<td><?php echo $denuncia['DS_NOME_MICRO'] ?></td>
+							<td><?php echo $denuncia['NOME_ORGAO_DENUNCIADO'] ?></td>
+							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
+							<td><?php echo $denuncia['NR_DIAS'] ?></td>
+							<td>	
+								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar'>
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
-								
-							</td>
+
+							  <?php } ?>
+							</td>				
 						</tr>
 				  <?php } ?>		
 				</tbody>
@@ -260,7 +219,7 @@ class ProcessosView extends View{
 		
 		include($_SERVER['DOCUMENT_ROOT'].'/view/_libs/mpdf60/mpdf.php');
 		
-		$listaProcessos = $_REQUEST['LISTA_PROCESSOS'];
+		$listaDenuncias = $_REQUEST['LISTA_PROCESSOS'];
 		
 		$html = "<style type='text/css'>
 		#customers {
@@ -303,13 +262,13 @@ class ProcessosView extends View{
 				</tr>	
 			</thead>";
 			
-		foreach($listaProcessos as $processo){
+		foreach($listaDenuncias as $denuncia){
 			
-			$linhaTabela = ($processo['BL_URGENCIA']) ? "<tr style='background-color:#f1c40f;'>" : '<tr>';
+			$linhaTabela = ($denuncia['BL_URGENCIA']) ? "<tr style='background-color:#f1c40f;'>" : '<tr>';
 			
-			$atrasado = ($processo['BL_ATRASADO']) ? 'ATRASADO' : 'DENTRO DO PRAZO';
+			$atrasado = ($denuncia['BL_ATRASADO']) ? 'ATRASADO' : 'DENTRO DO PRAZO';
 
-			$recebido = ($processo['BL_RECEBIDO']) ? 'SIM' : 'NÃO';
+			$recebido = ($denuncia['BL_RECEBIDO']) ? 'SIM' : 'NÃO';
 			
 			$html .= 
 		
@@ -317,27 +276,27 @@ class ProcessosView extends View{
 		$linhaTabela 
 			<td>
 				
-					".$processo['DS_NUMERO']."
+					".$denuncia['DS_NUMERO']."
 				
 			</td>
 			<td>
 				
-					".$processo['NOME_SERVIDOR']."
+					".$denuncia['NOME_SERVIDOR']."
 				
 			</td>
 			<td>
 				
-					".$processo['NOME_SETOR']."
+					".$denuncia['NOME_SETOR']."
 				
 			</td>
 			<td>
 				
-					".$processo['DT_PRAZO']."
+					".$denuncia['DT_PRAZO']."
 				
 			</td>
 			<td>
 				
-					".$processo['DS_STATUS']."
+					".$denuncia['DS_STATUS']."
 				
 			</td>
 			<td>
@@ -347,7 +306,7 @@ class ProcessosView extends View{
 			</td>
 			<td>
 				
-					".$processo['NR_DIAS']."
+					".$denuncia['NR_DIAS']."
 				
 			</td>
 			<td>
@@ -432,7 +391,7 @@ class ProcessosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Número do processo</label>
+						<label class='control-label'>Número do processo</label>
 						<div class='row'>
 							<div class='col-md-4'>
 								<input class='form-control' id='numeroParte1' name='numeroParte1' placeholder='Órgão' type='text' maxlength='6' value="<?php if($this->conteudo=='editar'){echo $numeroParte1;} ?>" required />
@@ -448,7 +407,7 @@ class ProcessosView extends View{
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Assunto</label>
+						<label class='control-label'>Assunto</label>
 						<select class='form-control' id='assunto' name='assunto' required />
 							<option value="<?php if($this->conteudo=='edicao'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ASSUNTO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaAssuntos as $assunto){ ?>
@@ -461,7 +420,7 @@ class ProcessosView extends View{
 			<div class='row'>						
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Órgão Interessado</label>
+						<label class='control-label'>Órgão Interessado</label>
 						<select class='form-control' id='orgao' name='orgao' required />
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
@@ -474,13 +433,13 @@ class ProcessosView extends View{
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Nome do Interessado</label>
+						<label class='control-label'>Nome do Interessado</label>
 						<input class='form-control' id='interessado' name='interessado' placeholder='Digite o interessado' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
 					</div>  
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label' >Detalhes</label>
+						<label class='control-label'>Detalhes</label>
 						<input class='form-control' id='detalhes' name='detalhes' placeholder='Digite os detalhes do processo' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_DETALHES'];} ?>" required />
 					</div>  
 				</div>
@@ -519,7 +478,7 @@ class ProcessosView extends View{
 		
 		$listaPodemSerResponsaveis = $_REQUEST['LISTA_PODEM_SER_RESPONSAVEIS'];
 		
-		$listaProcessosApensar = $_REQUEST['LISTA_APENSAR']; ?>	
+		$listaDenunciasApensar = $_REQUEST['LISTA_APENSAR']; ?>	
 	
 		
 		<div class='container'>
@@ -734,13 +693,13 @@ class ProcessosView extends View{
 						
 						
 						Processos apensados:
-<?php 						foreach($listaApensados as $processoApensado){ ?>
+<?php 						foreach($listaApensados as $denunciaApensado){ ?>
 							
-								<a href='/processos/visualizar/<?php echo $processoApensado['ID_PROCESSO_APENSADO'] ?>'><?php echo $processoApensado['DS_NUMERO'] ?></a>
+								<a href='/processos/visualizar/<?php echo $denunciaApensado['ID_PROCESSO_APENSADO'] ?>'><?php echo $denunciaApensado['DS_NUMERO'] ?></a>
 							
 <?php							if($ativo){ ?>
 
-									<a href="/editar/processo/removerapenso/<?php echo $lista['ID'] ?>/<?php echo $processoApensado['ID_PROCESSO_APENSADO'] ?>" title='remover apenso'><i class='fa fa-remove' aria-hidden='true'></i></a>,
+									<a href="/editar/processo/removerapenso/<?php echo $lista['ID'] ?>/<?php echo $denunciaApensado['ID_PROCESSO_APENSADO'] ?>" title='remover apenso'><i class='fa fa-remove' aria-hidden='true'></i></a>,
 								
 <?php							}
 							} ?>
@@ -810,14 +769,14 @@ class ProcessosView extends View{
 					<form method='POST' action="/editar/processo/anexardocumento/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-6'>
 							<div class='form-group'>
-								<label class='control-label' ><b>Anexar documento:</b></label>
+								<label class='control-label'><b>Anexar documento:</b></label>
 									
 									<?php $this->carregarSelectTiposDocumento(); ?>
 							</div>  
 						</div>
 						<div class='col-md-4'>
 							<div class='form-group'>
-								<label class='control-label' >Enviar anexo</label><br>
+								<label class='control-label'>Enviar anexo</label><br>
 								<input type='file' class='' name='arquivoAnexo' id='arquivoAnexo'/>
 							</div>
 						</div>	
@@ -836,7 +795,7 @@ class ProcessosView extends View{
 			
 ?>					
 					<div class='row linha-modal-processo'>
-						<label class='control-label' ><b>Solicitar Sobrestado:</b></label>
+						<label class='control-label'><b>Solicitar Sobrestado:</b></label>
 						<form method='POST' action="/editar/processo/solicitarsobrestado/<?php echo $lista['ID']?>" enctype='multipart/form-data'>	
 							<div class='col-md-10'>
 								<input class='form-control' id='justificativa' name='justificativa' placeholder='Digite aqui a sua justificativa (Máximo de 100 caracteres)' type='text' maxlength='100' required />	
@@ -854,7 +813,7 @@ class ProcessosView extends View{
 				<div class='row linha-modal-processo'>
 					<form method='POST' action="/editar/processo/definirresponsaveis/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-10'>
-							<label class='control-label' ><b>Defina os responsáveis</b>:</label><br>
+							<label class='control-label'><b>Defina os responsáveis</b>:</label><br>
 							<select multiple id='responsaveis' name='responsaveis[]' style='width: 96%;' required>
 <?php 								
 									foreach($listaPodemSerResponsaveis as $podeSerResponsavel){			
@@ -880,7 +839,7 @@ class ProcessosView extends View{
 					<form name='teste' method='POST' action="/editar/processo/definirlider/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>
 						<div class='row linha-modal-processo'>
 							<div class='col-md-10'>
-								<label class='control-label' ><b>Defina o responsável líder</b>:</label><br>
+								<label class='control-label'><b>Defina o responsável líder</b>:</label><br>
 								<select class='form-control' id='lider' name='lider' required >
 									<option value=''>Selecione</option>
 <?php									foreach($listaResponsaveis as $responsavel){ ?>	
@@ -904,12 +863,12 @@ class ProcessosView extends View{
 				<div class='row linha-modal-processo'>
 					<form method='POST' action="/editar/processo/apensar/<?php echo $lista['ID'] ?>" enctype='multipart/form-data'>	
 						<div class='col-md-10'>
-							<label class='control-label' ><b>Defina os Apensos</b>:</label><br>
+							<label class='control-label'><b>Defina os Apensos</b>:</label><br>
 							<select multiple id='apensos' name='apensos[]' style='width: 96%;' required>
 <?php 							
-								foreach($listaProcessosApensar as $processo){
+								foreach($listaDenunciasApensar as $denuncia){
 ?>
-									<option value="<?php echo $processo['ID'] ?>"><?php echo $processo['DS_NUMERO'] ?></option>
+									<option value="<?php echo $denuncia['ID'] ?>"><?php echo $denuncia['DS_NUMERO'] ?></option>
 								
 <?php 							} 
 ?>
@@ -1108,11 +1067,11 @@ class ProcessosView extends View{
 					
 					 <?php 
 				  
-						$listaProcessosAtrasadosPrazoPorSetor = $_REQUEST['QTD_PROCESSOS_ATRASADOS_PRAZO_SETOR'];
+						$listaDenunciasAtrasadosPrazoPorSetor = $_REQUEST['QTD_PROCESSOS_ATRASADOS_PRAZO_SETOR'];
 				  
-						foreach($listaProcessosAtrasadosPrazoPorSetor as $setor){ ?>
+						foreach($listaDenunciasAtrasadosPrazoPorSetor as $setor){ ?>
 					 
-						['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE_NO_PRAZO'] ?>,<?php echo $setor['QUANTIDADE_ATRASADOS'] ?>]<?php if($setor != end($listaProcessosAtrasadosPrazoPorSetor)){ ?> , <?php } ?> 
+						['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE_NO_PRAZO'] ?>,<?php echo $setor['QUANTIDADE_ATRASADOS'] ?>]<?php if($setor != end($listaDenunciasAtrasadosPrazoPorSetor)){ ?> , <?php } ?> 
 					 
 				  <?php } ?>
 				  
@@ -1147,11 +1106,11 @@ class ProcessosView extends View{
 				  
 				  <?php 
 				  
-				  $listaProcessosDentroDoPrazoSetor = $_REQUEST['QTD_PROCESSOS_PRAZO_SETOR'];
+				  $listaDenunciasDentroDoPrazoSetor = $_REQUEST['QTD_PROCESSOS_PRAZO_SETOR'];
 				  
-				  foreach($listaProcessosDentroDoPrazoSetor as $setor){ ?>
+				  foreach($listaDenunciasDentroDoPrazoSetor as $setor){ ?>
 					 
-					 ['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE'] ?>]<?php if($setor != end($listaProcessosDentroDoPrazoSetor)){ ?> , <?php } ?> 
+					 ['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE'] ?>]<?php if($setor != end($listaDenunciasDentroDoPrazoSetor)){ ?> , <?php } ?> 
 					 
 					
 				  
@@ -1179,11 +1138,11 @@ class ProcessosView extends View{
 				  
 				  <?php 
 				  
-				  $listaProcessosAtrasadosPorSetor = $_REQUEST['QTD_PROCESSOS_ATRASADOS_SETOR'];
+				  $listaDenunciasAtrasadosPorSetor = $_REQUEST['QTD_PROCESSOS_ATRASADOS_SETOR'];
 				  
-				  foreach($listaProcessosAtrasadosPorSetor as $setor){ ?>
+				  foreach($listaDenunciasAtrasadosPorSetor as $setor){ ?>
 					 
-					 ['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE'] ?>]<?php if($setor != end($listaProcessosAtrasadosPorSetor)){ ?> , <?php } ?> 
+					 ['<?php echo $setor['NOME_SETOR'] ?>',<?php echo $setor['QUANTIDADE'] ?>]<?php if($setor != end($listaDenunciasAtrasadosPorSetor)){ ?> , <?php } ?> 
 					 
 					
 				  

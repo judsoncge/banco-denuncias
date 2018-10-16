@@ -92,14 +92,14 @@ class ArquivosView extends View{
 			<div class='row'>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label' >Selecione o tipo</label>
+						<label class='control-label'>Selecione o tipo</label>
 						
 						<?php $this->carregarSelectTiposDocumento(); ?>
 									
 					</div>  
 				</div>
 				<div class='col-md-4'>
-					<label class='control-label' >Escolha o servidor para enviar</label><br>
+					<label class='control-label'>Escolha o servidor para enviar</label><br>
 						
 						<?php $this->carregarSelectServidores(); ?>
 
@@ -107,7 +107,7 @@ class ArquivosView extends View{
 				
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label' >Escolher anexo</label><br>
+						<label class='control-label'>Escolher anexo</label><br>
 						<input type='file' name='arquivoAnexo' id='arquivoAnexo'/>
 					</div>
 				</div>	

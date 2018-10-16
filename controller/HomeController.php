@@ -8,7 +8,7 @@ class HomeController extends Controller{
 	
 	function __construct(){
 		
-		$this->comunicacaoModel = new comunicacaoModel();
+		//$this->comunicacaoModel = new comunicacaoModel();
 		
 		$tipoView = $_SESSION['TYPE_VIEW'];
 		$tipoView .= 'HomeView';

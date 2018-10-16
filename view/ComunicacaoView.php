@@ -168,7 +168,7 @@ class ComunicacaoView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Chapéu</label>
+						<label class='control-label'>Chapéu</label>
 						<input class='form-control' id='chapeu' name='chapeu' placeholder='Máximo de 30 caracteres' 
 						type='text' maxlength='30' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_CHAPEU'];} ?>" required />	
 					</div> 
@@ -177,7 +177,7 @@ class ComunicacaoView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Título</label>
+						<label class='control-label'>Título</label>
 						<input class='form-control' id='titulo' name='titulo' placeholder='Máximo de 100 caracteres' 
 						type='text' maxlength='100' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_TITULO'];} ?>" required />	
 					</div>  
@@ -186,7 +186,7 @@ class ComunicacaoView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Intertítulo</label>
+						<label class='control-label'>Intertítulo</label>
 						<input class='form-control' id='intertitulo' name='intertitulo' placeholder='Máximo de 200 caracteres' 
 						type='text' maxlength='200' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERTITULO'];} ?>" required />	
 					</div>  
@@ -195,7 +195,7 @@ class ComunicacaoView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Créditos</label>
+						<label class='control-label'>Créditos</label>
 						<input class='form-control' id='creditos' name='creditosTexto' placeholder='Máximo de 30 caracteres' 
 						type='text' maxlength='30' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_CREDITOS'];} ?>" required />	
 					</div>  
@@ -204,20 +204,20 @@ class ComunicacaoView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label' >Texto</label>
+						<label class='control-label'>Texto</label>
 						<textarea class='form-control' id='texto' name='texto' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_NOTICIA'];}else{echo "Seu texto aqui";} ?></textarea>	
 					</div>  
 				</div>
 			</div>
 			<div class='row'>
 				<div class='col-md-12'>
-					<label class='control-label' >Data de publicação</label>
+					<label class='control-label'>Data de publicação</label>
 					<input type='datetime-local' name='dataPublicacao' id='dataPublicacao' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_PUBLICACAO'];} ?>" required /><br>
 				</div>
 			</div>	
 			<div class='row'>
 				<div class='col-md-6' >
-					<label class='control-label' >Adicionar imagens</label>
+					<label class='control-label'>Adicionar imagens</label>
 					<a href='javascript:void(0)' onclick='adicionarImagem()'>
 						<i class='fa fa-plus-circle' aria-hidden='true'></i>
 					</a>

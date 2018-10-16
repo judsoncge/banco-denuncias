@@ -2,7 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/model/Model.php';
 
-class ArquivosModel extends Model{
+class DenunciasModel extends Model{
 
 	private $tipo;
 	private $dataCriacao;
@@ -100,33 +100,33 @@ class ArquivosModel extends Model{
 
 	}
 
-	public function getListaArquivosStatus(){
-		
-		$restricao_status = ($this->status == 'ATIVO') ? " IN ('ATIVO', 'APROVADO') " : " = 'INATIVO' ";
+	public function getDenuncias(){
 		
 		$query = 
 		
 		"SELECT 
 		
-		a.ID, a.DS_TIPO, a.DT_CRIACAO, a.ID_SERVIDOR_CRIACAO, a.DS_STATUS, a.DS_ANEXO, 
+		a.ID, a.DS_TIPO, a.ID_SERVIDOR, 
 		
-		s1.DS_NOME NOME_SERVIDOR_CRIACAO,
+		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		
-		s2.DS_NOME NOME_SERVIDOR_DESTINO
+		c.DS_NOME NOME_ORGAO_DENUNCIADO,
 		
-		FROM  tb_arquivos a
+		d.DS_NOME NOME_SERVIDOR,
 		
-		INNER JOIN tb_servidores s1 ON a.ID_SERVIDOR_CRIACAO = s1.ID 
+		e.DS_NOME NOME_MUNICIPIO
 		
-		INNER JOIN tb_servidores s2 ON a.ID_SERVIDOR_DESTINO = s2.ID 
+		FROM  tb_denuncias a
 		
-		WHERE a.DS_STATUS $restricao_status
+		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
 		
-		AND   (a.ID_SERVIDOR_CRIACAO = $this->servidorCriacao
+		INNER JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
 		
-		OR    a.ID_SERVIDOR_DESTINO = $this->servidorCriacao) 
+		INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
 		
-		ORDER BY a.DT_CRIACAO desc
+		INNER JOIN tb_servidores e ON a.ID_MUNICIPIO_FATO = e.ID 
+		
+		ORDER BY a.DT_REGISTRO_EOUV desc
 		
 		";
 		
