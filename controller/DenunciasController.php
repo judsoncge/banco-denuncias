@@ -41,11 +41,13 @@ class DenunciasController extends Controller{
 	
 	public function carregarCadastro(){
 		
-		$this->servidoresModel->setStatus('ATIVO');
+		$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
 		
-		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getListaServidoresStatus();
+		$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
 		
-		$this->denunciasView->setTitulo('ARQUIVOS > CADASTRAR');
+		$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
+		
+		$this->denunciasView->setTitulo('DENÚNCIAS > CADASTRAR');
 		
 		$this->denunciasView->setConteudo('cadastrar');
 		

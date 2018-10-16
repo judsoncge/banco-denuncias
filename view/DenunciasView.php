@@ -15,6 +15,7 @@ class DenunciasView extends View{
 
 	
 		<?php 
+		
 		}elseif($this->conteudo == 'visualizar'){ ?>
 			
 			<link rel='stylesheet' type='text/css' href='/view/_libs/css/multiple-select.css'>
@@ -27,13 +28,47 @@ class DenunciasView extends View{
 				}
 			</script>	
 
-<?php			
+        <?php			
+		
 		}elseif($this->conteudo == 'relatorio'){ ?>
 		
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>	
-<?php   }		
-	}
+        
+		<?php   
+        
+		}elseif($this->conteudo == 'cadastrar'){ ?>
+
+			<script type="text/javascript">
+				function travarDestravarCamposDenunciante(){
+					
+					var tipo = document.getElementById("tipo").value;
+					
+					if(tipo == 'ANÔNIMA'){
+						
+						document.getElementById("nome").value = "";
+						document.getElementById('nome').disabled = true;
+						document.getElementById("CPF").value = "";
+						document.getElementById("CPF").disabled = true;
+						document.getElementById("email").value = "";
+						document.getElementById("email").disabled = true;
+						document.getElementById("telefone").value = "";
+						document.getElementById("telefone").disabled = true;
+
+					}else{
+						
+						document.getElementById('nome').disabled = false;
+						document.getElementById("CPF").disabled = false;
+						document.getElementById("email").disabled = false;
+						document.getElementById("telefone").disabled = false;
+
+					}
 	
+				}
+			</script>	
+
+		<?php
+		} 
+	}
 	
 	public function carregarFiltro(){
 		
@@ -347,6 +382,8 @@ class DenunciasView extends View{
 	public function carregarFormulario(){
 		
 		
+		$listaAssuntos = $_REQUEST['LISTA_MUNICIPIOS'];
+		
 		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
 		
 		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];
@@ -354,54 +391,66 @@ class DenunciasView extends View{
 		
 		if($this->conteudo == 'editar'){
 			
-			$listaDados = $_REQUEST['DADOS_PROCESSO'];
-			$action = "/editar/processo/info/".$listaDados['ID']."/";
+			$listaDados = $_REQUEST['DADOS_DENUNCIA'];
+			$action = "/editar/denuncia/info/".$listaDados['ID']."/";
 			$nomeBotao = 'Editar';
+			$valueTipo = $listaDados['DS_TIPO'];
+			$nomeTipo = $listaDados['DS_TIPO'];
 	
 		}else{
 			
 			$listaDados = NULL;
-			$action = '/cadastrar/processo/';
+			$action = '/cadastrar/denuncia/';
 			$nomeBotao = 'Cadastrar';
+			$valueTipo = '';
+			$nomeTipo = 'Selecione';
 			
 		}
-		
-		if($listaDados != NULL){
-			
-			
-			$numeroProcesso = explode(' ', $listaDados['DS_NUMERO']);
-			
-			
-			$numeroParte1 = $numeroProcesso[0];
-			
-			
-			$numeroProcesso2 = explode('/', $numeroProcesso[1]);
-			
-			$numeroParte2 = $numeroProcesso2[0];
-			
-			$numeroParte3 = $numeroProcesso2[1];
-			
-		}		
+	
 ?>		
 		
 		<form name='cadastro' method='POST' action='<?php echo $action; ?>' enctype='multipart/form-data'> 
 			<div class='row'>
-				<div class='col-md-6'>
+				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label'>Número do processo</label>
-						<div class='row'>
-							<div class='col-md-4'>
-								<input class='form-control' id='numeroParte1' name='numeroParte1' placeholder='Órgão' type='text' maxlength='6' value="<?php if($this->conteudo=='editar'){echo $numeroParte1;} ?>" required />
-							</div>
-							<div class='col-md-4'>
-								<input class='form-control' id='numeroParte2' name='numeroParte2' placeholder='Número' type='text' maxlength='6' value="<?php if($this->conteudo=='editar'){echo $numeroParte2;} ?>" required />
-							</div>
-							<div class='col-md-4'>
-								<input class='form-control' id='numeroParte3' name='numeroParte3' placeholder='Ano' type='text' maxlength='4' value="<?php if($this->conteudo=='editar'){echo $numeroParte3;} ?>" required />
-							</div>
-						</div>
-					</div>  
+						<label class='control-label'>Tipo</label>
+						<select class='form-control' id='tipo' name='tipo' onblur='travarDestravarCamposDenunciante()' required />
+							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
+							<option value='ANÔNIMA'>ANÔNIMA</option>
+							<option value='IDENTIFICADA'>IDENTIFICADA</option>
+						</select>
+					</div> 
 				</div>
+			</div>
+			<hr>
+			<div class='row'>	
+				<div class='col-md-3'>
+					<div class='form-group'>
+						<label class='control-label'>Nome do denunciante</label>
+						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
+					</div> 
+				</div>
+				<div class='col-md-3'>
+					<div class='form-group'>
+						<label class='control-label'>CPF do denunciante</label>
+						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>' required />				  
+					</div>				
+				</div>
+				<div class='col-md-3'>
+					<div class='form-group'>
+						<label class='control-label'>E-mail do denunciante</label>
+						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>' required />				  
+					</div>				
+				</div>
+				<div class='col-md-3'>
+					<div class='form-group'>
+						<label class='control-label'>Telefone do denunciante</label>
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
+					</div>				
+				</div>
+			</div>	
+			<hr>
+			<div class='row'>	
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Assunto</label>
@@ -413,8 +462,8 @@ class DenunciasView extends View{
 						</select>
 					</div>  
 				</div>
-			</div>
-			<div class='row'>						
+			</div>	
+			<div class='row'>	
 				<div class='col-md-12'>
 					<div class='form-group'>
 						<label class='control-label'>Órgão Interessado</label>
