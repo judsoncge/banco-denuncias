@@ -24,4 +24,5 @@ RewriteRule ^excluir/servidor/(.*)                /index.php?acao=excluir&modulo
 RewriteRule ^servidores/listar                    /index.php?acao=listar&modulo=Servidores
 
 RewriteRule ^denuncias/cadastrar                  /index.php?acao=carregarCadastro&modulo=Denuncias
+RewriteRule ^cadastrar/denuncia               	  /index.php?acao=cadastrar&modulo=Denuncias
 RewriteRule ^denuncias/listar                     /index.php?acao=listar&modulo=Denuncias

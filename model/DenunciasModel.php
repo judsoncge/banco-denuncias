@@ -5,74 +5,92 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/model/Model.php';
 class DenunciasModel extends Model{
 
 	private $tipo;
-	private $dataCriacao;
-	private $servidorCriacao;
-	private $servidorDestino;
-	private $anexo;
-	
-	public function getID(){
-		return $this->id;
-	}
-	
-	public function getTipo(){
-		return $this->tipo;
-	}
-	
-	public function getDataCriacao(){
-		return $this->dataCriacao;
-	}
-	
-	public function getServidorCriacao(){
-		return $this->servidorCriacao;
-	}
-	
-	public function getServidorDestino(){
-		return $this->servidorDestino;
-	}
-	
-	public function getStatus(){
-		return $this->status;
-	}
-	
-	public function getAnexo(){
-		return $this->anexo;
-	}
-	
-	public function setID($id){
-		$this->id = $id;
-	}
+	private $nome;
+	private $CPF;
+	private $email;
+	private $telefone;
+	private $assunto;
+	private $descricao;
+	private $municipio;
+	private $orgao;
+	private $envolvidos;
+	private $dataRegistro;
+	private $processo;
+	private $numero;
 	
 	public function setTipo($tipo){
 		$this->tipo = $tipo;
 	}
 	
-	public function setDataCriacao($dataCriacao){
-		$this->dataCriacao = $dataCriacao;
+	public function setNome($nome){
+		$this->nome = $nome;
 	}
 	
-	public function setServidorCriacao($servidorCriacao){
-		$this->servidorCriacao = $servidorCriacao;
+	public function setCPF($CPF){
+		$this->CPF = $CPF;
 	}
 	
-	public function setServidorDestino($servidorDestino){
-		$this->servidorDestino = $servidorDestino;
+	public function setEmail($email){
+		$this->email = $email;
 	}
 	
-	public function setStatus($status){
-		$this->status = $status;
+	public function setTelefone($telefone){
+		$this->telefone = $telefone;
 	}
 	
-	public function setAnexo($anexo){
-		$this->anexo = $anexo;
+	public function setAssunto($assunto){
+		$this->assunto = $assunto;
+	}
+	
+	public function setDescricao($descricao){
+		$this->descricao = $descricao;
+	}
+	
+	public function setMunicipio($municipio){
+		$this->municipio = $municipio;
+	}
+	
+	public function setOrgao($orgao){
+		$this->orgao = $orgao;
+	}
+	
+	public function setEnvolvidos($envolvidos){
+		$this->envolvidos = $envolvidos;
+	}
+	
+	public function setDataRegistro($dataRegistro){
+		$this->dataRegistro = $dataRegistro;
+	}
+	
+	public function setProcesso($processo){
+		$this->processo = $processo;
+	}
+	
+	public function setNumero($numero){
+		$this->numero = $numero;
 	}
 	
 	public function cadastrar(){
 		
-		$data = date('Y-m-d');
+		$query = "
 		
-		$nomeAnexo = $this->registrarAnexo($this->anexo, 'anexos');
-	
-		$query = "INSERT INTO tb_arquivos (DS_TIPO, DT_CRIACAO, ID_SERVIDOR_CRIACAO, ID_SERVIDOR_DESTINO, DS_STATUS, DS_ANEXO) VALUES ('$this->tipo','$data', ".$_SESSION['ID']." , $this->servidorDestino, 'ATIVO', '$nomeAnexo')";
+		INSERT INTO tb_denuncias 
+		
+		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, DS_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DS_NUMERO_PROCESSO_SEI) 
+		
+		
+		VALUES 
+		
+		
+		('$this->tipo', ".$_SESSION['ID']." , $this->assunto, NULLIF(NULL, '$this->nome'), NULLIF(NULL, '$this->CPF'), NULLIF(NULL, '$this->email'), NULLIF(NULL, '$this->telefone'), '$this->descricao', NULLIF(NULL, '$this->orgao'), NULLIF(NULL, '$this->municipio'), NULLIF(NULL, '$this->envolvidos'), '$this->dataRegistro', '$this->processo')";
+		
+		$id = $this->executarQueryID($query);
+		
+		$dataSemTraco = str_replace('-','', $this->dataRegistro);
+		
+		$numeroProvisorio = $id . "/" . $dataSemTraco;
+		
+		$query = "UPDATE tb_denuncias SET DS_NUMERO = '$numeroProvisorio' WHERE ID = $id";
 		
 		$resultado = $this->executarQuery($query);
 		

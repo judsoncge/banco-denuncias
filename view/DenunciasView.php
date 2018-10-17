@@ -37,6 +37,10 @@ class DenunciasView extends View{
 		<?php   
         
 		}elseif($this->conteudo == 'cadastrar'){ ?>
+		
+			<script src='/view/_libs/tinymce/tinymce.min.js'></script>
+		
+			<script>tinymce.init({ selector:'textarea', language:'pt_BR' })</script>
 
 			<script type="text/javascript">
 				function travarDestravarCamposDenunciante(){
@@ -79,9 +83,7 @@ class DenunciasView extends View{
 		
 		$listaMunicipios = $_REQUEST['LISTA_MUNICIPIOS']; 
 		
-		$listaAssuntosMacro = $_REQUEST['LISTA_ASSUNTOS_MACRO']; 
-		
-		$listaAssuntosMicro = $_REQUEST['LISTA_ASSUNTOS_MICRO']; 
+		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
 
 ?>	
 
@@ -139,27 +141,14 @@ class DenunciasView extends View{
 					</div>
 				</div>
 				<div class='row'>
-					<div class='col-md-6'>
+					<div class='col-md-12'>
 						<div class='form-group'>
-							<label class='control-label'>Assuntos Macro</label><br>
-								<select id='filtromacro' name='filtromacro'>
+							<label class='control-label'>Assuntos</label><br>
+								<select id='filtroassunto' name='filtroassunto'>
 									<option value='%'>Todos</option>
-									<?php foreach($listaAssuntosMacro as $macro){ ?>
-										<option value='<?php echo $macro['DS_NOME_MACRO'] ?>'>
-											<?php echo $macro['DS_NOME_MACRO']; ?>
-										</option>
-									<?php } ?>
-								</select>
-						</div>
-					</div>
-					<div class='col-md-6'>
-						<div class='form-group'>
-							<label class='control-label'>Assuntos Micro</label><br>
-								<select id='filtromicro' name='filtromicro'>
-									<option value='%'>Todos</option>
-									<?php foreach($listaAssuntosMicro as $micro){ ?>
-										<option value='<?php echo $micro['DS_NOME_MICRO'] ?>'>
-											<?php echo $micro['DS_NOME_MICRO']; ?>
+									<?php foreach($listaAssuntos as $assunto){ ?>
+										<option value='<?php echo $assunto['ID'] ?>'>
+											<?php echo $assunto['DS_NOME_MACRO'] . ' - ' . $assunto['DS_NOME_MICRO']; ?>
 										</option>
 									<?php } ?>
 								</select>
@@ -382,7 +371,7 @@ class DenunciasView extends View{
 	public function carregarFormulario(){
 		
 		
-		$listaAssuntos = $_REQUEST['LISTA_MUNICIPIOS'];
+		$listaMunicipios = $_REQUEST['LISTA_MUNICIPIOS'];
 		
 		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
 		
@@ -413,7 +402,7 @@ class DenunciasView extends View{
 			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label'>Tipo</label>
+						<label class='control-label'>Tipo*</label>
 						<select class='form-control' id='tipo' name='tipo' onblur='travarDestravarCamposDenunciante()' required />
 							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
 							<option value='ANÔNIMA'>ANÔNIMA</option>
@@ -426,48 +415,67 @@ class DenunciasView extends View{
 			<div class='row'>	
 				<div class='col-md-3'>
 					<div class='form-group'>
-						<label class='control-label'>Nome do denunciante</label>
+						<label class='control-label'>Nome do denunciante*</label>
 						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
 					</div> 
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>CPF do denunciante</label>
-						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>' required />				  
+						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>'/>				  
 					</div>				
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>E-mail do denunciante</label>
-						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>' required />				  
+						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>'/>				  
 					</div>				
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>Telefone do denunciante</label>
-						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>'  />				  
 					</div>				
 				</div>
 			</div>	
 			<hr>
 			<div class='row'>	
-				<div class='col-md-6'>
+				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label'>Assunto</label>
+						<label class='control-label'>Assunto*</label>
 						<select class='form-control' id='assunto' name='assunto' required />
 							<option value="<?php if($this->conteudo=='edicao'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ASSUNTO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaAssuntos as $assunto){ ?>
-									<option value="<?php echo $assunto['ID'] ?>"><?php echo $assunto['DS_NOME'] ?></option> 
+									<option value="<?php echo $assunto['ID'] ?>"><?php echo $assunto['DS_NOME_MACRO'] . ' - '.  $assunto['DS_NOME_MICRO'] ?></option> 
 								<?php } ?>
 						</select>
 					</div>  
 				</div>
-			</div>	
-			<div class='row'>	
+			</div>
+			<div class='row'>
 				<div class='col-md-12'>
 					<div class='form-group'>
-						<label class='control-label'>Órgão Interessado</label>
-						<select class='form-control' id='orgao' name='orgao' required />
+						<label class='control-label'>Descrição do fato*</label>
+						<textarea class='form-control' id='descricao' name='descricao' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_NOTICIA'];}else{echo "Seu texto aqui";} ?></textarea>
+					</div>  
+				</div>
+			</div>			
+			<div class='row'>	
+				<div class='col-md-6'>
+					<div class='form-group'>
+						<label class='control-label'>Município fato</label>
+						<select class='form-control' id='municipio' name='municipio'/>
+							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
+								<?php foreach($listaMunicipios as $municipio){ ?>
+									<option value="<?php echo $municipio['ID'] ?>"><?php echo $municipio['DS_NOME'] ?></option> 
+								<?php } ?>
+						</select>
+					</div>  
+				</div>
+				<div class='col-md-6'>
+					<div class='form-group'>
+						<label class='control-label'>Órgão fato</label>
+						<select class='form-control' id='orgao' name='orgao'/>
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
 									<option value="<?php echo $orgao['ID'] ?>"><?php echo $orgao['DS_ABREVIACAO'] . " - " . $orgao['DS_NOME'] ?></option> 
@@ -477,16 +485,24 @@ class DenunciasView extends View{
 				</div>
 			</div>
 			<div class='row'>
+				<div class='col-md-12'>
+					<div class='form-group'>
+						<label class='control-label'>Envolvidos</label>
+						<input class='form-control' id='envolvidos' name='envolvidos' placeholder='Digite os envolvidos (máx 100 caracteres)' type='text' maxlength='100' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>"/>
+					</div>  
+				</div>
+			</div>
+			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Nome do Interessado</label>
-						<input class='form-control' id='interessado' name='interessado' placeholder='Digite o interessado' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
+						<label class='control-label'>Data de registro no e-OUV*</label>
+						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
 					</div>  
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Detalhes</label>
-						<input class='form-control' id='detalhes' name='detalhes' placeholder='Digite os detalhes do processo' type='text' maxlength='255' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_DETALHES'];} ?>" required />
+						<label class='control-label'>Número do Processo vinculado cadastrado no SEI*</label>
+						<input class='form-control' id='processo' name='processo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
 					</div>  
 				</div>
 			</div>
@@ -503,7 +519,6 @@ class DenunciasView extends View{
 	
 	public function visualizar(){
 		
-		
 		$lista = $_REQUEST['DADOS_PROCESSO'];
 		
 		$listaDocumentos = $_REQUEST['DOCUMENTOS_PROCESSO'];
@@ -513,10 +528,8 @@ class DenunciasView extends View{
 		$listaApensados = $_REQUEST['PROCESSOS_APENSADOS'];
 		
 		$historico = $_REQUEST['HISTORICO_PROCESSO'];
-		
-		
-		$ativo = $_REQUEST['ATIVO'];
-		
+	
+		$ativo = $_REQUEST['ATIVO'];	
 		
 		$apensado = $_REQUEST['APENSADO'];
 		

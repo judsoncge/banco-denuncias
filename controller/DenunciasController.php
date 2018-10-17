@@ -26,10 +26,9 @@ class DenunciasController extends Controller{
 		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
 		$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
 		$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
-		$_REQUEST['LISTA_ASSUNTOS_MACRO'] = $this->assuntosModel->getAssuntosMacro();
-		$_REQUEST['LISTA_ASSUNTOS_MICRO'] = $this->assuntosModel->getAssuntosMicro();
+		$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
 		
-		$_REQUEST['FRASE'] = 'Todas as denúncias (ordenadas pela data de registro no eOuv)';
+		$_REQUEST['FRASE'] = 'Todas as denúncias (ordenadas pela data de registro no e-OUV)';
 		
 		$this->denunciasView->setTitulo('DENÚNCIAS');
 		
@@ -56,24 +55,39 @@ class DenunciasController extends Controller{
 	
 	public function cadastrar(){
 		
-		$tipo = $_POST['tipo'];
-		
-		$servidorDestino = $_POST['servidor'];
-		
-		$anexo = $_FILES['arquivoAnexo'];
+		$tipo         =  isset($_POST['tipo'])         ? $_POST['tipo']          : NULL;
+		$nome         =  isset($_POST['nome'])         ? $_POST['nome']          : NULL;
+		$CPF          =  isset($_POST['CPF'])          ? $_POST['CPF']           : NULL;
+		$email        =  isset($_POST['email'])        ? $_POST['email']         : NULL;
+		$telefone     =  isset($_POST['telefone'])     ? $_POST['telefone']      : NULL;
+		$assunto      =  isset($_POST['assunto'])      ? $_POST['assunto']       : NULL;
+		$descricao    =  isset($_POST['descricao'])    ? $_POST['descricao']     : NULL;
+		$municipio    =  isset($_POST['municipio'])    ? $_POST['municipio']     : NULL;
+		$orgao        =  isset($_POST['orgao'])        ? $_POST['orgao']         : NULL;
+		$envolvidos   =  isset($_POST['envolvidos'])   ? $_POST['envolvidos']    : NULL;
+		$dataRegistro =  isset($_POST['dataRegistro']) ? $_POST['dataRegistro']  : NULL;
+		$processo     =  isset($_POST['processo'])     ? $_POST['processo']      : NULL;
 		
 		$this->denunciasModel->setTipo($tipo);
+		$this->denunciasModel->setNome($nome);
+		$this->denunciasModel->setCPF($CPF);
+		$this->denunciasModel->setEmail($email);
+		$this->denunciasModel->setTelefone($telefone);
+		$this->denunciasModel->setAssunto($assunto);
+		$this->denunciasModel->setDescricao($descricao);
+		$this->denunciasModel->setMunicipio($municipio);
+		$this->denunciasModel->setOrgao($orgao);
+		$this->denunciasModel->setEnvolvidos($envolvidos);
+		$this->denunciasModel->setDataRegistro($dataRegistro);
+		$this->denunciasModel->setProcesso($processo);
 		
-		$this->denunciasModel->setServidorDestino($servidorDestino);
-		
-		$this->denunciasModel->setAnexo($anexo);
 		
 		$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->cadastrar();
 		
 		$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
 		
 		if($_SESSION['RESULTADO_OPERACAO']){
-			Header('Location: /denuncias/ativos/');
+			Header('Location: /denuncias/listar/');
 		}else{
 			Header('Location: /denuncias/cadastrar/');
 		}
