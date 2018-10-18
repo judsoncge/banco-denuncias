@@ -25,4 +25,5 @@ RewriteRule ^servidores/listar                    /index.php?acao=listar&modulo=
 
 RewriteRule ^denuncias/cadastrar                  /index.php?acao=carregarCadastro&modulo=Denuncias
 RewriteRule ^cadastrar/denuncia               	  /index.php?acao=cadastrar&modulo=Denuncias
-RewriteRule ^denuncias/listar                     /index.php?acao=listar&modulo=Denuncias
+RewriteRule ^denuncias/listar/0                   /index.php?acao=listar&modulo=Denuncias&filtro=0
+RewriteRule ^denuncias/listar/1                   /index.php?acao=listar&modulo=Denuncias&filtro=1

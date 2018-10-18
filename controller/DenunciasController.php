@@ -22,19 +22,48 @@ class DenunciasController extends Controller{
 	
 	public function listar(){
 		
-		$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenuncias();
-		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
-		$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
-		$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
-		$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
 		
-		$_REQUEST['FRASE'] = 'Todas as denúncias (ordenadas pela data de registro no e-OUV)';
+		if(!$_GET['filtro']){
 		
-		$this->denunciasView->setTitulo('DENÚNCIAS');
+			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenuncias();
+			$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
+			$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
+			$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
+			$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
+			
+			$this->denunciasView->setTitulo('DENÚNCIAS');
+			
+			$this->denunciasView->setConteudo('listar');
+			
+			$this->denunciasView->carregar();
 		
-		$this->denunciasView->setConteudo('listar');
+		}else{
+			
+			$filtroServidor = isset($_POST['filtroservidor']) ? $_POST['filtroservidor'] : '%';
+
+			$filtroTipo = isset($_POST['filtrotipo']) ? $_POST['filtrotipo'] : '%';
+
+			$filtroOrgao = isset($_POST['filtroorgao']) ? $_POST['filtroorgao'] : '%';
+
+			$filtroMunicipio = isset($_POST['filtromunicipio']) ? $_POST['filtromunicipio'] : '%';
+			
+			$filtroAssunto = isset($_POST['filtroassunto']) ? $_POST['filtroassunto'] : '%';
+			
+			$this->denunciasModel->setServidor($filtroServidor);
+			
+			$this->denunciasModel->setTipo($filtroTipo);
+			
+			$this->denunciasModel->setOrgao($filtroOrgao);
+			
+			$this->denunciasModel->setMunicipio($filtroMunicipio);
+			
+			$this->denunciasModel->setAssunto($filtroAssunto);
+			
+			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenunciasComFiltro();
 		
-		$this->denunciasView->carregar();
+			$this->denunciasView->listar();
+
+		}
 		
 	}
 	
@@ -55,18 +84,18 @@ class DenunciasController extends Controller{
 	
 	public function cadastrar(){
 		
-		$tipo         =  isset($_POST['tipo'])         ? $_POST['tipo']          : NULL;
-		$nome         =  isset($_POST['nome'])         ? $_POST['nome']          : NULL;
-		$CPF          =  isset($_POST['CPF'])          ? $_POST['CPF']           : NULL;
-		$email        =  isset($_POST['email'])        ? $_POST['email']         : NULL;
-		$telefone     =  isset($_POST['telefone'])     ? $_POST['telefone']      : NULL;
-		$assunto      =  isset($_POST['assunto'])      ? $_POST['assunto']       : NULL;
-		$descricao    =  isset($_POST['descricao'])    ? $_POST['descricao']     : NULL;
-		$municipio    =  isset($_POST['municipio'])    ? $_POST['municipio']     : NULL;
-		$orgao        =  isset($_POST['orgao'])        ? $_POST['orgao']         : NULL;
-		$envolvidos   =  isset($_POST['envolvidos'])   ? $_POST['envolvidos']    : NULL;
-		$dataRegistro =  isset($_POST['dataRegistro']) ? $_POST['dataRegistro']  : NULL;
-		$processo     =  isset($_POST['processo'])     ? $_POST['processo']      : NULL;
+		$tipo         =  $_POST['tipo'];
+		$nome         =  $_POST['nome'];
+		$CPF          =  $_POST['CPF'];
+		$email        =  $_POST['email'];
+		$telefone     =  $_POST['telefone'];
+		$assunto      =  $_POST['assunto'];
+		$descricao    =  $_POST['descricao'];
+		$municipio    =  $_POST['municipio'];
+		$orgao        =  $_POST['orgao'];
+		$envolvidos   =  $_POST['envolvidos'];
+		$dataRegistro =  $_POST['dataRegistro'];
+		$processo     =  $_POST['processo'];
 		
 		$this->denunciasModel->setTipo($tipo);
 		$this->denunciasModel->setNome($nome);
@@ -87,7 +116,7 @@ class DenunciasController extends Controller{
 		$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
 		
 		if($_SESSION['RESULTADO_OPERACAO']){
-			Header('Location: /denuncias/listar/');
+			Header('Location: /denuncias/listar/0');
 		}else{
 			Header('Location: /denuncias/cadastrar/');
 		}

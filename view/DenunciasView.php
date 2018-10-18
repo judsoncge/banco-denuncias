@@ -92,7 +92,7 @@ class DenunciasView extends View{
 				<div class='row'>	
 					<div class='col-md-4'>
 						<div class='form-group'>
-							<label class='control-label'>Servidor</label><br>
+							<label class='control-label'>Servidor que cadastrou</label><br>
 							<select id='filtroservidor' name='filtroservidor'>
 								<option value='%'>Todos</option>
 								<?php foreach($listaServidores as $servidor){ ?>
@@ -176,9 +176,7 @@ class DenunciasView extends View{
 			
 			<div id='carregando' class='carregando'><i class='fa fa-refresh spin' aria-hidden='true'></i> <span>Carregando dados...</span></div>
 			
-			<center>
-				<font color='green'><?php echo $_REQUEST['FRASE']; ?></font><br><br>
-				
+			<center>				
 				<h5>
 					<div id='qtde'>Total: <?php echo sizeof($listaDenuncias) . " " ?>
 						<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>
@@ -190,12 +188,12 @@ class DenunciasView extends View{
 			<table class='table table-hover tabela-dados'>
 				<thead>
 					<tr>
+						<th>Servidor cadastro</th>
 						<th>Tipo</th>
-						<th>Município</th>
 						<th>Assunto Macro</th>
 						<th>Assunto Micro</th>
 						<th>Órgão Denunciado</th>
-						<th>Servidor</th>
+						<th>Município</th>
 						<th>Ação</th>
 					</tr>	
 				</thead>
@@ -208,13 +206,13 @@ class DenunciasView extends View{
 					?>
 						
 						<tr>
+							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
 							<td><?php echo $denuncia['DS_TIPO'] ?></td>
-							<td><?php echo $denuncia['NOME_MUNICIPIO'] ?></td>
 							<td><?php echo $denuncia['DS_NOME_MACRO']  ?></td>
 							<td><?php echo $denuncia['DS_NOME_MICRO'] ?></td>
 							<td><?php echo $denuncia['NOME_ORGAO_DENUNCIADO'] ?></td>
-							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
-							<td><?php echo $denuncia['NR_DIAS'] ?></td>
+							<td><?php echo $denuncia['NOME_MUNICIPIO'] ?></td>
+							
 							<td>	
 								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar'>
@@ -460,18 +458,7 @@ class DenunciasView extends View{
 					</div>  
 				</div>
 			</div>			
-			<div class='row'>	
-				<div class='col-md-6'>
-					<div class='form-group'>
-						<label class='control-label'>Município fato</label>
-						<select class='form-control' id='municipio' name='municipio'/>
-							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
-								<?php foreach($listaMunicipios as $municipio){ ?>
-									<option value="<?php echo $municipio['ID'] ?>"><?php echo $municipio['DS_NOME'] ?></option> 
-								<?php } ?>
-						</select>
-					</div>  
-				</div>
+			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Órgão fato</label>
@@ -479,6 +466,17 @@ class DenunciasView extends View{
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
 									<option value="<?php echo $orgao['ID'] ?>"><?php echo $orgao['DS_ABREVIACAO'] . " - " . $orgao['DS_NOME'] ?></option> 
+								<?php } ?>
+						</select>
+					</div>  
+				</div>
+				<div class='col-md-6'>
+					<div class='form-group'>
+						<label class='control-label'>Município fato</label>
+						<select class='form-control' id='municipio' name='municipio'/>
+							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
+								<?php foreach($listaMunicipios as $municipio){ ?>
+									<option value="<?php echo $municipio['ID'] ?>"><?php echo $municipio['DS_NOME'] ?></option> 
 								<?php } ?>
 						</select>
 					</div>  

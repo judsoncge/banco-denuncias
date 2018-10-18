@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/model/Model.php';
 
 class DenunciasModel extends Model{
 
+	private $servidor;
 	private $tipo;
 	private $nome;
 	private $CPF;
@@ -17,6 +18,10 @@ class DenunciasModel extends Model{
 	private $dataRegistro;
 	private $processo;
 	private $numero;
+	
+	public function setServidor($servidor){
+		$this->servidor = $servidor;
+	}
 	
 	public function setTipo($tipo){
 		$this->tipo = $tipo;
@@ -72,6 +77,15 @@ class DenunciasModel extends Model{
 	
 	public function cadastrar(){
 		
+		
+		$nome = ($this->nome == '') ? '' : $this->nome;
+		$CPF = ($this->CPF == '') ? '' : $this->CPF;
+		$email = ($this->email == '') ? '' : $this->email;
+		$telefone = ($this->telefone == '') ? '' : $this->telefone;
+		$orgao = ($this->orgao == '') ? 'null' : $this->orgao;
+		$municipio = ($this->municipio == '') ? 'null' : $this->municipio;
+		$envolvidos = ($this->envolvidos == '') ? '' : $this->envolvidos;
+		
 		$query = "
 		
 		INSERT INTO tb_denuncias 
@@ -82,7 +96,7 @@ class DenunciasModel extends Model{
 		VALUES 
 		
 		
-		('$this->tipo', ".$_SESSION['ID']." , $this->assunto, NULLIF(NULL, '$this->nome'), NULLIF(NULL, '$this->CPF'), NULLIF(NULL, '$this->email'), NULLIF(NULL, '$this->telefone'), '$this->descricao', NULLIF(NULL, '$this->orgao'), NULLIF(NULL, '$this->municipio'), NULLIF(NULL, '$this->envolvidos'), '$this->dataRegistro', '$this->processo')";
+		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('','$nome'), NULLIF('','$CPF'), NULLIF('','$email'), NULLIF('','$telefone'), '$this->descricao', $orgao, $municipio, NULLIF('','$envolvidos'), '$this->dataRegistro', '$this->processo')";
 		
 		$id = $this->executarQueryID($query);
 		
@@ -128,7 +142,7 @@ class DenunciasModel extends Model{
 		
 		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		
-		c.DS_NOME NOME_ORGAO_DENUNCIADO,
+		c.DS_ABREVIACAO NOME_ORGAO_DENUNCIADO,
 		
 		d.DS_NOME NOME_SERVIDOR,
 		
@@ -138,11 +152,65 @@ class DenunciasModel extends Model{
 		
 		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
 		
-		INNER JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
+		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
 		
 		INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
 		
-		INNER JOIN tb_servidores e ON a.ID_MUNICIPIO_FATO = e.ID 
+		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
+		
+		ORDER BY a.DT_REGISTRO_EOUV desc
+		
+		";
+		
+		$lista = $this->executarQueryLista($query);
+		
+		return $lista;
+		
+	}
+	
+	public function getDenunciasComFiltro(){
+		
+		$servidor = ($this->servidor == '%') ? '' : "AND (ID_SERVIDOR = $this->servidor)" ;
+		
+		$orgao = ($this->orgao == '%') ? '' : "AND (ID_ORGAO_DENUNCIADO = $this->orgao)" ;
+		
+		$municipio = ($this->municipio == '%') ? '' : "AND (ID_MUNICIPIO_FATO = $this->municipio)" ;
+		
+		$assunto = ($this->assunto == '%') ? '' : "AND (ID_ASSUNTO = $this->assunto)" ;
+		
+		$query = 
+		
+		"SELECT 
+		
+		a.ID, a.DS_TIPO, a.ID_SERVIDOR, 
+		
+		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
+		
+		c.DS_ABREVIACAO NOME_ORGAO_DENUNCIADO,
+		
+		d.DS_NOME NOME_SERVIDOR,
+		
+		e.DS_NOME NOME_MUNICIPIO
+		
+		FROM  tb_denuncias a
+		
+		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
+		
+		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
+		
+		INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
+		
+		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
+		
+		WHERE a.DS_TIPO LIKE '$this->tipo'
+		
+		$servidor
+	   
+    	$orgao
+		
+		$municipio
+		
+		$assunto
 		
 		ORDER BY a.DT_REGISTRO_EOUV desc
 		
