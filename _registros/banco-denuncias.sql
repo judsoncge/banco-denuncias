@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Out-2018 às 18:46
+-- Generation Time: 18-Out-2018 às 18:11
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -206,13 +206,6 @@ CREATE TABLE `tb_denuncias` (
   `DS_COMENTARIOS_RESULTADO` varchar(100) DEFAULT NULL,
   `ID_UNIDADE_APURACAO` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_denuncias`
---
-
-INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `DS_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DT_RECEBIMENTO_COMPLEMENTO`, `DT_CADASTRO_COMPLEMENTO`, `DS_RESULTADO_TRIAGEM`, `DS_COMENTARIOS_RESULTADO`, `ID_UNIDADE_APURACAO`) VALUES
-(12, '12/20181015', 'ANÔNIMA', 1, 3, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\"><strong>Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado. Eu s&oacute; queria que s&oacute; fossem chamados de doutores somente quem tem o t&iacute;tulo de doutorado.&nbsp;</strong></p>', NULL, NULL, NULL, '2018-10-15', '01400 000005/2018', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -573,7 +566,7 @@ ALTER TABLE `tb_assuntos_denuncia`
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
