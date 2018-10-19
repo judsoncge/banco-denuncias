@@ -90,7 +90,7 @@ class DenunciasModel extends Model{
 		
 		INSERT INTO tb_denuncias 
 		
-		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, DS_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DS_NUMERO_PROCESSO_SEI) 
+		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, TX_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DS_NUMERO_PROCESSO_SEI) 
 		
 		
 		VALUES 
@@ -114,7 +114,7 @@ class DenunciasModel extends Model{
 	
 	public function editar(){
 		
-		$query = "UPDATE tb_arquivos SET DS_TIPO = '$this->tipo', ID_SERVIDOR_DESTINO = $this->servidorDestino WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = '$this->nome', DS_CPF_DENUNCIANTE = '$this->CPF' , DS_TELEFONE_DENUNCIANTE = '$this->telefone', DS_EMAIL_DENUNCIANTE = '$this->email' , TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = '$this->envolvidos' , DT_REGISTRO_EOUV = '$this->dataRegistro' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
 		
@@ -130,6 +130,38 @@ class DenunciasModel extends Model{
 		
 		return $resultado;
 
+	}
+	
+	public function getDadosID(){
+		
+		$query = "
+		
+		SELECT 
+		
+		a.ID, a.DS_TIPO, a.DS_NOME_DENUNCIANTE, a.DS_CPF_DENUNCIANTE, a.DS_EMAIL_DENUNCIANTE, a.DS_TELEFONE_DENUNCIANTE, a.ID_ASSUNTO, a.TX_DESCRICAO_FATO, a.ID_ORGAO_DENUNCIADO, a.ID_MUNICIPIO_FATO, a.DS_ENVOLVIDOS, a.DT_REGISTRO_EOUV, a.DS_NUMERO_PROCESSO_SEI,
+		
+		b.DS_NOME_MACRO NOME_MACRO_ASSUNTO, b.DS_NOME_MICRO NOME_MICRO_ASSUNTO,
+		
+		c.DS_ABREVIACAO ABREVIACAO_ORGAO, c.DS_NOME NOME_ORGAO,
+		
+		d.DS_NOME NOME_MUNICIPIO
+		
+		FROM tb_denuncias a
+		
+		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
+		
+		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID
+		
+		LEFT JOIN tb_municipios d ON a.ID_MUNICIPIO_FATO = d.ID 
+
+		WHERE a.ID = '$this->id'
+		
+		";
+				
+		$lista = $this->executarQueryListaID($query);
+		
+		return $lista;
+		
 	}
 
 	public function getDenuncias(){

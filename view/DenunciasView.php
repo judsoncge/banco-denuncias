@@ -36,7 +36,7 @@ class DenunciasView extends View{
         
 		<?php   
         
-		}elseif($this->conteudo == 'cadastrar'){ ?>
+		}elseif($this->conteudo == 'cadastrar' or $this->conteudo == 'editar'){ ?>
 		
 			<script src='/view/_libs/tinymce/tinymce.min.js'></script>
 		
@@ -219,6 +219,11 @@ class DenunciasView extends View{
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
+								<a href="/denuncias/editar/<?php echo $denuncia['ID'] ?>">
+									<button type='button' class='btn btn-secondary btn-sm' title='Editar'>
+										<i class='fa fa-pencil' aria-hidden='true'></i>
+									</button>
+								</a>
 							</td>				
 						</tr>
 				  <?php } ?>		
@@ -373,8 +378,7 @@ class DenunciasView extends View{
 		
 		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
 		
-		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];
-		
+		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];		
 		
 		if($this->conteudo == 'editar'){
 			
@@ -383,6 +387,8 @@ class DenunciasView extends View{
 			$nomeBotao = 'Editar';
 			$valueTipo = $listaDados['DS_TIPO'];
 			$nomeTipo = $listaDados['DS_TIPO'];
+			$camposDenunciante = "value = '' disabled";
+			
 	
 		}else{
 			
@@ -414,25 +420,46 @@ class DenunciasView extends View{
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>Nome do denunciante*</label>
-						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
+						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' required
+						
+						<?php 
+							if($this->conteudo == 'editar'){
+								echo $camposDenunciante ; 
+							}else{
+								echo "value = '".$listaDados['DS_NOME_DENUNCIANTE']."'";
+							} 
+						?>
+						
+						
+						/>
 					</div> 
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>CPF do denunciante</label>
-						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_CPF'];} ?>'/>				  
+						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' <?php if($this->conteudo == 'editar'){echo $camposDenunciante ; }else{echo 'value = '.$listaDados['DS_CPF_DENUNCIANTE'];} ?> />				  
 					</div>				
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>E-mail do denunciante</label>
-						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_EMAIL'];} ?>'/>				  
+						<input class='form-control' id='email' name='email' placeholder='Digite o e-mail' type='email' 
+
+						<?php 
+							if($this->conteudo == 'editar'){
+								echo $camposDenunciante ; 
+							}else{
+								echo "value = '".$listaDados['DS_EMAIL_DENUNCIANTE']."'";
+							} 
+						?>
+
+						/>				  
 					</div>				
 				</div>
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>Telefone do denunciante</label>
-						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>'  />				  
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' <?php if($this->conteudo == 'editar'){echo $camposDenunciante ; }else{echo 'value = '.$listaDados['DS_TELEFONE_DENUNCIANTE'];} ?> />				  
 					</div>				
 				</div>
 			</div>	
@@ -442,7 +469,7 @@ class DenunciasView extends View{
 					<div class='form-group'>
 						<label class='control-label'>Assunto*</label>
 						<select class='form-control' id='assunto' name='assunto' required />
-							<option value="<?php if($this->conteudo=='edicao'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ASSUNTO'];}else{echo 'Selecione';} ?></option>
+							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MACRO_ASSUNTO'] . " - " . $listaDados['NOME_MICRO_ASSUNTO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaAssuntos as $assunto){ ?>
 									<option value="<?php echo $assunto['ID'] ?>"><?php echo $assunto['DS_NOME_MACRO'] . ' - '.  $assunto['DS_NOME_MICRO'] ?></option> 
 								<?php } ?>
@@ -454,7 +481,7 @@ class DenunciasView extends View{
 				<div class='col-md-12'>
 					<div class='form-group'>
 						<label class='control-label'>Descrição do fato*</label>
-						<textarea class='form-control' id='descricao' name='descricao' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_NOTICIA'];}else{echo "Seu texto aqui";} ?></textarea>
+						<textarea class='form-control' id='descricao' name='descricao' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_DESCRICAO_FATO'];}else{echo "Seu texto aqui";} ?></textarea>
 					</div>  
 				</div>
 			</div>			
@@ -463,7 +490,7 @@ class DenunciasView extends View{
 					<div class='form-group'>
 						<label class='control-label'>Órgão fato</label>
 						<select class='form-control' id='orgao' name='orgao'/>
-							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
+							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_DENUNCIADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['ABREVIACAO_ORGAO'] . " - " . $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
 									<option value="<?php echo $orgao['ID'] ?>"><?php echo $orgao['DS_ABREVIACAO'] . " - " . $orgao['DS_NOME'] ?></option> 
 								<?php } ?>
@@ -474,7 +501,7 @@ class DenunciasView extends View{
 					<div class='form-group'>
 						<label class='control-label'>Município fato</label>
 						<select class='form-control' id='municipio' name='municipio'/>
-							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_INTERESSADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
+							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_MUNICIPIO_FATO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MUNICIPIO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaMunicipios as $municipio){ ?>
 									<option value="<?php echo $municipio['ID'] ?>"><?php echo $municipio['DS_NOME'] ?></option> 
 								<?php } ?>
@@ -486,7 +513,7 @@ class DenunciasView extends View{
 				<div class='col-md-12'>
 					<div class='form-group'>
 						<label class='control-label'>Envolvidos</label>
-						<input class='form-control' id='envolvidos' name='envolvidos' placeholder='Digite os envolvidos (máx 100 caracteres)' type='text' maxlength='100' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>"/>
+						<input class='form-control' id='envolvidos' name='envolvidos' placeholder='Digite os envolvidos (máx 100 caracteres)' type='text' maxlength='100' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_ENVOLVIDOS'];} ?>"/>
 					</div>  
 				</div>
 			</div>
@@ -494,13 +521,13 @@ class DenunciasView extends View{
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Data de registro no e-OUV*</label>
-						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
+						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
 					</div>  
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Número do Processo vinculado cadastrado no SEI*</label>
-						<input class='form-control' id='processo' name='processo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_INTERESSADO'];} ?>" required />
+						<input class='form-control' id='processo' name='processo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_NUMERO_PROCESSO_SEI'];} ?>" required />
 					</div>  
 				</div>
 			</div>
