@@ -9,6 +9,7 @@ class ServidoresModel extends Model{
 	private $email;
 	private $telefone;
 	private $orgao;
+	private $unidadeApuracao;
 	private $foto;	
 	private $tipo;
 	private $cpf;
@@ -33,6 +34,10 @@ class ServidoresModel extends Model{
 	
 	public function setOrgao($orgao){
 		$this->orgao = $orgao;
+	}
+	
+	public function setUnidadeApuracao($unidadeApuracao){
+		$this->unidadeApuracao = $unidadeApuracao;
 	}
 	
 	public function setNome($nome){
@@ -65,7 +70,7 @@ class ServidoresModel extends Model{
 		
 		SELECT 
 		
-		ID, DS_NOME, ID_ORGAO, DS_FOTO, DS_TIPO, DS_CPF
+		ID, DS_NOME, ID_ORGAO, ID_UNIDADE_APURACAO, DS_FOTO, DS_TIPO, DS_CPF
 		
 		FROM tb_servidores
 		
@@ -111,13 +116,19 @@ class ServidoresModel extends Model{
 		
 		SELECT 
 		
-		s1.ID, s1.DS_NOME, s1.DS_MATRICULA, s1.DS_CPF, s1.DS_TELEFONE, s1.DS_EMAIL, s1.DS_TIPO, s2.ID ID_ORGAO, s2.DS_NOME NOME_ORGAO
+		s1.ID, s1.DS_NOME, s1.DS_MATRICULA, s1.DS_CPF, s1.DS_TELEFONE, s1.DS_EMAIL, s1.DS_TIPO, 
+		
+		s2.ID ID_ORGAO, s2.DS_NOME NOME_ORGAO,	
+		
+		s3.ID ID_UNIDADE_APURACAO, s3.DS_NOME NOME_UNIDADE
 		
 		FROM tb_servidores s1
 		
 		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID 
+		
+		LEFT JOIN tb_unidades_apuracao s3 ON s1.ID_UNIDADE_APURACAO = s3.ID 
 
-		WHERE s1.ID = '$this->id'
+		WHERE s1.ID = $this->id
 		
 		";
 		
@@ -141,7 +152,9 @@ class ServidoresModel extends Model{
 		
 		}else{
 			
-			$query = "INSERT INTO tb_servidores (DS_NOME, DS_MATRICULA, DS_EMAIL, DS_TELEFONE, ID_ORGAO, DS_TIPO, DS_CPF) VALUES ('$this->nome', '$this->matricula', '$this->email','$this->telefone', '$this->orgao', '$this->tipo', '$this->cpf')";
+			$unidadeApuracao = ($this->unidadeApuracao == '') ? 'null' : $this->unidadeApuracao;
+			
+			$query = "INSERT INTO tb_servidores (DS_NOME, DS_MATRICULA, DS_EMAIL, DS_TELEFONE, ID_ORGAO, ID_UNIDADE_APURACAO, DS_TIPO, DS_CPF) VALUES ('$this->nome', '$this->matricula', '$this->email','$this->telefone', '$this->orgao', $unidadeApuracao, '$this->tipo', '$this->cpf')";
 			
 			$resultado = $this->executarQuery($query);
 			
@@ -180,7 +193,7 @@ class ServidoresModel extends Model{
 			
 		}			
 		
-		$query  = "UPDATE tb_servidores SET  DS_NOME = '$this->nome', DS_MATRICULA = '$this->matricula', DS_EMAIL = '$this->email', DS_TELEFONE = '$this->telefone', ID_ORGAO = $this->orgao, DS_TIPO = '$this->tipo', DS_CPF = '$this->cpf' WHERE ID = $this->id";
+		$query  = "UPDATE tb_servidores SET  DS_NOME = '$this->nome', DS_MATRICULA = '$this->matricula', DS_EMAIL = '$this->email', DS_TELEFONE = '$this->telefone', ID_ORGAO = $this->orgao, ID_UNIDADE_APURACAO = $this->unidadeApuracao, DS_TIPO = '$this->tipo', DS_CPF = '$this->cpf' WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		

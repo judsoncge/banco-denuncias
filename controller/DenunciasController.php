@@ -107,6 +107,8 @@ class DenunciasController extends Controller{
 		
 		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
 		
+		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
+		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
 		
 		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO_PROCESSO_SEI'] . ' - ' . $listaDados['NOME_MACRO_ASSUNTO'] .' > TRIAGEM');
@@ -115,6 +117,36 @@ class DenunciasController extends Controller{
 		
 		$this->denunciasView->carregar();
 	}
+	
+	public function triagem(){
+		
+		$id = $_GET['id'];
+		
+		$restrito = $_POST['restrito'];
+		$responsavel = $_POST['responsavel'];
+		$relevancia = $_POST['relevancia'];
+		$termino = $_POST['termino'];
+		$resultado = $_POST['resultado'];
+		
+		$anexos = (isset($_FILES['anexos'])) ? $_FILES['anexos'] : NULL;
+		$tipos = (isset($_POST['tipos'])) ? $_POST['tipos'] : NULL;
+		$comentarios = (isset($_POST['comentarios'])) ? $_POST['comentarios'] : NULL;
+		$datas = (isset($_POST['datas'])) ? $_POST['datas'] : NULL;
+		
+		$palavras = (isset($_POST['palavras'])) ? $_POST['palavras'] : NULL;
+		
+		$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->triagem();
+		
+		$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
+		
+		if($_SESSION['RESULTADO_OPERACAO']){
+			Header('Location: /denuncias/listar/0');
+		}else{
+			Header("Location: /denuncias/triagem/$id");
+		}
+	
+	}
+	
 	
 	public function cadastrar(){
 		

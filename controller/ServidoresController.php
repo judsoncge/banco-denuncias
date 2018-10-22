@@ -20,6 +20,8 @@ class ServidoresController extends Controller{
 	public function carregarCadastro(){
 		
 		$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
+		
+		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
 	
 		$this->servidoresView->setTitulo('SERVIDORES > CADASTRAR');
 		
@@ -56,6 +58,8 @@ class ServidoresController extends Controller{
 		$email = $_POST['email'];
 		
 		$orgao = $_POST['orgao'];
+		
+		$unidadeApuracao = $_POST['unidadeApuracao'];
 		
 		$tipo = $_POST['tipo'];
 		
@@ -107,6 +111,8 @@ class ServidoresController extends Controller{
 				
 				$orgao = $_POST['orgao'];
 				
+				$unidadeApuracao = $_POST['unidadeApuracao'];
+				
 				$tipo = $_POST['tipo'];
 				
 				$this->servidoresModel->setNome($nome);
@@ -120,6 +126,8 @@ class ServidoresController extends Controller{
 				$this->servidoresModel->setEmail($email);
 				
 				$this->servidoresModel->setOrgao($orgao);
+				
+				$this->servidoresModel->setUnidadeApuracao($unidadeApuracao);
 				
 				$this->servidoresModel->setTipo($tipo);
 				
@@ -196,6 +204,8 @@ class ServidoresController extends Controller{
 				}else{
 					
 					$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
+					
+					$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
 				
 					$this->servidoresView->setTitulo("SERVIDORES > ".strtoupper($listaDados['DS_NOME'])." > EDITAR");
 					

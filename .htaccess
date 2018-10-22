@@ -30,3 +30,4 @@ RewriteRule ^denuncias/listar/1                   /index.php?acao=listar&modulo=
 RewriteRule ^denuncias/editar/(.*)                /index.php?acao=carregarEdicao&modulo=Denuncias&id=$1
 RewriteRule ^editar/denuncia/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
 RewriteRule ^denuncias/triagem/(.*)               /index.php?acao=carregarTriagem&modulo=Denuncias&id=$1
+RewriteRule ^triagem/(.*)                         /index.php?acao=triagem&modulo=Denuncias&id=$1

@@ -107,6 +107,8 @@ class ServidoresView extends View{
 		
 		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];
 		
+		$listaUnidadesApuracao = $_REQUEST['LISTA_UNIDADES_APURACAO'];
+		
 		
 		if($this->conteudo == 'editar'){
 			
@@ -114,6 +116,8 @@ class ServidoresView extends View{
 			$action = "/editar/servidor/info/".$listaDados['ID']."/";
 			$idOrgao = $listaDados['ID_ORGAO'];
 			$nomeOrgao = $listaDados['NOME_ORGAO'];
+			$idUnidade = $listaDados['ID_UNIDADE_APURACAO'];
+			$nomeUnidade = $listaDados['NOME_UNIDADE'];
 			$valueTipo = $listaDados['DS_TIPO'];
 			$nomeTipo = $listaDados['DS_TIPO'];
 			$nomeBotao = 'Editar';
@@ -123,6 +127,8 @@ class ServidoresView extends View{
 			$action = '/cadastrar/servidor/';
 			$idOrgao = '';
 			$nomeOrgao = 'Selecione';
+			$idUnidade = '';
+			$nomeUnidade = 'Selecione';
 			$valueTipo = '';
 			$nomeTipo = 'Selecione';
 			$nomeBotao = 'Cadastrar';
@@ -133,16 +139,32 @@ class ServidoresView extends View{
 		
 		<form name='cadastro' method='POST' action='<?php echo $action; ?>' enctype='multipart/form-data'> 
 			<div class='row'>
-				<div class='col-md-6'>
+				<div class='col-md-4'>
 					<div class='form-group'>
 						<label class='control-label'>Nome</label>
 						<input class='form-control' id='nome' name='nome' placeholder='Digite o nome (somente letras)' type='text' maxlength='50' minlength='4' pattern='[a*A*-z*Z*]*+' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_NOME'];} ?>' required />
 					</div> 
 				</div>
-				<div class='col-md-6'>
+				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label'>Matrícula</label>
-						<input class='form-control' id='matricula' name='matricula' placeholder='Digite a matrícula' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
+						<label class='control-label'>Órgão</label>
+						<select class='form-control' id='orgao' name='orgao' required />
+							<option value='<?php echo $idOrgao ?>'><?php echo $nomeOrgao ?></option>
+							<?php foreach($listaOrgaos as $orgao){ ?>
+								<option value='<?php echo $orgao['ID'] ?>'><?php echo $orgao['DS_NOME']; ?></option>
+							<?php } ?>
+						</select>
+					</div> 
+				</div>
+				<div class='col-md-4'>
+					<div class='form-group'>
+						<label class='control-label'>Unidade de apuração</label>
+						<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' required />
+							<option value='<?php echo $idUnidade ?>'><?php echo $nomeUnidade ?></option>
+							<?php foreach($listaUnidadesApuracao as $unidadeApuracao){ ?>
+								<option value='<?php echo $unidadeApuracao['ID'] ?>'><?php echo $unidadeApuracao['ABREVIACAO_ORGAO'] . ' - ' .$unidadeApuracao['DS_ABREVIACAO'] . ' - ' . $unidadeApuracao['DS_NOME'] ; ?></option>
+							<?php } ?>
+						</select>
 					</div> 
 				</div>
 			</div>
@@ -169,16 +191,10 @@ class ServidoresView extends View{
 			<div class='row'> 
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Órgão</label>
-						<select class='form-control' id='orgao' name='orgao' required />
-							<option value='<?php echo $idOrgao ?>'><?php echo $nomeOrgao ?></option>
-							<?php foreach($listaOrgaos as $orgao){ ?>
-								<option value='<?php echo $orgao['ID'] ?>'><?php echo $orgao['DS_NOME']; ?></option>
-							<?php } ?>
-						</select>
+						<label class='control-label'>Matrícula</label>
+						<input class='form-control' id='matricula' name='matricula' placeholder='Digite a matrícula' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_MATRICULA'];} ?>' required />
 					</div> 
-				</div>
-				
+				</div>				
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Tipo</label>

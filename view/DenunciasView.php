@@ -645,24 +645,31 @@ class DenunciasView extends View{
 		
 		$listaServidores = $_REQUEST['LISTA_SERVIDORES'];
 		
-?>
+		$listaUnidadesApuracao = $_REQUEST['LISTA_UNIDADES_APURACAO'];
 		
-	<form name='cadastro' method='POST' action="/editar/denuncia/triagem/<?php echo $listaDados['ID'] ?>/" enctype='multipart/form-data'> 
+?>	
+	<div class='well' style='height:70px;'>
+		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
+		
+		<a href="/editar/denuncia/concluir/<?php echo $listaDados['ID'] ?>"><button type='submit' class='btn btn-sm btn-info pull-right' name='submit' value='Send' id='botao-dar-saida'>Concluir Triagem</button></a>
+	</div>
+	<hr>
+	<form name='cadastro' method='POST' action="/triagem/<?php echo $listaDados['ID'] ?>/" enctype='multipart/form-data'> 
 		<div class='row'>
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Denúncia de acesso restrito</label>
-					<select class='form-control' id='restrito' name='restrito' required />
+					<select class='form-control' id='restrito' name='restrito' />
 						<option value=''>Selecione</option>
-						<option value='SIM'>SIM</option>
-						<option value='NÃO'>NÃO</option>
+						<option value='1'>SIM</option>
+						<option value='0'>NÃO</option>
 					</select>
 				</div> 
 			</div>
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Responsável pela triagem</label>
-					<select class='form-control' id='responsavel' name='responsavel' required />
+					<select class='form-control' id='responsavel' name='responsavel' />
 						<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MACRO_ASSUNTO'] . " - " . $listaDados['NOME_MICRO_ASSUNTO'];}else{echo 'Selecione';} ?></option>
 							<?php foreach($listaServidores as $servidor){ ?>
 								<option value="<?php echo $servidor['ID'] ?>"><?php echo $servidor['DS_NOME'] ?></option> 
@@ -673,17 +680,17 @@ class DenunciasView extends View{
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Grau de relevância do fato</label>
-					<select class='form-control' id='relevancia' name='relevancia' required />
+					<select class='form-control' id='relevancia' name='relevancia' />
 						<option value=''>Selecione</option>
-						<option value='SIM'>SIM</option>
-						<option value='NÃO'>NÃO</option>
+						<option value='1'>SIM</option>
+						<option value='0'>NÃO</option>
 					</select>
 				</div> 
 			</div>
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Previsão para término da triagem</label>
-					<input class='form-control' id='termino' name='termino' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
+					<input class='form-control' id='termino' name='termino' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" />
 				</div>  
 			</div>
 		</div>
@@ -692,10 +699,21 @@ class DenunciasView extends View{
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Resultado da triagem</label>
-					<select class='form-control' id='resultado' name='resultado' required />
+					<select class='form-control' id='resultado' name='resultado'/>
 						<option value=''>Selecione</option>
 						<option value='APTA'>APTA</option>
 						<option value='NÃO'>NÃO</option>
+					</select>
+				</div> 
+			</div>
+			<div class='col-md-4'>
+				<div class='form-group'>
+					<label class='control-label'>Unidade de apuração</label>
+					<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' required />
+						<option value=''>Selecione</option>
+						<?php foreach($listaUnidadesApuracao as $unidadeApuracao){ ?>
+							<option value='<?php echo $unidadeApuracao['ID'] ?>'><?php echo $unidadeApuracao['ABREVIACAO_ORGAO'] . ' - ' .$unidadeApuracao['DS_ABREVIACAO'] . ' - ' . $unidadeApuracao['DS_NOME'] ; ?></option>
+						<?php } ?>
 					</select>
 				</div> 
 			</div>
@@ -729,18 +747,11 @@ class DenunciasView extends View{
 		<hr>
 		<div class='row' id='cad-button'>
 			<div class='col-md-12'>
-				<button type='submit' class='btn btn-default' name='submit' value='Send' id='submit'>Triagem</button>
+				<button type='submit' class='btn btn-default' name='submit' value='Send' id='submit'>Salvar Triagem</button>
 			</div>
 		</div>
 	</form>
-		
-		
-		
-		
-		
-		
-		
-		
+
 <?php	
 		
 	}

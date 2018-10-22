@@ -13,6 +13,26 @@ class OrgaosModel extends Model{
 		return $listaOrgaos;
 	
 	}
+	
+	public function getUnidadesApuracao(){
+		
+		$query = 'SELECT 
+		
+		a.*,
+		
+		b.DS_ABREVIACAO ABREVIACAO_ORGAO
+		
+		FROM tb_unidades_apuracao a
+		
+		INNER JOIN tb_orgaos b ON a.ID_ORGAO = b.ID		
+		
+		ORDER BY b.DS_NOME';
+		
+		$listaUnidades = $this->executarQueryLista($query);
+		
+		return $listaUnidades;
+	
+	}
 
 }	
 

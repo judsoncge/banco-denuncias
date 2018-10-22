@@ -112,6 +112,17 @@ class DenunciasModel extends Model{
 		
 	}
 	
+	public function triagem(){
+		
+		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = '$this->restrito', ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = '$this->relevancia', DT_TERMINO_TRIAGEM = '$this->termino', DS_RESULTADO_TRIAGEM = '$this->resultado', ID_UNIDADE_APURACAO = $this->unidade WHERE ID = $this->id";
+		
+		
+		
+		
+		
+		
+	}
+	
 	public function editar(){
 		
 		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = '$this->nome', DS_CPF_DENUNCIANTE = '$this->CPF' , DS_TELEFONE_DENUNCIANTE = '$this->telefone', DS_EMAIL_DENUNCIANTE = '$this->email' , TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = '$this->envolvidos' , DT_REGISTRO_EOUV = '$this->dataRegistro' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
