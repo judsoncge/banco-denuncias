@@ -28,4 +28,5 @@ RewriteRule ^cadastrar/denuncia               	  /index.php?acao=cadastrar&modul
 RewriteRule ^denuncias/listar/0                   /index.php?acao=listar&modulo=Denuncias&filtro=0
 RewriteRule ^denuncias/listar/1                   /index.php?acao=listar&modulo=Denuncias&filtro=1
 RewriteRule ^denuncias/editar/(.*)                /index.php?acao=carregarEdicao&modulo=Denuncias&id=$1
-RewriteRule ^editar/denuncia/(.*)/(.*)/            /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
+RewriteRule ^editar/denuncia/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
+RewriteRule ^denuncias/triagem/(.*)               /index.php?acao=carregarTriagem&modulo=Denuncias&id=$1

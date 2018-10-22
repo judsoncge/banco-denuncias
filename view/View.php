@@ -144,11 +144,6 @@ class View{
 								<a href='/denuncias/listar/0'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Listar</a>
 							</li>
 						
-						
-						<li id='triagem'>
-							<a href='/triagem/'><i class='fa fa-exchange icone-menu' aria-hidden='true'></i>Triagem</a>
-						</li>
-						
 						<li id='andamento'>
 							<a href='/andamento/'><i class='fa fa-forward icone-menu' aria-hidden='true'></i>Andamento</a>
 						</li>

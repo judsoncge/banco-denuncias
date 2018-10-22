@@ -101,6 +101,21 @@ class DenunciasController extends Controller{
 		$this->denunciasView->carregar();
 	}
 	
+	public function carregarTriagem(){
+		
+		$this->denunciasModel->setID($_GET['id']);
+		
+		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
+		
+		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
+		
+		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO_PROCESSO_SEI'] . ' - ' . $listaDados['NOME_MACRO_ASSUNTO'] .' > TRIAGEM');
+		
+		$this->denunciasView->setConteudo('triagem');
+		
+		$this->denunciasView->carregar();
+	}
+	
 	public function cadastrar(){
 		
 		$tipo         =  $_POST['tipo'];

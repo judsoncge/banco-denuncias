@@ -30,9 +30,100 @@ class DenunciasView extends View{
 
         <?php			
 		
-		}elseif($this->conteudo == 'relatorio'){ ?>
+		}elseif($this->conteudo == 'triagem'){ ?>
 		
-			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>	
+			<script type='text/javascript'>
+		
+				var id_row = 1;
+				var id = 1;
+				
+				
+				function adicionarAnexo(){
+					
+					var newdiv = document.createElement('div');
+					
+					newdiv.setAttribute("name", "campos"+id);
+					
+					newdiv.setAttribute("id", id);
+					
+					newdiv.innerHTML = 
+					"<div class='row'>"+
+						"<div class='col-md-3'>"+
+							"Selecione a anexo: <a href='javascript:void(0)' title='remover' onclick='removerAnexo("+id+");'><i class='fa fa-times' aria-hidden='true'></i></a><br>"+
+								"<input type='file' id='selecao-arquivo' name='anexos[]' accept='.jpg, .jpeg, .pjpeg, .gif, .png' id='anexo' required />"+	
+						"</div>"+
+					"</div>"+
+					"<div class='row'>"+
+						"<div class='col-md-4'>"+
+							"Tipo:<br>"+
+							"<select id='tipos' name='tipos[]' required>:"+
+								"<option value=''>Selecione</option>"+	
+								"<option value='COMPLEMENTO DO DENUNCIANTE'>COMPLEMENTO DO DENUNCIANTE</option>"+	
+								"<option value='RESULTADO DE TRIAGEM'>RESULTADO DE TRIAGEM</option>"+	
+							"</select>"+	
+						"</div>"+
+						"<div class='col-md-4'>"+
+							"Comentários:<br>"+
+							"<input class='form-control' id='comentarios' name='comentarios[]' type='text' maxlength='100' placeholder='Máx. 100 caracteres'/>"+	
+						"</div>"+
+						"<div class='col-md-4'>"+
+							"Data de recebimento no eOUV:<br>"+
+							"<input class='form-control' id='datas' name='datas[]' type='date' />"+	
+						"</div>"+
+					"</div><hr>";
+					
+					var nova_anexo = document.getElementById("adicionarAnexo");
+
+					nova_anexo.appendChild(newdiv);
+					
+					id++;
+				}
+				
+				
+				function removerAnexo(id){
+					
+					document.getElementById(id).innerHTML=""; 
+					
+				}
+				
+			</script>
+			
+			<script type='text/javascript'>
+		
+				var idPalavra_row = 1;
+				var idPalavra = 1;
+				
+				
+				function adicionarPalavrasChave(){
+					
+					var newdiv = document.createElement('div');
+					
+					newdiv.setAttribute("name", "campos"+idPalavra);
+					
+					newdiv.setAttribute("id", idPalavra);
+					
+					newdiv.innerHTML = 
+					"<div class='row'>"+
+						"<div class='col-md-6'>"+
+							"<input class='form-control' id='palavras' name='palavras[]' type='text' maxlength='20' placeholder='Máx. 20 caracteres'/>"+	
+						"</div><a href='javascript:void(0)' title='remover' onclick='removerPalavraChave("+idPalavra+");'><i class='fa fa-times' aria-hidden='true'></i></a><br>"+
+					"</div><hr>";
+					
+					var nova_palavraChave = document.getElementById("adicionarPalavraChave");
+
+					nova_palavraChave.appendChild(newdiv);
+					
+					idPalavra++;
+				}
+				
+				
+				function removerPalavraChave(idPalavra){
+					
+					document.getElementById(idPalavra).innerHTML=""; 
+					
+				}
+				
+			</script>
         
 		<?php   
         
@@ -215,10 +306,17 @@ class DenunciasView extends View{
 							
 							<td>	
 								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
-									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar'>
+									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar Informações'>
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
+								
+								<a href="/denuncias/triagem/<?php echo $denuncia['ID'] ?>">
+									<button type='button' class='btn btn-secondary btn-sm' title='Fazer Triagem'>
+										<i class='fa fa-exchange' aria-hidden='true'></i>
+									</button>
+								</a>
+								
 								<a href="/denuncias/editar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Editar'>
 										<i class='fa fa-pencil' aria-hidden='true'></i>
@@ -539,6 +637,112 @@ class DenunciasView extends View{
 		</form>
 		
 <?php	
+	}
+	
+	public function triagem(){
+		
+		$listaDados = $_REQUEST['DADOS_DENUNCIA'];
+		
+		$listaServidores = $_REQUEST['LISTA_SERVIDORES'];
+		
+?>
+		
+	<form name='cadastro' method='POST' action="/editar/denuncia/triagem/<?php echo $listaDados['ID'] ?>/" enctype='multipart/form-data'> 
+		<div class='row'>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label class='control-label'>Denúncia de acesso restrito</label>
+					<select class='form-control' id='restrito' name='restrito' required />
+						<option value=''>Selecione</option>
+						<option value='SIM'>SIM</option>
+						<option value='NÃO'>NÃO</option>
+					</select>
+				</div> 
+			</div>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label class='control-label'>Responsável pela triagem</label>
+					<select class='form-control' id='responsavel' name='responsavel' required />
+						<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MACRO_ASSUNTO'] . " - " . $listaDados['NOME_MICRO_ASSUNTO'];}else{echo 'Selecione';} ?></option>
+							<?php foreach($listaServidores as $servidor){ ?>
+								<option value="<?php echo $servidor['ID'] ?>"><?php echo $servidor['DS_NOME'] ?></option> 
+							<?php } ?>
+					</select>
+				</div>  
+			</div>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label class='control-label'>Grau de relevância do fato</label>
+					<select class='form-control' id='relevancia' name='relevancia' required />
+						<option value=''>Selecione</option>
+						<option value='SIM'>SIM</option>
+						<option value='NÃO'>NÃO</option>
+					</select>
+				</div> 
+			</div>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label class='control-label'>Previsão para término da triagem</label>
+					<input class='form-control' id='termino' name='termino' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
+				</div>  
+			</div>
+		</div>
+		<hr>
+		<div class='row'>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label class='control-label'>Resultado da triagem</label>
+					<select class='form-control' id='resultado' name='resultado' required />
+						<option value=''>Selecione</option>
+						<option value='APTA'>APTA</option>
+						<option value='NÃO'>NÃO</option>
+					</select>
+				</div> 
+			</div>
+		</div>
+		<hr>
+		<div class='row'>	
+			<div class='col-md-6'>
+				<label class='control-label' for='exampleInputEmail1'>Adicionar anexos</label>
+				<a href='javascript:void(0)' onclick='adicionarAnexo()'>
+					<i class='fa fa-plus-circle' aria-hidden='true'></i>
+				</a>
+			</div>
+		</div>
+		
+		<div id='adicionarAnexo'>
+
+		</div>
+		<hr>
+		<div class='row'>	
+			<div class='col-md-6'>
+				<label class='control-label' for='exampleInputEmail1'>Adicionar palavras-chave</label>
+				<a href='javascript:void(0)' onclick='adicionarPalavrasChave()'>
+					<i class='fa fa-plus-circle' aria-hidden='true'></i>
+				</a>
+			</div>
+		</div>
+		
+		<div id='adicionarPalavraChave'>
+
+		</div>
+		<hr>
+		<div class='row' id='cad-button'>
+			<div class='col-md-12'>
+				<button type='submit' class='btn btn-default' name='submit' value='Send' id='submit'>Triagem</button>
+			</div>
+		</div>
+	</form>
+		
+		
+		
+		
+		
+		
+		
+		
+<?php	
+		
 	}
 	
 	
