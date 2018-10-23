@@ -311,17 +311,20 @@ class DenunciasView extends View{
 									</button>
 								</a>
 								
-								<a href="/denuncias/triagem/<?php echo $denuncia['ID'] ?>">
-									<button type='button' class='btn btn-secondary btn-sm' title='Fazer Triagem'>
-										<i class='fa fa-exchange' aria-hidden='true'></i>
-									</button>
-								</a>
+								<?php if(!$denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
+									<a href="/denuncias/triagem/<?php echo $denuncia['ID'] ?>" >
+										<button type='button' class='btn btn-secondary btn-sm' title='Fazer Triagem'>
+											<i class='fa fa-exchange' aria-hidden='true'></i>
+										</button>
+									</a>
+								
 								
 								<a href="/denuncias/editar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Editar'>
 										<i class='fa fa-pencil' aria-hidden='true'></i>
 									</button>
 								</a>
+								<?php } ?>
 							</td>				
 						</tr>
 				  <?php } ?>		
@@ -651,26 +654,39 @@ class DenunciasView extends View{
 	<div class='well' style='height:70px;'>
 		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
 		
-		<a href="/editar/denuncia/concluir/<?php echo $listaDados['ID'] ?>"><button type='submit' class='btn btn-sm btn-info pull-right' name='submit' value='Send' id='botao-dar-saida'>Concluir Triagem</button></a>
+		<a href="/editar/denuncia/concluir/<?php echo $listaDados['ID'] ?>/"><button type='submit' class='btn btn-sm btn-info pull-right' name='submit' value='Send' id='botao-dar-saida'>Concluir Triagem</button></a>
 	</div>
 	<hr>
-	<form name='cadastro' method='POST' action="/triagem/<?php echo $listaDados['ID'] ?>/" enctype='multipart/form-data'> 
+	<form name='cadastro' method='POST' action="/triagem/<?php echo $listaDados['ID'] ?>" enctype='multipart/form-data'> 
 		<div class='row'>
 			<div class='col-md-3'>
+				<?php 
+					if($listaDados['BL_ACESSO_RESTRITO'] != NULL){
+						$interfaceRestrito = ($listaDados['BL_ACESSO_RESTRITO']) ? 'SIM' : 'NÃO';
+						$valueRestrito = ($listaDados['BL_ACESSO_RESTRITO']) ? 1 : 0;
+					}else{
+						$interfaceRestrito = 'Selecione';
+						$valueRestrito = ''; 
+					} 
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Denúncia de acesso restrito</label>
 					<select class='form-control' id='restrito' name='restrito' />
-						<option value=''>Selecione</option>
+						<option value='<?php echo $valueRestrito ?>'><?php echo $interfaceRestrito ?></option>
 						<option value='1'>SIM</option>
 						<option value='0'>NÃO</option>
 					</select>
 				</div> 
 			</div>
 			<div class='col-md-3'>
+				<?php 
+					$interfaceResponsavel = ($listaDados['ID_RESPONSAVEL_TRIAGEM'] != NULL) ? $listaDados['NOME_RESPONSAVEL_TRIAGEM'] : 'Selecione';
+					$valueResponsavel = ($listaDados['ID_RESPONSAVEL_TRIAGEM'] != NULL) ? $listaDados['ID_RESPONSAVEL_TRIAGEM'] : '';
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Responsável pela triagem</label>
 					<select class='form-control' id='responsavel' name='responsavel' />
-						<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ASSUNTO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MACRO_ASSUNTO'] . " - " . $listaDados['NOME_MICRO_ASSUNTO'];}else{echo 'Selecione';} ?></option>
+						<option value="<?php echo $valueResponsavel ?>"><?php echo $interfaceResponsavel ?></option>
 							<?php foreach($listaServidores as $servidor){ ?>
 								<option value="<?php echo $servidor['ID'] ?>"><?php echo $servidor['DS_NOME'] ?></option> 
 							<?php } ?>
@@ -678,39 +694,59 @@ class DenunciasView extends View{
 				</div>  
 			</div>
 			<div class='col-md-3'>
+				<?php 
+					if($listaDados['BL_RELEVANCIA'] != NULL){
+						$interfaceRelevancia = ($listaDados['BL_RELEVANCIA']) ? 'SIM' : 'NÃO';
+						$valueRelevancia = ($listaDados['BL_RELEVANCIA']) ? 1 : 0;
+					}else{
+						$interfaceRelevancia = 'Selecione';
+						$valueRelevancia = ''; 
+					} 
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Grau de relevância do fato</label>
 					<select class='form-control' id='relevancia' name='relevancia' />
-						<option value=''>Selecione</option>
+						<option value='<?php echo $valueRelevancia ?>'><?php echo $interfaceRelevancia ?></option>
 						<option value='1'>SIM</option>
 						<option value='0'>NÃO</option>
 					</select>
 				</div> 
 			</div>
 			<div class='col-md-3'>
+				<?php 
+					$data = ($listaDados['DT_TERMINO_TRIAGEM'] != NULL) ? $listaDados['DT_TERMINO_TRIAGEM'] : '';
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Previsão para término da triagem</label>
-					<input class='form-control' id='termino' name='termino' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" />
+					<input class='form-control' id='termino' name='termino' type='date' value="<?php echo $data ?>" />
 				</div>  
 			</div>
 		</div>
 		<hr>
 		<div class='row'>
 			<div class='col-md-3'>
+				<?php 
+					$interfaceResultado = ($listaDados['DS_RESULTADO_TRIAGEM'] != NULL) ? $listaDados['DS_RESULTADO_TRIAGEM'] : 'Selecione';
+					$valueResultado = ($listaDados['DS_RESULTADO_TRIAGEM'] != NULL) ? $listaDados['DS_RESULTADO_TRIAGEM'] : '';
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Resultado da triagem</label>
-					<select class='form-control' id='resultado' name='resultado'/>
-						<option value=''>Selecione</option>
+					<select class='form-control' id='resultado' name='resultado' required />
+						<option value='<?php $valueResultado ?>'><?php echo $interfaceResultado ?></option>
 						<option value='APTA'>APTA</option>
 						<option value='NÃO'>NÃO</option>
 					</select>
 				</div> 
 			</div>
 			<div class='col-md-4'>
+				<?php 
+					$interfaceUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ABREVIACAO_ORGAO'] . ' - ' . $listaDados['ABREVIACAO_UNIDADE'] . ' - ' . $listaDados['NOME_UNIDADE'] : 'Selecione';
+					$valueUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ID_UNIDADE_APURACAO'] : '';
+				?>
 				<div class='form-group'>
 					<label class='control-label'>Unidade de apuração</label>
 					<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' required />
-						<option value=''>Selecione</option>
+						<option value='<?php echo $valueUnidade ?>'><?php echo $interfaceUnidade ?></option>
 						<?php foreach($listaUnidadesApuracao as $unidadeApuracao){ ?>
 							<option value='<?php echo $unidadeApuracao['ID'] ?>'><?php echo $unidadeApuracao['ABREVIACAO_ORGAO'] . ' - ' .$unidadeApuracao['DS_ABREVIACAO'] . ' - ' . $unidadeApuracao['DS_NOME'] ; ?></option>
 						<?php } ?>

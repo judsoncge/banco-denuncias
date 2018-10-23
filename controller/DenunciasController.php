@@ -121,12 +121,13 @@ class DenunciasController extends Controller{
 	public function triagem(){
 		
 		$id = $_GET['id'];
-		
+
 		$restrito = $_POST['restrito'];
 		$responsavel = $_POST['responsavel'];
 		$relevancia = $_POST['relevancia'];
 		$termino = $_POST['termino'];
 		$resultado = $_POST['resultado'];
+		$unidadeApuracao = $_POST['unidadeApuracao'];
 		
 		$anexos = (isset($_FILES['anexos'])) ? $_FILES['anexos'] : NULL;
 		$tipos = (isset($_POST['tipos'])) ? $_POST['tipos'] : NULL;
@@ -134,6 +135,22 @@ class DenunciasController extends Controller{
 		$datas = (isset($_POST['datas'])) ? $_POST['datas'] : NULL;
 		
 		$palavras = (isset($_POST['palavras'])) ? $_POST['palavras'] : NULL;
+		
+		$this->denunciasModel->setRestrito($restrito);
+		$this->denunciasModel->setResponsavel($responsavel);
+		$this->denunciasModel->setRelevancia($relevancia);
+		$this->denunciasModel->setTermino($termino);
+		$this->denunciasModel->setResultado($resultado);
+		$this->denunciasModel->setUnidadeApuracao($unidadeApuracao);
+		
+		$this->denunciasModel->setAnexos($anexos);
+		$this->denunciasModel->setTipos($tipos);
+		$this->denunciasModel->setComentarios($comentarios);
+		$this->denunciasModel->setDatas($datas);
+		
+		$this->denunciasModel->setPalavras($palavras);
+		
+		$this->denunciasModel->setID($id);
 		
 		$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->triagem();
 		
@@ -228,6 +245,12 @@ class DenunciasController extends Controller{
 				$this->denunciasModel->setProcesso($processo);
 				
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->editar();
+						
+				break;
+				
+			case 'concluir':
+			
+				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->concluirTriagem();
 						
 				break;
 					
