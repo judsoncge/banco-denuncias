@@ -28,6 +28,8 @@ RewriteRule ^cadastrar/denuncia               	  /index.php?acao=cadastrar&modul
 RewriteRule ^denuncias/listar/0                   /index.php?acao=listar&modulo=Denuncias&filtro=0
 RewriteRule ^denuncias/listar/1                   /index.php?acao=listar&modulo=Denuncias&filtro=1
 RewriteRule ^denuncias/editar/(.*)                /index.php?acao=carregarEdicao&modulo=Denuncias&id=$1
+RewriteRule ^editar/denuncia/remover-anexo/(.*)/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=remover-anexo&id=$1&idAnexo=$2&nomeAnexo=$3
+RewriteRule ^editar/denuncia/remover-palavra-chave/(.*)          /index.php?acao=editar&modulo=Denuncias&operacao=remover-palavra-chave&idPalavra=$1
 RewriteRule ^editar/denuncia/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
 RewriteRule ^denuncias/triagem/(.*)               /index.php?acao=carregarTriagem&modulo=Denuncias&id=$1
 RewriteRule ^triagem/(.*)                         /index.php?acao=triagem&modulo=Denuncias&id=$1

@@ -109,6 +109,10 @@ class DenunciasController extends Controller{
 		
 		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
 		
+		$_REQUEST['LISTA_ANEXOS'] = $this->denunciasModel->getAnexos();
+		
+		$_REQUEST['LISTA_PALAVRAS_CHAVE'] = $this->denunciasModel->getPalavrasChave();
+		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
 		
 		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO_PROCESSO_SEI'] . ' - ' . $listaDados['NOME_MACRO_ASSUNTO'] .' > TRIAGEM');
@@ -252,6 +256,30 @@ class DenunciasController extends Controller{
 			
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->concluirTriagem();
 						
+				break;
+				
+			case 'remover-anexo':
+			
+				$idAnexo = $_GET['idAnexo'];
+				
+				$nomeAnexo = $_GET['nomeAnexo'];
+				
+				$this->denunciasModel->setIDAnexo($idAnexo);
+				
+				$this->denunciasModel->setNomeAnexo($nomeAnexo);
+			
+				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerAnexo();
+				
+				break;
+				
+			case 'remover-palavra-chave':
+			
+				$idPalavraChave = $_GET['idPalavra'];
+				
+				$this->denunciasModel->setIDPalavraChave($idPalavraChave);
+			
+				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerPalavraChave	();
+				
 				break;
 					
 		}

@@ -650,6 +650,10 @@ class DenunciasView extends View{
 		
 		$listaUnidadesApuracao = $_REQUEST['LISTA_UNIDADES_APURACAO'];
 		
+		$listaAnexos = $_REQUEST['LISTA_ANEXOS'];
+		
+		$listaPalavrasChave = $_REQUEST['LISTA_PALAVRAS_CHAVE'];
+		
 ?>	
 	<div class='well' style='height:70px;'>
 		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
@@ -732,15 +736,16 @@ class DenunciasView extends View{
 				<div class='form-group'>
 					<label class='control-label'>Resultado da triagem</label>
 					<select class='form-control' id='resultado' name='resultado' required />
-						<option value='<?php $valueResultado ?>'><?php echo $interfaceResultado ?></option>
+						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
 						<option value='APTA'>APTA</option>
 						<option value='NÃO'>NÃO</option>
 					</select>
 				</div> 
 			</div>
-			<div class='col-md-4'>
+			<div class='col-md-9'>
 				<?php 
 					$interfaceUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ABREVIACAO_ORGAO'] . ' - ' . $listaDados['ABREVIACAO_UNIDADE'] . ' - ' . $listaDados['NOME_UNIDADE'] : 'Selecione';
+					
 					$valueUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ID_UNIDADE_APURACAO'] : '';
 				?>
 				<div class='form-group'>
@@ -754,6 +759,37 @@ class DenunciasView extends View{
 				</div> 
 			</div>
 		</div>
+		<?php if($listaAnexos != NULL or $listaPalavrasChave != NULL ){ ?>
+		<hr>
+		<div class='row'>	
+			<div class='col-md-6'>
+				<label class='control-label' for='exampleInputEmail1'>Anexos cadastrados</label>
+				<div class='well'>
+				<?php
+					foreach($listaAnexos as $anexo){
+						
+						echo $anexo['NM_ARQUIVO'] . " <a href='/editar/denuncia/remover-anexo/".$listaDados['ID']."/".$anexo['ID']."/".$anexo['NM_ARQUIVO']."/'>remover</a><br> "; 
+						
+					}
+				?>	
+				</div>
+			</div>
+			<div class='col-md-6'>
+				<label class='control-label' for='exampleInputEmail1'>Palavras-chave cadastradas</label>
+				<div class='well'>
+				<?php
+					foreach($listaPalavrasChave as $palavraChave){
+						
+						echo $palavraChave['DS_PALAVRA_CHAVE'] . " <a href='/editar/denuncia/remover-palavra-chave/".$palavraChave['ID']."'>remover</a><br> "; 
+						
+					}
+				?>	
+				</div>
+			</div>
+		
+		
+		</div>
+		<?php } ?>
 		<hr>
 		<div class='row'>	
 			<div class='col-md-6'>
@@ -763,10 +799,10 @@ class DenunciasView extends View{
 				</a>
 			</div>
 		</div>
-		
 		<div id='adicionarAnexo'>
 
 		</div>
+		
 		<hr>
 		<div class='row'>	
 			<div class='col-md-6'>

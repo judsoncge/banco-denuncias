@@ -32,6 +32,26 @@ class DenunciasModel extends Model{
 	private $datas;
 	private $palavras;
 	
+	private $idAnexo;
+	private $nomeAnexo;
+	
+	private $idPalavraChave;
+	
+	public function setIDPalavraChave($idPalavraChave){
+		$this->idPalavraChave = $idPalavraChave;
+		
+	}
+	
+	public function setIDAnexo($idAnexo){
+		$this->idAnexo = $idAnexo;
+		
+	}
+	
+	public function setNomeAnexo($nomeAnexo){
+		$this->nomeAnexo = $nomeAnexo;
+		
+	}
+	
 	public function setUnidadeApuracao($unidadeApuracao){
 		$this->unidadeApuracao = $unidadeApuracao;
 		
@@ -311,7 +331,7 @@ class DenunciasModel extends Model{
 		
 		LEFT JOIN tb_servidores e ON a.ID_RESPONSAVEL_TRIAGEM = e.ID 
 		
-		LEFT JOIN tb_unidades_apuracao f ON a.ID_UNIDADE_APURACAO = f.ID 
+		LEFT JOIN tb_unidades_apuracao f ON a.ID_UNIDADE_APURACAO = f.ID
 
 		WHERE a.ID = $this->id
 		
@@ -321,6 +341,50 @@ class DenunciasModel extends Model{
 		
 		return $lista;
 		
+	}
+	
+	public function getAnexos(){
+		
+		$query = "SELECT * FROM tb_anexos WHERE ID_DENUNCIA = $this->id";
+		
+		$listaAnexos = $this->executarQueryLista($query);
+		
+		return $listaAnexos;
+		
+	}
+
+	public function getPalavrasChave(){
+		
+		$query = "SELECT * FROM tb_palavras_chave_denuncia WHERE ID_DENUNCIA = $this->id";
+		
+		$listaPalavrasChave = $this->executarQueryLista($query);
+		
+		return $listaPalavrasChave;
+		
+	}
+	
+	public function removerAnexo(){
+		
+		$query = "DELETE FROM tb_anexos WHERE ID = $this->idAnexo";
+		
+		$resultado = $this->executarQuery($query);
+		
+		$this->excluirArquivo('anexos', $this->nomeAnexo);
+		
+		return $resultado;
+			
+	}
+	
+	public function removerPalavraChave(){
+		
+		$query = "DELETE FROM tb_palavras_chave_denuncia WHERE ID = $this->idPalavraChave";
+		
+		//echo $query;exit;
+		
+		$resultado = $this->executarQuery($query);
+		
+		return $resultado;
+			
 	}
 
 	public function getDenuncias(){
