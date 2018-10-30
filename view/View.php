@@ -3,7 +3,6 @@
 
 class View{
 	
-	
 	protected $titulo;
 	protected $conteudo;	
 	
@@ -141,13 +140,9 @@ class View{
 								<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
 							</li>
 							<li class='denuncias-subitem'>
-								<a href='/denuncias/listar/0'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Listar</a>
+								<a href='/denuncias/listar/0'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Consulta</a>
 							</li>
 						
-						<li id='andamento'>
-							<a href='/andamento/'><i class='fa fa-forward icone-menu' aria-hidden='true'></i>Andamento</a>
-						</li>
-							
 						<li id='servidores'>
 							<a href='#'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Servidores</a>
 						</li>	

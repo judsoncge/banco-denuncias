@@ -122,6 +122,21 @@ class DenunciasController extends Controller{
 		$this->denunciasView->carregar();
 	}
 	
+	public function carregarAndamento(){
+		
+		$this->denunciasModel->setID($_GET['id']);
+		
+		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
+		
+		$_REQUEST['DADOS_DENUNCIA'] = $listaDados = $this->denunciasModel->getDadosID();
+		
+		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO_PROCESSO_SEI'] . ' - ' . $listaDados['NOME_MACRO_ASSUNTO'] .' > ANDAMENTO');
+		
+		$this->denunciasView->setConteudo('andamento');
+		
+		$this->denunciasView->carregar();
+	}
+	
 	public function triagem(){
 		
 		$id = $_GET['id'];
@@ -166,6 +181,48 @@ class DenunciasController extends Controller{
 			Header("Location: /denuncias/triagem/$id");
 		}
 	
+	}
+	
+	public function andamento(){
+		
+		$id = $_GET['id'];
+		
+		$status = $_POST['status'];
+		$comentario = $_POST['comentario'];
+		$anexo = $_FILES['anexo'];
+		$nomesTrilha = (isset($_POST['nomes'])) ? $_POST['nomes'] : NULL;
+		$gerarAlerta = (isset($_POST['gerarAlertas'])) ? $_POST['gerarAlertas'] : NULL;
+		$unidadesTrilha = (isset($_POST['unidades'])) ? $_POST['unidades'] : NULL;
+		$periodicidadesTrilha = (isset($_POST['periodicidades'])) ? $_POST['periodicidades'] : NULL;	
+		$agrupadores = (isset($_POST['agrupadores'])) ? $_POST['agrupadores'] : NULL;	
+		$tiposAlertas = (isset($_POST['tiposAlertas'])) ? $_POST['tiposAlertas'] : NULL;	
+		$emailsAlertas = (isset($_POST['emails'])) ? $_POST['emails'] : NULL;	
+		
+		$this->denunciasModel->setStatus($status);
+		$this->denunciasModel->setComentarios($comentario);
+		$this->denunciasModel->setAnexos($anexo);
+		$this->denunciasModel->setTipos('STATUS DA DENUNCIA');
+		$this->denunciasModel->setDatas(NULL);
+		$this->denunciasModel->setNomesTrilha($nomesTrilha);
+		$this->denunciasModel->setGerarAlertas($gerarAlerta);
+		$this->denunciasModel->setUnidadesTrilha($unidadesTrilha);
+		$this->denunciasModel->setPeriodicidadesTrilha($periodicidadesTrilha);
+		$this->denunciasModel->setAgrupadores($agrupadores);
+		$this->denunciasModel->setTiposAlertas($tiposAlertas);
+		$this->denunciasModel->setEmailsAlertas($emailsAlertas);
+		
+		$this->denunciasModel->setID($id);
+		
+		$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->andamento();
+		
+		$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
+		
+		if($_SESSION['RESULTADO_OPERACAO']){
+			Header('Location: /denuncias/listar/0');
+		}else{
+			Header("Location: /denuncias/andamento/$id");
+		}
+		
 	}
 	
 	

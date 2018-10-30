@@ -33,3 +33,6 @@ RewriteRule ^editar/denuncia/remover-palavra-chave/(.*)          /index.php?acao
 RewriteRule ^editar/denuncia/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
 RewriteRule ^denuncias/triagem/(.*)               /index.php?acao=carregarTriagem&modulo=Denuncias&id=$1
 RewriteRule ^triagem/(.*)                         /index.php?acao=triagem&modulo=Denuncias&id=$1
+
+RewriteRule ^denuncias/andamento/(.*)             /index.php?acao=carregarAndamento&modulo=Denuncias&id=$1
+RewriteRule ^andamento/(.*)                       /index.php?acao=andamento&modulo=Denuncias&id=$1

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Out-2018 às 17:19
+-- Generation Time: 30-Out-2018 às 14:57
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_anexos` (
   `ID` int(20) NOT NULL,
   `ID_DENUNCIA` int(20) NOT NULL,
-  `DS_TIPO` enum('COMPLEMENTO DO DENUNCIANTE','RESULTADO DE TRIAGEM') NOT NULL,
+  `DS_TIPO` enum('COMPLEMENTO DO DENUNCIANTE','RESULTADO DE TRIAGEM','STATUS DA DENUNCIA') NOT NULL,
   `DS_COMENTARIOS` varchar(100) DEFAULT NULL,
   `DT_RECEBIMENTO` date DEFAULT NULL,
   `NM_ARQUIVO` varchar(100) NOT NULL
@@ -42,8 +42,13 @@ CREATE TABLE `tb_anexos` (
 --
 
 INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO`, `NM_ARQUIVO`) VALUES
-(1, 1, 'COMPLEMENTO DO DENUNCIANTE', '', '2018-10-23', 'credenciais-github.txt'),
-(2, 1, 'RESULTADO DE TRIAGEM', 'agora sim', '2018-10-23', 'Painel-de-Controle-da-Transparencia.docx');
+(1, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2018-10-23', 'credenciais-github.txt'),
+(3, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2019-02-20', 'credenciais-ODP.txt'),
+(16, 2, 'COMPLEMENTO DO DENUNCIANTE', 'sddsdasdasdas', '2018-10-22', 'git.txt'),
+(31, 1, 'STATUS DA DENUNCIA', 'asadasdasdasdadadasdasdasd', '0000-00-00', '[1]Painel-de-Controle-da-Transparencia.docx'),
+(32, 1, 'STATUS DA DENUNCIA', 'ASDASDASDAS', '0000-00-00', '[1]credenciais-ODP.txt'),
+(33, 1, 'STATUS DA DENUNCIA', 'ASDADADADAS', '0000-00-00', 'Relatorio-FAPEAL.doc'),
+(34, 1, 'STATUS DA DENUNCIA', 'sadasdasdasda', '0000-00-00', '[2]Painel-de-Controle-da-Transparencia.docx');
 
 -- --------------------------------------------------------
 
@@ -213,16 +218,17 @@ CREATE TABLE `tb_denuncias` (
   `DT_TERMINO_TRIAGEM` date DEFAULT NULL,
   `DS_RESULTADO_TRIAGEM` enum('APTA','NÃO') DEFAULT NULL,
   `ID_UNIDADE_APURACAO` int(20) DEFAULT NULL,
-  `BL_TRIAGEM_CONCLUIDA` tinyint(4) NOT NULL DEFAULT '0'
+  `BL_TRIAGEM_CONCLUIDA` tinyint(4) NOT NULL DEFAULT '0',
+  `DS_STATUS` enum('PROCEDENTE','NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO','NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS','NÃO TRATADA') NOT NULL DEFAULT 'NÃO TRATADA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_denuncias`
 --
 
-INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_RESULTADO_TRIAGEM`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`) VALUES
-(1, '1/20181001', 'ANÔNIMA', 1, 57, NULL, NULL, NULL, NULL, '<h2 style=\"text-align: left;\"><em>Est&aacute;gio</em></h2>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\"><em>Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio </em></p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Judson Bandeira</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">cora&ccedil;&atilde;o&nbsp;</p>', 66, 26, 'sdasdsadasdasdasdas', '2018-10-01', '01104 000563/2018', 1, 1, 1, '2018-10-24', 'APTA', 1, 1),
-(2, '2/20181024-P', 'IDENTIFICADA', 1, 95, '', '', '', '', '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>\r\n<p style=\"text-align: justify;\">&nbsp;</p>\r\n<p style=\"text-align: justify;\"><span style=\"text-align: start;\">Seu texto aqui&nbsp;</span>Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>', 11, 12, '', '2018-10-24', '12000 000555/2018', NULL, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_RESULTADO_TRIAGEM`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
+(1, '1/20181001', 'ANÔNIMA', 1, 57, NULL, NULL, NULL, NULL, '<h2 style=\"text-align: left;\"><em>Est&aacute;gio</em></h2>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\"><em>Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio </em></p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Judson Bandeira</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">cora&ccedil;&atilde;o&nbsp;</p>', 66, 26, 'sdasdsadasdasdasdas', '2018-10-01', '01104 000563/2018', 1, 1, 1, '2018-10-24', 'APTA', 1, 1, 'NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'),
+(2, '2/20181024-P', 'IDENTIFICADA', 1, 95, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>\r\n<p style=\"text-align: justify;\">&nbsp;</p>\r\n<p style=\"text-align: justify;\"><span style=\"text-align: start;\">Seu texto aqui&nbsp;</span>Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>', 11, 12, '', '2018-10-24', '12000 000555/2018', 1, 1, 1, '2018-10-31', 'APTA', 1, 0, 'NÃO TRATADA');
 
 -- --------------------------------------------------------
 
@@ -458,8 +464,11 @@ CREATE TABLE `tb_palavras_chave_denuncia` (
 --
 
 INSERT INTO `tb_palavras_chave_denuncia` (`ID`, `ID_DENUNCIA`, `DS_PALAVRA_CHAVE`) VALUES
-(1, 1, 'denuncia'),
-(2, 1, 'teste');
+(3, 1, 'teste'),
+(4, 1, 'automatico'),
+(5, 2, 'judson'),
+(6, 2, 'melo'),
+(7, 2, 'bandeira');
 
 -- --------------------------------------------------------
 
@@ -489,6 +498,31 @@ CREATE TABLE `tb_servidores` (
 INSERT INTO `tb_servidores` (`ID`, `DS_NOME`, `DS_MATRICULA`, `DS_EMAIL`, `DS_TELEFONE`, `ID_ORGAO`, `ID_UNIDADE_APURACAO`, `DS_FOTO`, `DS_TIPO`, `DS_CPF`, `SENHA`, `STATUS`) VALUES
 (1, 'Judson Melo Bandeira', '00000-0', 'judson.bandeira@cge.al.gov.br', '3315-3630', 8, 1, 'perfil.jpg', 'ADMINISTRADOR', '062.200.904-46', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
 (4, 'Administrador', '00000-0', 'admin@cge.al.gov.br', '0000-0000', 8, NULL, 'default.jpg', 'ADMINISTRADOR', '000.000.000-00', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_trilhas`
+--
+
+CREATE TABLE `tb_trilhas` (
+  `ID` int(20) NOT NULL,
+  `ID_DENUNCIA` int(20) NOT NULL,
+  `DS_NOME` varchar(50) NOT NULL,
+  `BL_ALERTA` tinyint(4) NOT NULL,
+  `ID_UNIDADE_APURACAO` int(20) NOT NULL,
+  `NR_PERIODICIDADE` int(3) NOT NULL,
+  `DS_TIPO_ALERTA` enum('GERAR ALERTA SEMPRE QUE A TRILHA FOR EXECUTADA','GERAR ALERTA SEMPRE QUE REGISTROS RESULTANTES MAIOR QUE REGISTROS') NOT NULL,
+  `DS_EMAIL_ALERTA` varchar(50) NOT NULL,
+  `BL_AGRUPADOR` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_trilhas`
+--
+
+INSERT INTO `tb_trilhas` (`ID`, `ID_DENUNCIA`, `DS_NOME`, `BL_ALERTA`, `ID_UNIDADE_APURACAO`, `NR_PERIODICIDADE`, `DS_TIPO_ALERTA`, `DS_EMAIL_ALERTA`, `BL_AGRUPADOR`) VALUES
+(5, 1, 'asdasdasd', 1, 1, 4, 'GERAR ALERTA SEMPRE QUE REGISTROS RESULTANTES MAIOR QUE REGISTROS', 'asdsas@sdasdasd', 1);
 
 -- --------------------------------------------------------
 
@@ -576,6 +610,14 @@ ALTER TABLE `tb_servidores`
   ADD KEY `ID_UNIDADE_APURACAO` (`ID_UNIDADE_APURACAO`);
 
 --
+-- Indexes for table `tb_trilhas`
+--
+ALTER TABLE `tb_trilhas`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_DENUNCIA` (`ID_DENUNCIA`),
+  ADD KEY `ID_UNIDADE_APURACAO` (`ID_UNIDADE_APURACAO`);
+
+--
 -- Indexes for table `tb_unidades_apuracao`
 --
 ALTER TABLE `tb_unidades_apuracao`
@@ -590,7 +632,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
@@ -626,13 +668,19 @@ ALTER TABLE `tb_orgaos`
 -- AUTO_INCREMENT for table `tb_palavras_chave_denuncia`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_servidores`
 --
 ALTER TABLE `tb_servidores`
   MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tb_trilhas`
+--
+ALTER TABLE `tb_trilhas`
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_unidades_apuracao`
@@ -680,6 +728,13 @@ ALTER TABLE `tb_palavras_chave_denuncia`
 ALTER TABLE `tb_servidores`
   ADD CONSTRAINT `tb_servidores_ibfk_1` FOREIGN KEY (`ID_ORGAO`) REFERENCES `tb_orgaos` (`ID`),
   ADD CONSTRAINT `tb_servidores_ibfk_2` FOREIGN KEY (`ID_UNIDADE_APURACAO`) REFERENCES `tb_unidades_apuracao` (`ID`);
+
+--
+-- Limitadores para a tabela `tb_trilhas`
+--
+ALTER TABLE `tb_trilhas`
+  ADD CONSTRAINT `tb_trilhas_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`),
+  ADD CONSTRAINT `tb_trilhas_ibfk_2` FOREIGN KEY (`ID_UNIDADE_APURACAO`) REFERENCES `tb_unidades_apuracao` (`ID`);
 
 --
 -- Limitadores para a tabela `tb_unidades_apuracao`

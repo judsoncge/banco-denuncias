@@ -36,6 +36,54 @@ class DenunciasModel extends Model{
 	private $nomeAnexo;
 	
 	private $idPalavraChave;
+
+	private $nomesTrilha;
+	private $gerarAlertas;
+	private $unidadesTrilha;
+	private $periodicidadesTrilha;
+	private $agrupadores;
+	private $tiposAlertas;
+	private $emailsAlertas;
+	
+	public function setAgrupadores($agrupadores){
+		$this->agrupadores = $agrupadores;
+		
+	}
+	
+	public function setTiposAlertas($tiposAlertas){
+		$this->tiposAlertas = $tiposAlertas;
+		
+	}
+	
+	public function setEmailsAlertas($emailsAlertas){
+		$this->emailsAlertas = $emailsAlertas;
+		
+	}
+	
+	public function setStatus($status){
+		$this->status = $status;
+		
+	}
+	
+	public function setGerarAlertas($gerarAlertas){
+		$this->gerarAlertas = $gerarAlertas;
+		
+	}
+	
+	public function setNomesTrilha($nomesTrilha){
+		$this->nomesTrilha = $nomesTrilha;
+		
+	}
+		
+	public function setUnidadesTrilha($unidadesTrilha){
+		$this->unidadesTrilha = $unidadesTrilha;
+		
+	}
+	
+	public function setPeriodicidadesTrilha($periodicidadesTrilha){
+		$this->periodicidadesTrilha = $periodicidadesTrilha;
+		
+	}
 	
 	public function setIDPalavraChave($idPalavraChave){
 		$this->idPalavraChave = $idPalavraChave;
@@ -82,7 +130,7 @@ class DenunciasModel extends Model{
 		
 	}
 	
-	public function setAnexos($anexos){
+	public function setAnexos($anexos){		
 		$this->anexos = $anexos;
 		
 	}
@@ -213,66 +261,92 @@ class DenunciasModel extends Model{
 		}
 		
 		if($this->palavras != NULL){
+			
 			foreach($this->palavras as $palavra){
 				
 				$query = "INSERT INTO tb_palavras_chave_denuncia (ID_DENUNCIA, DS_PALAVRA_CHAVE) VALUES ($this->id, '$palavra')";
 				
 				$this->executarQuery($query);			
 			}
+			
 		}
 		
 		return $resultado;
 		
 	}
 	
-	public function cadastrarAnexos(){
+	public function andamento(){
+		
+		$query = "UPDATE tb_denuncias SET DS_STATUS = '$this->status' WHERE ID = $this->id";
+		
+		$resultado = $this->executarQuery($query);
 		
 		if($this->anexos != NULL){
 		
-			foreach ($this->anexos['error'] as $key => $error){
-					
-				$nomeAnexo = $this->retiraCaracteresEspeciais($this->anexos['name'][$key]);	
-					
-				$caminho = $_SERVER['DOCUMENT_ROOT'].'/_registros/anexos/';
-			
-				if(file_exists($caminho.$nomeAnexo)){ 
-					$a = 1;
-					while(file_exists($caminho."[$a]".$nomeAnexo."")){
-					$a++;
-					}
-					$nomeAnexo = "[".$a."]".$nomeAnexo;
-				}
-				
-				move_uploaded_file($this->anexos['tmp_name'][$key], $caminho.$nomeAnexo);
-				
-				$tipo = $this->tipos[$key];
-				
-				$comentario = ($this->comentarios[$key] == '') ? '' : addslashes($this->comentarios[$key]);
-							
-				$data = $this->datas[$key];
-				
-				$query = "INSERT INTO tb_anexos (ID_DENUNCIA, DS_TIPO, DS_COMENTARIOS, DT_RECEBIMENTO, NM_ARQUIVO) VALUES ('$this->id','$tipo','$comentario','$data','$nomeAnexo')";
-				
-				$resultado = $this->executarQuery($query);
-				
-				$mensagemResposta = ($resultado) 
-					? 'Operação realizada com sucesso!' 
-					: 'Ocorreu alguma falha na operação. Por favor, procure o suporte';
-					
-				$this->setMensagemResposta($mensagemResposta);
-				
-			}
-			
-			return $resultado;
-			
-		}else{
-			$mensagemResposta = 'Operação realizada com sucesso!';
-			
-			$this->setMensagemResposta($mensagemResposta);
-			
-			return 1;
+			$resultado = $this->cadastrarAnexos();
 			
 		}
+		
+		if($this->nomesTrilha != NULL){
+		
+			for($key = 0; $key < sizeof($this->nomesTrilha); $key++){
+			
+				$nomeTrilha = $this->nomesTrilha[$key];
+				
+				$gerarAlerta = $this->gerarAlertas[$key];
+						
+				$unidadeTrilha = $this->unidadesTrilha[$key];
+				
+				$periodicidadeTrilha = $this->periodicidadesTrilha[$key];
+				
+				$agrupador = $this->agrupadores[$key];
+				
+				$tipoAlerta = $this->tiposAlertas[$key];
+							
+				$emailAlerta = $this->emailsAlertas[$key];
+			
+				$query = "INSERT INTO tb_trilhas (ID_DENUNCIA, DS_NOME, BL_ALERTA, ID_UNIDADE_APURACAO, NR_PERIODICIDADE, DS_TIPO_ALERTA, DS_EMAIL_ALERTA, BL_AGRUPADOR) VALUES ($this->id, '$nomeTrilha', '$gerarAlerta', $unidadeTrilha, '$periodicidadeTrilha', '$tipoAlerta', '$emailAlerta',  '$agrupador')";
+				
+				$this->executarQuery($query);
+			
+			}
+	
+		}
+	
+		return $resultado;
+					
+	}
+	
+	public function cadastrarAnexos(){
+		
+		foreach($this->anexos['error'] as $key => $error){
+				
+			$nomeAnexo = $this->retiraCaracteresEspeciais($this->anexos['name'][$key]);	
+				
+			$caminho = $_SERVER['DOCUMENT_ROOT'].'/_registros/anexos/';
+		
+			if(file_exists($caminho.$nomeAnexo)){ 
+				$a = 1;
+				while(file_exists($caminho."[$a]".$nomeAnexo."")){
+				$a++;
+				}
+				$nomeAnexo = "[".$a."]".$nomeAnexo;
+			}
+			
+			move_uploaded_file($this->anexos['tmp_name'][$key], $caminho.$nomeAnexo);
+			
+			$tipo = (is_array($this->tipos)) ? $this->tipos[$key] : $this->tipos;
+					
+			$comentario = ($this->comentarios[$key] == '') ? '' : addslashes($this->comentarios[$key]);
+						
+			$data = $this->datas[$key];
+			
+			$query = "INSERT INTO tb_anexos (ID_DENUNCIA, DS_TIPO, DS_COMENTARIOS, DT_RECEBIMENTO, NM_ARQUIVO) VALUES ('$this->id','$tipo','$comentario','$data','$nomeAnexo')";
+			
+			$resultado = $this->executarQuery($query);
+			
+		}		
+		
 	}
 	
 	public function editar(){
@@ -378,8 +452,6 @@ class DenunciasModel extends Model{
 	public function removerPalavraChave(){
 		
 		$query = "DELETE FROM tb_palavras_chave_denuncia WHERE ID = $this->idPalavraChave";
-		
-		//echo $query;exit;
 		
 		$resultado = $this->executarQuery($query);
 		
