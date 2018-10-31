@@ -16,6 +16,7 @@ class DenunciasModel extends Model{
 	private $orgao;
 	private $envolvidos;
 	private $dataRegistro;
+	private $dataRegistroEOUV;
 	private $processo;
 	private $numero;
 	
@@ -23,7 +24,7 @@ class DenunciasModel extends Model{
 	private $responsavel;
 	private $relevancia;
 	private $termino;
-	private $resultado;
+	private $situacao;
 	private $unidadeApuracao;
 	
 	private $anexos;
@@ -125,8 +126,8 @@ class DenunciasModel extends Model{
 		
 	}
 	
-	public function setResultado($resultado){
-		$this->resultado = $resultado;
+	public function setSituacao($situacao){
+		$this->situacao = $situacao;
 		
 	}
 	
@@ -203,6 +204,10 @@ class DenunciasModel extends Model{
 		$this->dataRegistro = $dataRegistro;
 	}
 	
+	public function setDataRegistroEOUV($dataRegistroEOUV){
+		$this->dataRegistroEOUV = $dataRegistroEOUV;
+	}
+	
 	public function setProcesso($processo){
 		$this->processo = $processo;
 	}
@@ -222,21 +227,23 @@ class DenunciasModel extends Model{
 		$municipio = ($this->municipio == '') ? 'null' : $this->municipio;
 		$envolvidos = ($this->envolvidos == '') ? '' : $this->envolvidos;
 		
+		$registro = date('y-m-d');
+		
 		$query = "
 		
 		INSERT INTO tb_denuncias 
 		
-		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, TX_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DS_NUMERO_PROCESSO_SEI) 
+		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, TX_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DT_REGISTRO, DS_NUMERO_PROCESSO_SEI) 
 		
 		
 		VALUES 
 		
 		
-		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('','$nome'), NULLIF('','$CPF'), NULLIF('','$email'), NULLIF('','$telefone'), '$this->descricao', $orgao, $municipio, NULLIF('','$envolvidos'), '$this->dataRegistro', '$this->processo')";
+		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('','$nome'), NULLIF('','$CPF'), NULLIF('','$email'), NULLIF('','$telefone'), '$this->descricao', $orgao, $municipio, NULLIF('','$envolvidos'), '$this->dataRegistroEOUV', '$registro', '$this->processo')";
 		
 		$id = $this->executarQueryID($query);
 		
-		$dataSemTraco = str_replace('-','', $this->dataRegistro);
+		$dataSemTraco = str_replace('-','', $this->dataRegistroEOUV);
 		
 		$numeroProvisorio = $id . "/" . $dataSemTraco . "-P";
 		
@@ -248,9 +255,17 @@ class DenunciasModel extends Model{
 		
 	}
 	
+	public function modificarParaEmTriagem(){
+		
+		$query = "UPDATE tb_denuncias SET DS_SITUACAO = 'EM TRIAGEM' WHERE ID = $this->id";
+		
+		$this->executarQuery($query);
+
+	}
+	
 	public function triagem(){
 		
-		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_RESULTADO_TRIAGEM = '$this->resultado', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -359,7 +374,7 @@ class DenunciasModel extends Model{
 		$municipio = ($this->municipio == '') ? 'null' : $this->municipio;
 		$envolvidos = ($this->envolvidos == '') ? '' : $this->envolvidos;
 		
-		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('','$nome'), DS_CPF_DENUNCIANTE = NULLIF('','$CPF'), DS_TELEFONE_DENUNCIANTE = NULLIF('','$telefone'), DS_EMAIL_DENUNCIANTE = NULLIF('','$email') , TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $orgao, ID_MUNICIPIO_FATO = $municipio , DS_ENVOLVIDOS = NULLIF('','$envolvidos') , DT_REGISTRO_EOUV = '$this->dataRegistro' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('','$nome'), DS_CPF_DENUNCIANTE = NULLIF('','$CPF'), DS_TELEFONE_DENUNCIANTE = NULLIF('','$telefone'), DS_EMAIL_DENUNCIANTE = NULLIF('','$email') , TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $orgao, ID_MUNICIPIO_FATO = $municipio , DS_ENVOLVIDOS = NULLIF('','$envolvidos') , DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
 		
@@ -497,19 +512,52 @@ class DenunciasModel extends Model{
 	
 	public function getDenunciasComFiltro(){
 		
-		$servidor = ($this->servidor == '%') ? '' : "AND (ID_SERVIDOR = $this->servidor)" ;
+		$situacao = ($this->situacao == '%') ? '' : "AND (DS_SITUACAO = '$this->situacao')" ;
 		
-		$orgao = ($this->orgao == '%') ? '' : "AND (ID_ORGAO_DENUNCIADO = $this->orgao)" ;
+		$responsavel = ($this->responsavel == '%') ? '' : "AND (ID_RESPONSAVEL_TRIAGEM = $this->responsavel)" ;
+		
+		$unidade = ($this->unidadeApuracao == '%') ? '' : "AND (ID_UNIDADE_APURACAO = $this->unidadeApuracao)" ;
+		
+		$assunto = ($this->assunto == '%') ? '' : "AND (ID_ASSUNTO = $this->assunto)" ;
 		
 		$municipio = ($this->municipio == '%') ? '' : "AND (ID_MUNICIPIO_FATO = $this->municipio)" ;
 		
-		$assunto = ($this->assunto == '%') ? '' : "AND (ID_ASSUNTO = $this->assunto)" ;
+		$periodo = ($this->dataRegistro == '%') ? '' : "AND (DT_REGISTRO >= '$this->dataRegistro')" ;
+		
+		$restrito = ($this->restrito == '%') ? '' : "AND (BL_RESTRITO >= $this->restrito)" ;
+		
+		$analise = ($this->status == '%') ? '' : "AND (DS_STATUS >= $this->status)";
+		
+		if($this->idPalavraChave == '%' or $this->idPalavraChave == ''){
+			
+			$palavras = '';
+			
+		}else{
+			
+			$palavrasChave = explode(',', $this->idPalavraChave);
+			
+			$palavras = "AND a.ID IN (SELECT ID_DENUNCIA FROM tb_palavras_chave_denuncia WHERE DS_PALAVRA_CHAVE IN (";
+			
+			for($i=0; $i < count($palavrasChave); $i++){
+			
+				$palavras .= "'$palavrasChave[$i]',";
+			
+			}
+
+			$palavras .= ')';
+			
+			$palavras = str_replace(',)', ')', $palavras);
+			
+			$palavras .= ')';
+			
+		}
+		
 		
 		$query = 
 		
 		"SELECT 
 		
-		a.ID, a.DS_TIPO, a.ID_SERVIDOR, 
+		a.ID, a.DS_TIPO, a.ID_SERVIDOR, BL_TRIAGEM_CONCLUIDA,
 		
 		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		
@@ -529,15 +577,25 @@ class DenunciasModel extends Model{
 		
 		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
 		
-		WHERE a.DS_TIPO LIKE '$this->tipo'
+		WHERE DS_NUMERO LIKE '%$this->numero%'
 		
-		$servidor
+		$situacao
+		
+		$responsavel
 	   
-    	$orgao
+    	$unidade
+	
+		$assunto
 		
 		$municipio
 		
-		$assunto
+		$periodo
+		
+		$restrito
+		
+		$analise
+		
+		$palavras
 		
 		ORDER BY a.DT_REGISTRO_EOUV desc
 		
@@ -551,7 +609,7 @@ class DenunciasModel extends Model{
 	
 	public function concluirTriagem(){
 		
-		$query = "SELECT DS_RESULTADO_TRIAGEM FROM tb_denuncias WHERE ID = $this->id";
+		$query = "SELECT DS_SITUACAO FROM tb_denuncias WHERE ID = $this->id";
 		
 		$resultado = $this->executarQueryRegistro($query);
 		

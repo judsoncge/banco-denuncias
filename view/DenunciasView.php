@@ -9,10 +9,21 @@ class DenunciasView extends View{
 	
 		
 		if($this->conteudo == 'listar'){ ?>
-			<script src='/view/_libs/js/receber.js'></script>
 			<script src='/view/_libs/js/filtros.js'></script>
 			<script src='/view/_libs/js/exportar.js'></script>
-
+			<script type='text/javascript'>
+				function esconderMostrarFiltro(){
+					
+					var x = document.getElementById('filtro');
+					if (x.style.display === 'none') {
+						x.style.display = 'block';
+						document.getElementById('esconderMostrar').innerHTML="<a href='javascript:void(0)' onclick='esconderMostrarFiltro()'>esconder filtro</a>";
+					} else {
+						x.style.display = 'none';
+						document.getElementById('esconderMostrar').innerHTML="<a href='javascript:void(0)' onclick='esconderMostrarFiltro()'>mostrar filtro</a>";
+					}
+				}
+			</script>
 	
 		<?php 
 		
@@ -253,7 +264,7 @@ class DenunciasView extends View{
 		
 		$listaServidores = $_REQUEST['LISTA_SERVIDORES']; 
 		
-		$listaOrgaos = $_REQUEST['LISTA_ORGAOS']; 
+		$listaUnidades = $_REQUEST['LISTA_UNIDADES_APURACAO']; 
 		
 		$listaMunicipios = $_REQUEST['LISTA_MUNICIPIOS']; 
 		
@@ -262,74 +273,126 @@ class DenunciasView extends View{
 ?>	
 
 		<div class='well'>
-			<form>
-				<div class='row'>	
-					<div class='col-md-4'>
-						<div class='form-group'>
-							<label class='control-label'>Servidor que cadastrou</label><br>
-							<select id='filtroservidor' name='filtroservidor'>
-								<option value='%'>Todos</option>
-								<?php foreach($listaServidores as $servidor){ ?>
-										<option value='<?php echo $servidor['ID'] ?>'>
-											<?php echo $servidor['DS_NOME']; ?>
-										</option>
-								<?php } ?>
-							</select>
+			<div id='esconderMostrar' class='row' style='text-align:center;'>
+				<a href='javascript:void(0)' onclick='esconderMostrarFiltro()'>mostrar filtro</a>
+			</div>
+			<hr>
+			<div id='filtro' style='display:none;'>
+				<form>
+					<div class='row'>	
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>NCD</label><br>
+								<input class='form-control' type='text' id='filtroncd' name='filtroncd'>
+							</div>
 						</div>
-					</div>
-					<div class='col-md-2'>
-						<div class='form-group'>
-							<label class='control-label'>Tipo</label><br>
-								<select id='filtrotipo' name='filtrotipo'>
-									<option value='%'>Todos</option>
-									<option value='IDENTIFICADA'>IDENTIFICADA</option>
-									<option value='ANÔNIMA'>ANÔNIMA</option>
-								</select>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Situação Denúncia</label><br>
+									<select class='form-control'  id='filtrosituacao' name='filtrosituacao'>
+										<option value='%'>Todos</option>
+										<option value='AGUARDANDO TRIAGEM'>AGUARDANDO TRIAGEM</option>
+										<option value='EM TRIAGEM'>EM TRIAGEM</option>
+										<option value='APTA'>APTA</option>
+										<option value='NÃO APTA'>NÃO APTA</option>
+									</select>
+							</div>
 						</div>
-					</div>
-					<div class='col-md-2'>
-						<div class='form-group'>
-							<label class='control-label'>Órgão denunciado</label><br>
-								<select id='filtroorgao' name='filtroorgao'>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Responsável</label><br>
+								<select class='form-control'  id='filtroresponsavel' name='filtroresponsavel'>
 									<option value='%'>Todos</option>
-									<?php foreach($listaOrgaos as $orgao){ ?>
-										<option value='<?php echo $orgao['ID'] ?>'>
-											<?php echo $orgao['DS_ABREVIACAO']; ?>
-										</option>
+									<?php foreach($listaServidores as $servidor){ ?>
+											<option value='<?php echo $servidor['ID'] ?>'>
+												<?php echo $servidor['DS_NOME']; ?>
+											</option>
 									<?php } ?>
 								</select>
+							</div>
+						</div>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label  class='control-label'>Unidade Apuração</label><br>
+									<select class='form-control' id='filtrounidade' name='filtrounidade'>
+										<option value='%'>Todos</option>
+										<?php foreach($listaUnidades as $unidade){ ?>
+											<option value='<?php echo $unidade['ID'] ?>'>
+												<?php echo $unidade['DS_ABREVIACAO'] . ' - ' . $unidade['DS_NOME']; ?>
+											</option>
+										<?php } ?>
+									</select>
+							</div>
 						</div>
 					</div>
-					<div class='col-md-3'>
-						<div class='form-group'>
-							<label class='control-label'>Município fato</label><br>
-								<select id='filtromunicipio' name='filtromunicipio'>
-									<option value='%'>Todos</option>
-									<?php foreach($listaMunicipios as $municipio){ ?>
-										<option value='<?php echo $municipio['ID'] ?>'>
-											<?php echo $municipio['DS_NOME']; ?>
-										</option>
-									<?php } ?>
-								</select>
+					<div class='row'>
+						<div class='col-md-12'>
+							<div class='form-group'>
+								<label class='control-label'>Assuntos</label><br>
+									<select class='form-control'  id='filtroassunto' name='filtroassunto'>
+										<option value='%'>Todos</option>
+										<?php foreach($listaAssuntos as $assunto){ ?>
+											<option value='<?php echo $assunto['ID'] ?>'>
+												<?php echo $assunto['DS_NOME_MACRO'] . ' - ' . $assunto['DS_NOME_MICRO']; ?>
+											</option>
+										<?php } ?>
+									</select>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class='row'>
-					<div class='col-md-12'>
-						<div class='form-group'>
-							<label class='control-label'>Assuntos</label><br>
-								<select id='filtroassunto' name='filtroassunto'>
-									<option value='%'>Todos</option>
-									<?php foreach($listaAssuntos as $assunto){ ?>
-										<option value='<?php echo $assunto['ID'] ?>'>
-											<?php echo $assunto['DS_NOME_MACRO'] . ' - ' . $assunto['DS_NOME_MICRO']; ?>
-										</option>
-									<?php } ?>
-								</select>
+					<div class='row'>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Município</label><br>
+									<select class='form-control'  id='filtromunicipio' name='filtromunicipio'>
+										<option value='%'>Todos</option>
+										<?php foreach($listaMunicipios as $municipio){ ?>
+												<option value='<?php echo $municipio['ID'] ?>'>
+													<?php echo $municipio['DS_NOME']; ?>
+												</option>
+										
+										<?php } ?>
+									</select>
+							</div>
+						</div>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Período</label><br>
+								<input class='form-control' type='date' id='filtroperiodo' name='filtroperiodo' style='height:37px;'>
+							</div>
+						</div>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Acesso restrito</label><br>
+									<select class='form-control'  id='filtrorestrito' name='filtrorestrito'>
+										<option value='%'>Todos</option>
+										<option value='1'>SIM</option>
+										<option value='0'>NÃO</option>
+									</select>
+							</div>
+						</div>
+						<div class='col-md-3'>
+							<div class='form-group'>
+								<label class='control-label'>Situação Análise</label><br>
+									<select class='form-control'  id='filtroanalise' name='filtroanalise'>
+										<option value='%'>Todos</option>
+										<option value='PROCEDENTE'>PROCEDENTE</option>
+										<option value='NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'>NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO</option>
+										<option value='NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS'>NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS</option>
+									</select>
+							</div>
 						</div>
 					</div>
-				</div>
-			</form>
+					<div class='row'>
+						<div class='col-md-12'>
+							<div class='form-group'>
+								<label class='control-label'>Palavras-chave</label><br>
+								<input type='text' class='form-control'  id='filtropalavrachave' name='filtropalavrachave' placeholder='utilize vírgulas para separar as palavras'/>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		
 		
@@ -822,15 +885,15 @@ class DenunciasView extends View{
 		<div class='row'>
 			<div class='col-md-3'>
 				<?php 
-					$interfaceResultado = ($listaDados['DS_RESULTADO_TRIAGEM'] != NULL) ? $listaDados['DS_RESULTADO_TRIAGEM'] : 'Selecione';
-					$valueResultado = ($listaDados['DS_RESULTADO_TRIAGEM'] != NULL) ? $listaDados['DS_RESULTADO_TRIAGEM'] : '';
+					$interfaceResultado = ($listaDados['DS_SITUACAO'] != NULL) ? $listaDados['DS_SITUACAO'] : 'Selecione';
+					$valueResultado = ($listaDados['DS_SITUACAO'] != NULL) ? $listaDados['DS_SITUACAO'] : '';
 				?>
 				<div class='form-group'>
 					<label class='control-label'>Resultado da triagem</label>
-					<select class='form-control' id='resultado' name='resultado' required />
+					<select class='form-control' id='situacao' name='situacao' required />
 						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
 						<option value='APTA'>APTA</option>
-						<option value='NÃO'>NÃO</option>
+						<option value='NÃO APTA'>NÃO APTA</option>
 					</select>
 				</div> 
 			</div>

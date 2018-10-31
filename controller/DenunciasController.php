@@ -27,7 +27,7 @@ class DenunciasController extends Controller{
 		
 			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenuncias();
 			$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
-			$_REQUEST['LISTA_ORGAOS'] = $this->orgaosModel->getOrgaos();
+			$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
 			$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
 			$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
 			
@@ -39,26 +39,46 @@ class DenunciasController extends Controller{
 		
 		}else{
 			
-			$filtroServidor = isset($_POST['filtroservidor']) ? $_POST['filtroservidor'] : '%';
+			$filtroNCD = isset($_POST['filtroncd']) ? $_POST['filtroncd'] : '%';
+			
+			$filtroSituacao = isset($_POST['filtrosituacao']) ? $_POST['filtrosituacao'] : '%';
 
-			$filtroTipo = isset($_POST['filtrotipo']) ? $_POST['filtrotipo'] : '%';
+			$filtroResponsavel = isset($_POST['filtroresponsavel']) ? $_POST['filtroresponsavel'] : '%';
 
-			$filtroOrgao = isset($_POST['filtroorgao']) ? $_POST['filtroorgao'] : '%';
-
-			$filtroMunicipio = isset($_POST['filtromunicipio']) ? $_POST['filtromunicipio'] : '%';
+			$filtroUnidade = isset($_POST['filtrounidade']) ? $_POST['filtrounidade'] : '%';
 			
 			$filtroAssunto = isset($_POST['filtroassunto']) ? $_POST['filtroassunto'] : '%';
 			
-			$this->denunciasModel->setServidor($filtroServidor);
+			$filtroMunicipio = isset($_POST['filtromunicipio']) ? $_POST['filtromunicipio'] : '%';
+
+			$filtroPeriodo = ($_POST['filtroperiodo'] != '') ? $_POST['filtroperiodo'] : '%';
 			
-			$this->denunciasModel->setTipo($filtroTipo);
+			$filtroRestrito = isset($_POST['filtrorestrito']) ? $_POST['filtrorestrito'] : '%';
 			
-			$this->denunciasModel->setOrgao($filtroOrgao);
+			$filtroAnalise = isset($_POST['filtroanalise']) ? $_POST['filtroanalise'] : '%';
 			
-			$this->denunciasModel->setMunicipio($filtroMunicipio);
+			$filtroPalavraChave= isset($_POST['filtropalavrachave']) ? $_POST['filtropalavrachave'] : '%';
+
+			$this->denunciasModel->setNumero($filtroNCD);
+			
+			$this->denunciasModel->setSituacao($filtroSituacao);
+			
+			$this->denunciasModel->setResponsavel($filtroResponsavel);
+			
+			$this->denunciasModel->setUnidadeApuracao($filtroUnidade);
 			
 			$this->denunciasModel->setAssunto($filtroAssunto);
 			
+			$this->denunciasModel->setMunicipio($filtroMunicipio);
+			
+			$this->denunciasModel->setDataRegistro($filtroPeriodo);
+			
+			$this->denunciasModel->setRestrito($filtroRestrito);
+			
+			$this->denunciasModel->setStatus($filtroAnalise);
+			
+			$this->denunciasModel->setIDPalavraChave($filtroPalavraChave);
+		
 			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenunciasComFiltro();
 		
 			$this->denunciasView->listar();
@@ -105,6 +125,8 @@ class DenunciasController extends Controller{
 		
 		$this->denunciasModel->setID($_GET['id']);
 		
+		$this->denunciasModel->modificarParaEmTriagem();
+		
 		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
 		
 		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
@@ -145,7 +167,7 @@ class DenunciasController extends Controller{
 		$responsavel = $_POST['responsavel'];
 		$relevancia = $_POST['relevancia'];
 		$termino = $_POST['termino'];
-		$resultado = $_POST['resultado'];
+		$situacao = $_POST['situacao'];
 		$unidadeApuracao = $_POST['unidadeApuracao'];
 		
 		$anexos = (isset($_FILES['anexos'])) ? $_FILES['anexos'] : NULL;
@@ -159,7 +181,7 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setResponsavel($responsavel);
 		$this->denunciasModel->setRelevancia($relevancia);
 		$this->denunciasModel->setTermino($termino);
-		$this->denunciasModel->setResultado($resultado);
+		$this->denunciasModel->setSituacao($situacao);
 		$this->denunciasModel->setUnidadeApuracao($unidadeApuracao);
 		
 		$this->denunciasModel->setAnexos($anexos);
@@ -251,7 +273,7 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setMunicipio($municipio);
 		$this->denunciasModel->setOrgao($orgao);
 		$this->denunciasModel->setEnvolvidos($envolvidos);
-		$this->denunciasModel->setDataRegistro($dataRegistro);
+		$this->denunciasModel->setDataRegistroEOUV($dataRegistro);
 		$this->denunciasModel->setProcesso($processo);
 		
 		
@@ -302,7 +324,7 @@ class DenunciasController extends Controller{
 				$this->denunciasModel->setMunicipio($municipio);
 				$this->denunciasModel->setOrgao($orgao);
 				$this->denunciasModel->setEnvolvidos($envolvidos);
-				$this->denunciasModel->setDataRegistro($dataRegistro);
+				$this->denunciasModel->setDataRegistroEOUV($dataRegistro);
 				$this->denunciasModel->setProcesso($processo);
 				
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->editar();

@@ -20,7 +20,7 @@ class OrgaosModel extends Model{
 		
 		a.*,
 		
-		b.DS_ABREVIACAO ABREVIACAO_ORGAO
+		b.DS_ABREVIACAO ABREVIACAO_ORGAO	
 		
 		FROM tb_unidades_apuracao a
 		
