@@ -1041,6 +1041,56 @@ class DenunciasView extends View{
 
 	public function visualizar(){
 		
+		$listaDados = $_REQUEST['DADOS_DENUNCIA']; 
+		
+?>		
+		STATUS: <?php echo $listaDados['DS_STATUS'] ?>
+		<div class='well'>
+			<strong>Dados de cadastro:</strong><br><br>
+				
+				Número de cadastro: <?php echo $listaDados['DS_NUMERO']; ?><br>
+				Tipo da denúncia:   <?php echo $listaDados['DS_TIPO']; ?><br>
+				Servidor que cadastrou: <?php echo $listaDados['SERVIDOR_CADASTROU']; ?><br>
+				Assunto: <?php echo $listaDados['NOME_MACRO_ASSUNTO'] . ' - ' . $listaDados['NOME_MICRO_ASSUNTO']; ?><br>
+				
+				<?php if($listaDados['DS_TIPO'] == 'IDENTIFICADA'){ ?>
+				
+				Nome do denunciante: <?php echo $listaDados['DS_NOME_DENUNCIANTE']; ?><br>
+				CPF do denunciante:  <?php echo $listaDados['DS_CPF_DENUNCIANTE']; ?><br>
+				E-mail do denunciante:  <?php echo $listaDados['DS_EMAIL_DENUNCIANTE']; ?><br>
+				Telefone do denunciante:  <?php echo $listaDados['DS_TELEFONE_DENUNCIANTE']; ?><br>
+				Número de cadastro:  <?php echo $listaDados['DS_NUMERO']; ?><br>
+				
+				<?php } ?>
+		
+				Descrição do fato:
+				<div class='well' style='background-color: white;'>
+				
+				<?php echo $listaDados['TX_DESCRICAO_FATO']; ?>
+				
+				</div>	
+				
+				Órgão: <?php echo $listaDados['NOME_ORGAO']; ?><br>
+				Município: <?php echo $listaDados['NOME_MUNICIPIO']; ?><br>
+				Envolvidos: <?php echo $listaDados['DS_ENVOLVIDOS']; ?><br>
+				Data de registro no EOUV: <?php echo date_format(new DateTime($listaDados['DT_REGISTRO_EOUV']), 'd/m/Y'); ?><br>
+				Data de registro no Sistema: <?php echo date_format(new DateTime($listaDados['DT_REGISTRO']), 'd/m/Y'); ?><br>
+				Número do processo no SEI: <?php echo $listaDados['DS_NUMERO_PROCESSO_SEI']; ?><br>
+	
+		</div>
+		<div class='well'>
+			<strong>Dados de triagem:</strong><br><br>
+				
+				Acesso Restrito: <?php if($listaDados['BL_ACESSO_RESTRITO']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
+				Responsável pela triagem: <?php echo $listaDados['NOME_RESPONSAVEL_TRIAGEM'] ?><br>
+				Relevância: <?php if($listaDados['BL_RELEVANCIA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
+				Data de término da triagem: <?php echo date_format(new DateTime($listaDados['DT_TERMINO_TRIAGEM']), 'd/m/Y'); ?><br>
+				Situação: <?php echo $listaDados['DS_SITUACAO'] ?><br>
+				Unidade de apuração: <?php echo $listaDados['NOME_UNIDADE'] ?><br>
+				Triagem concluída: <?php if($listaDados['BL_TRIAGEM_CONCLUIDA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
+		</div>
+		
+<?php
 		
 	}
 	

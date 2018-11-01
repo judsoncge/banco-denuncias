@@ -185,7 +185,7 @@ class DenunciasModel extends Model{
 	}
 	
 	public function setDescricao($descricao){
-		$this->descricao = $descricao;
+		$this->descricao = addslashes($descricao);
 	}
 	
 	public function setMunicipio($municipio){
@@ -218,16 +218,7 @@ class DenunciasModel extends Model{
 	
 	public function cadastrar(){
 		
-		
-		$nome = ($this->nome == '') ? '' : $this->nome;
-		$CPF = ($this->CPF == '') ? '' : $this->CPF;
-		$email = ($this->email == '') ? '' : $this->email;
-		$telefone = ($this->telefone == '') ? '' : $this->telefone;
-		$orgao = ($this->orgao == '') ? 'null' : $this->orgao;
-		$municipio = ($this->municipio == '') ? 'null' : $this->municipio;
-		$envolvidos = ($this->envolvidos == '') ? '' : $this->envolvidos;
-		
-		$registro = date('y-m-d');
+		$registro = date('Y-m-d');
 		
 		$query = "
 		
@@ -239,7 +230,11 @@ class DenunciasModel extends Model{
 		VALUES 
 		
 		
-		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('','$nome'), NULLIF('','$CPF'), NULLIF('','$email'), NULLIF('','$telefone'), '$this->descricao', $orgao, $municipio, NULLIF('','$envolvidos'), '$this->dataRegistroEOUV', '$registro', '$this->processo')";
+		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('$this->nome', 'NULL'), NULLIF('$this->CPF', 'NULL'), NULLIF('$this->email', 'NULL'), NULLIF('$this->telefone', 'NULL'), '$this->descricao', $this->orgao, $this->municipio, NULLIF('$this->envolvidos', 'NULL'), '$this->dataRegistroEOUV', '$registro', '$this->processo')
+			
+		";
+		
+		//echo $query; exit;
 		
 		$id = $this->executarQueryID($query);
 		
@@ -366,15 +361,7 @@ class DenunciasModel extends Model{
 	
 	public function editar(){
 		
-		$nome = ($this->nome == '') ? '' : $this->nome;
-		$CPF = ($this->CPF == '') ? '' : $this->CPF;
-		$email = ($this->email == '') ? '' : $this->email;
-		$telefone = ($this->telefone == '') ? '' : $this->telefone;
-		$orgao = ($this->orgao == '') ? 'null' : $this->orgao;
-		$municipio = ($this->municipio == '') ? 'null' : $this->municipio;
-		$envolvidos = ($this->envolvidos == '') ? '' : $this->envolvidos;
-		
-		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('','$nome'), DS_CPF_DENUNCIANTE = NULLIF('','$CPF'), DS_TELEFONE_DENUNCIANTE = NULLIF('','$telefone'), DS_EMAIL_DENUNCIANTE = NULLIF('','$email') , TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $orgao, ID_MUNICIPIO_FATO = $municipio , DS_ENVOLVIDOS = NULLIF('','$envolvidos') , DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('$this->nome', 'NULL'), DS_CPF_DENUNCIANTE = NULLIF('$this->CPF', 'NULL'), DS_TELEFONE_DENUNCIANTE = NULLIF('$this->telefone', 'NULL'), DS_EMAIL_DENUNCIANTE = NULLIF('$this->email', 'NULL'), TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = NULLIF('$this->envolvidos', 'NULL'), DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
 		
@@ -408,7 +395,9 @@ class DenunciasModel extends Model{
 		
 		e.DS_NOME NOME_RESPONSAVEL_TRIAGEM, 
 		
-		f.DS_ABREVIACAO ABREVIACAO_UNIDADE, f.DS_NOME NOME_UNIDADE
+		f.DS_ABREVIACAO ABREVIACAO_UNIDADE, f.DS_NOME NOME_UNIDADE,
+		
+		g.DS_NOME SERVIDOR_CADASTROU
 		
 		FROM tb_denuncias a
 		
@@ -421,6 +410,8 @@ class DenunciasModel extends Model{
 		LEFT JOIN tb_servidores e ON a.ID_RESPONSAVEL_TRIAGEM = e.ID 
 		
 		LEFT JOIN tb_unidades_apuracao f ON a.ID_UNIDADE_APURACAO = f.ID
+		
+		INNER JOIN tb_servidores g ON a.ID_SERVIDOR = g.ID 
 
 		WHERE a.ID = $this->id
 		

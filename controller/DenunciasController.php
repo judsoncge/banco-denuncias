@@ -20,6 +20,22 @@ class DenunciasController extends Controller{
 		
 	}
 	
+	public function visualizar(){
+		
+		$id = $_GET['id'];
+		
+		$this->denunciasModel->setID($id);
+		
+		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
+		
+		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO'] . ' > VISUALIZAR');
+		
+		$this->denunciasView->setConteudo('visualizar');
+		
+		$this->denunciasView->carregar();
+		
+	}
+	
 	public function listar(){
 		
 		
@@ -251,15 +267,15 @@ class DenunciasController extends Controller{
 	public function cadastrar(){
 		
 		$tipo         =  $_POST['tipo'];
-		$nome         =  $_POST['nome'];
-		$CPF          =  $_POST['CPF'];
-		$email        =  $_POST['email'];
-		$telefone     =  $_POST['telefone'];
+		$nome         =  empty($_POST['nome']) ? 'NULL' : $_POST['nome'];
+		$CPF          =  empty($_POST['CPF']) ? 'NULL' : $_POST['CPF'];;
+		$email        =  empty($_POST['email']) ? 'NULL' : $_POST['email'];
+		$telefone     =  empty($_POST['telefone']) ? 'NULL' : $_POST['telefone'];;
 		$assunto      =  $_POST['assunto'];
 		$descricao    =  $_POST['descricao'];
-		$municipio    =  $_POST['municipio'];
-		$orgao        =  $_POST['orgao'];
-		$envolvidos   =  $_POST['envolvidos'];
+		$orgao        =  empty($_POST['orgao']) ? 'NULL' : $_POST['orgao'];
+		$municipio    =  empty($_POST['municipio']) ? 'NULL' : $_POST['municipio'];
+		$envolvidos   =  empty($_POST['envolvidos']) ? 'NULL' : $_POST['envolvidos'];
 		$dataRegistro =  $_POST['dataRegistro'];
 		$processo     =  $_POST['processo'];
 		
@@ -302,15 +318,15 @@ class DenunciasController extends Controller{
 			case 'info':
 				
 				$tipo         =  $_POST['tipo'];
-				$nome         =  (isset($_POST['nome'])) ? $_POST['nome'] : '';
-				$CPF          =  (isset($_POST['CPF'])) ? $_POST['CPF'] : '';
-				$email        =  (isset($_POST['email'])) ? $_POST['email'] : '';
-				$telefone     =  (isset($_POST['telefone'])) ? $_POST['telefone'] : '';
+				$nome         =  empty($_POST['nome']) ? 'NULL' : $_POST['nome'];
+				$CPF          =  empty($_POST['CPF']) ? 'NULL' : $_POST['CPF'];;
+				$email        =  empty($_POST['email']) ? 'NULL' : $_POST['email'];
+				$telefone     =  empty($_POST['telefone']) ? 'NULL' : $_POST['telefone'];;
 				$assunto      =  $_POST['assunto'];
 				$descricao    =  $_POST['descricao'];
-				$municipio    =  $_POST['municipio'];
-				$orgao        =  $_POST['orgao'];
-				$envolvidos   =  $_POST['envolvidos'];
+				$orgao        =  empty($_POST['orgao']) ? 'NULL' : $_POST['orgao'];
+				$municipio    =  empty($_POST['municipio']) ? 'NULL' : $_POST['municipio'];
+				$envolvidos   =  empty($_POST['envolvidos']) ? 'NULL' : $_POST['envolvidos'];
 				$dataRegistro =  $_POST['dataRegistro'];
 				$processo     =  $_POST['processo'];
 				
