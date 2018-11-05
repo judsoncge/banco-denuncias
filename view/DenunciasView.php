@@ -1043,6 +1043,10 @@ class DenunciasView extends View{
 		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA']; 
 		
+		$listaAnexos = $_REQUEST['LISTA_ANEXOS'];
+		
+		$listaTrilhas = $_REQUEST['LISTA_TRILHAS'];
+		
 ?>		
 		STATUS: <?php echo $listaDados['DS_STATUS'] ?>
 		<div class='well'>
@@ -1089,6 +1093,85 @@ class DenunciasView extends View{
 				Unidade de apuração: <?php echo $listaDados['NOME_UNIDADE'] ?><br>
 				Triagem concluída: <?php if($listaDados['BL_TRIAGEM_CONCLUIDA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
 		</div>
+		<?php if($listaAnexos != NULL){ ?>
+		<div class='well'>
+			<strong>Anexos:</strong><br><br>
+					
+			<table class='table' border= '2'>
+				<thead>
+					<tr>
+						<th>Tipo</th>
+						<th>Comentários</th>
+						<th>Data de recebimento</th>
+						<th>Download</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach($listaAnexos as $anexo){ ?>
+					<tr>
+						<td><?php echo $anexo['DS_TIPO'] ?></td>
+						<td><?php echo $anexo['DS_COMENTARIOS'] ?></td>
+						<td><?php 
+								if($anexo['DT_RECEBIMENTO']!='0000-00-00'){
+									echo date_format(new DateTime($anexo['DT_RECEBIMENTO']), 'd/m/Y');
+								}else{
+								    echo 'Sem data';
+								} 
+							?>
+						</td>
+						<td><a href='/_registros/anexos/<?php echo $anexo['NM_ARQUIVO'] ?>' download>Baixar</a></td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
+		<?php } 
+		if($listaTrilhas != NULL){ ?>
+		<div class='well'>
+			<strong>Trilhas:</strong><br><br>
+					
+			<table class='table' border= '2'>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Alerta?</th>
+						<th>Unidade</th>
+						<th>Periodicidade</th>
+						<th>Tipo de alerta</th>
+						<th>Email do alerta</th>
+						<th>Agrupador?</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach($listaTrilhas as $trilha){ ?>
+					<tr>
+						<td><?php echo $trilha['DS_NOME'] ?></td>
+						<td><?php 
+								if($trilha['BL_ALERTA']){
+									echo 'SIM';
+								}else{
+									echo 'NÃO';
+								} 
+							?>
+						</td>
+						<td><?php echo $trilha['NOME_UNIDADE'] ?></td>
+						<td><?php echo $trilha['NR_PERIODICIDADE'] . ' dias'?></td>
+						<td><?php echo $trilha['DS_TIPO_ALERTA'] ?></td>
+						<td><?php echo $trilha['DS_EMAIL_ALERTA'] ?></td>
+						<td><?php 
+								if($trilha['BL_AGRUPADOR']){
+									echo 'SIM';
+								}else{
+									echo 'NÃO';
+								} 
+							?>
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
+		<?php } ?>
 		
 <?php
 		

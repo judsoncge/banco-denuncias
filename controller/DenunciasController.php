@@ -28,6 +28,10 @@ class DenunciasController extends Controller{
 		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
 		
+		$_REQUEST['LISTA_ANEXOS'] = $this->denunciasModel->getAnexos();
+		
+		$_REQUEST['LISTA_TRILHAS'] = $this->denunciasModel->getTrilhas();
+		
 		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO'] . ' > VISUALIZAR');
 		
 		$this->denunciasView->setConteudo('visualizar');

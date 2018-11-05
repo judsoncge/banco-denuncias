@@ -432,6 +432,27 @@ class DenunciasModel extends Model{
 		return $listaAnexos;
 		
 	}
+	
+	public function getTrilhas(){
+		
+		$query = "
+		
+		SELECT a.*,
+
+		b.DS_NOME NOME_UNIDADE
+		
+		FROM tb_trilhas a
+		
+		INNER JOIN tb_unidades_apuracao b ON a.ID_UNIDADE_APURACAO = b.ID
+		
+		WHERE ID_DENUNCIA = $this->id";
+		
+		$listaTrilhas = $this->executarQueryLista($query);
+		
+		return $listaTrilhas;
+		
+	}
+
 
 	public function getPalavrasChave(){
 		
