@@ -46,9 +46,13 @@ class DenunciasController extends Controller{
 		if(!$_GET['filtro']){
 		
 			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenuncias();
+			
 			$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
+			
 			$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
+			
 			$_REQUEST['LISTA_MUNICIPIOS'] = $this->municipiosModel->getMunicipios();
+			
 			$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
 			
 			$this->denunciasView->setTitulo('DENÚNCIAS');

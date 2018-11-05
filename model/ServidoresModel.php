@@ -90,6 +90,10 @@ class ServidoresModel extends Model{
 	
 	public function getServidores(){
 		
+		$unidade = $_SESSION['UNIDADE'];
+		
+		$restricaoUsuario = ($_SESSION['TIPO'] == 'UNIDADE DE APURAÇÃO') ? " AND s1.ID_UNIDADE_APURACAO = $unidade" : '';
+		
 		$query = "
 		
 		SELECT 
@@ -101,6 +105,8 @@ class ServidoresModel extends Model{
 		INNER JOIN tb_orgaos s2 ON s1.ID_ORGAO = s2.ID 
 
 		WHERE STATUS = 'ATIVO'
+		
+		$restricaoUsuario
 		
 		ORDER BY s1.DS_NOME";
 		

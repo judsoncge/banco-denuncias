@@ -135,10 +135,12 @@ class View{
 						
 						<li id='denuncias'>
 							<a href='#'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Denúncias</a>
-						</li>	
-							<li class='denuncias-subitem'>
-								<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
-							</li>
+						</li>
+							<?php if($_SESSION['TIPO'] == 'OUVIDORIA'){ ?>
+								<li class='denuncias-subitem'>
+									<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
+								</li>
+							<?php } ?>
 							<li class='denuncias-subitem'>
 								<a href='/denuncias/listar/0'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Consulta</a>
 							</li>

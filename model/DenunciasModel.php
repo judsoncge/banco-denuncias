@@ -496,33 +496,39 @@ class DenunciasModel extends Model{
 
 	public function getDenuncias(){
 		
+		$unidade = $_SESSION['UNIDADE'];
+		
+		$restricaoUsuario = ($_SESSION['TIPO'] == 'UNIDADE DE APURAÇÃO') ? "WHERE a.ID_UNIDADE_APURACAO = $unidade" : '';
+		
 		$query = 
 		
-		"SELECT 
-		
-		a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA,
-		
-		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
-		
-		c.DS_ABREVIACAO NOME_ORGAO_DENUNCIADO,
-		
-		d.DS_NOME NOME_SERVIDOR,
-		
-		e.DS_NOME NOME_MUNICIPIO
-		
-		FROM  tb_denuncias a
-		
-		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
-		
-		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
-		
-		INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
-		
-		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
-		
-		ORDER BY a.DT_REGISTRO_EOUV desc
-		
-		";
+			"SELECT 
+			
+			a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA,
+			
+			b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
+			
+			c.DS_ABREVIACAO NOME_ORGAO_DENUNCIADO,
+			
+			d.DS_NOME NOME_SERVIDOR,
+			
+			e.DS_NOME NOME_MUNICIPIO
+			
+			FROM  tb_denuncias a
+			
+			INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
+			
+			LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
+			
+			INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
+			
+			LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
+			
+			$restricaoUsuario
+			
+			ORDER BY a.DT_REGISTRO_EOUV desc
+			
+			";
 		
 		$lista = $this->executarQueryLista($query);
 		
@@ -536,7 +542,7 @@ class DenunciasModel extends Model{
 		
 		$responsavel = ($this->responsavel == '%') ? '' : "AND (ID_RESPONSAVEL_TRIAGEM = $this->responsavel)" ;
 		
-		$unidade = ($this->unidadeApuracao == '%') ? '' : "AND (ID_UNIDADE_APURACAO = $this->unidadeApuracao)" ;
+		$unidade = ($this->unidadeApuracao == '%') ? '' : "AND (a.ID_UNIDADE_APURACAO = $this->unidadeApuracao)" ;
 		
 		$assunto = ($this->assunto == '%') ? '' : "AND (ID_ASSUNTO = $this->assunto)" ;
 		
@@ -544,9 +550,13 @@ class DenunciasModel extends Model{
 		
 		$periodo = ($this->dataRegistro == '%') ? '' : "AND (DT_REGISTRO >= '$this->dataRegistro')" ;
 		
-		$restrito = ($this->restrito == '%') ? '' : "AND (BL_RESTRITO >= $this->restrito)" ;
+		$restrito = ($this->restrito == '%') ? '' : "AND (BL_ACESSO_RESTRITO = $this->restrito)" ;
 		
-		$analise = ($this->status == '%') ? '' : "AND (DS_STATUS >= $this->status)";
+		$analise = ($this->status == '%') ? '' : "AND (DS_STATUS = '$this->status')";
+		
+		$unidadeUsuario = $_SESSION['UNIDADE'];
+		
+		$restricaoUsuario = ($_SESSION['TIPO'] == 'UNIDADE DE APURAÇÃO') ? " AND a.ID_UNIDADE_APURACAO = $unidadeUsuario" : '';
 		
 		if($this->idPalavraChave == '%' or $this->idPalavraChave == ''){
 			
@@ -598,6 +608,8 @@ class DenunciasModel extends Model{
 		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
 		
 		WHERE DS_NUMERO LIKE '%$this->numero%'
+		
+		$restricaoUsuario
 		
 		$situacao
 		

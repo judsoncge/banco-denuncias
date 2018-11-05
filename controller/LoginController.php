@@ -26,7 +26,7 @@ class LoginController extends Controller{
 			
 			$_SESSION['ID'] = $dadosUsuario[0]['ID'];
 			$_SESSION['NOME'] = $dadosUsuario[0]['DS_NOME'];
-			$_SESSION['ORGAO'] = $dadosUsuario[0]['ID_ORGAO'];			
+			$_SESSION['UNIDADE'] = $dadosUsuario[0]['ID_UNIDADE_APURACAO'];			
 			$_SESSION['FOTO'] = $dadosUsuario[0]['DS_FOTO'];
 			$_SESSION['TIPO'] = $dadosUsuario[0]['DS_TIPO'];
 			
