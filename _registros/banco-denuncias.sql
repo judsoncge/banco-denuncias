@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 31-Out-2018 às 17:21
+-- Generation Time: 05-Nov-2018 às 13:40
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -44,11 +44,11 @@ CREATE TABLE `tb_anexos` (
 INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO`, `NM_ARQUIVO`) VALUES
 (1, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2018-10-23', 'credenciais-github.txt'),
 (3, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2019-02-20', 'credenciais-ODP.txt'),
-(16, 2, 'COMPLEMENTO DO DENUNCIANTE', 'sddsdasdasdas', '2018-10-22', 'git.txt'),
 (31, 1, 'STATUS DA DENUNCIA', 'asadasdasdasdadadasdasdasd', '0000-00-00', '[1]Painel-de-Controle-da-Transparencia.docx'),
 (32, 1, 'STATUS DA DENUNCIA', 'ASDASDASDAS', '0000-00-00', '[1]credenciais-ODP.txt'),
 (33, 1, 'STATUS DA DENUNCIA', 'ASDADADADAS', '0000-00-00', 'Relatorio-FAPEAL.doc'),
-(34, 1, 'STATUS DA DENUNCIA', 'sadasdasdasda', '0000-00-00', '[2]Painel-de-Controle-da-Transparencia.docx');
+(34, 1, 'STATUS DA DENUNCIA', 'sadasdasdasda', '0000-00-00', '[2]Painel-de-Controle-da-Transparencia.docx'),
+(35, 6, 'STATUS DA DENUNCIA', 'hehehehehhehee', '0000-00-00', '[2]credenciais-ODP.txt');
 
 -- --------------------------------------------------------
 
@@ -229,8 +229,9 @@ CREATE TABLE `tb_denuncias` (
 
 INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
 (1, '1/20181001', 'ANÔNIMA', 1, 57, NULL, NULL, NULL, NULL, '<h2 style=\"text-align: left;\"><em>Est&aacute;gio</em></h2>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\"><em>Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio </em></p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Judson Bandeira</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">cora&ccedil;&atilde;o&nbsp;</p>', 66, 26, 'sdasdsadasdasdasdas', '2018-10-01', '2018-12-02', '01104 000563/2018', 1, 1, 1, '2018-10-24', 'APTA', 1, 1, 'NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'),
-(2, '2/20181024-P', 'IDENTIFICADA', 1, 95, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>\r\n<p style=\"text-align: justify;\">&nbsp;</p>\r\n<p style=\"text-align: justify;\"><span style=\"text-align: start;\">Seu texto aqui&nbsp;</span>Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>', 11, 12, '', '2018-10-24', '2019-01-01', '12000 000555/2018', 1, 1, 1, '2018-10-31', 'APTA', 1, 0, 'NÃO TRATADA'),
-(3, '3/20181024-P', 'IDENTIFICADA', 1, 39, '', '', '', '', '<p>Seu texto aqui xto aqui xto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aqui</p>', 15, 19, '', '2018-10-24', '2018-10-31', '55555 555555/2018', NULL, NULL, NULL, NULL, 'AGUARDANDO TRIAGEM', NULL, 0, 'NÃO TRATADA');
+(2, '2/20181024-P', 'IDENTIFICADA', 1, 95, 'Antonio', NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>\r\n<p style=\"text-align: justify;\">&nbsp;</p>\r\n<p style=\"text-align: justify;\"><span style=\"text-align: start;\">Seu texto aqui&nbsp;</span>Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>', 11, 12, NULL, '2018-10-24', '2019-01-01', '12000 000555/2018', 1, 1, 1, '2018-10-31', 'APTA', 1, 0, 'NÃO TRATADA'),
+(3, '3/20181024-P', 'IDENTIFICADA', 1, 39, 'Pedro', NULL, NULL, NULL, '<p>Seu texto aqui xto aqui xto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aqui</p>', 15, 19, NULL, '2018-10-24', '2018-10-31', '55555 555555/2018', NULL, NULL, NULL, NULL, 'AGUARDANDO TRIAGEM', NULL, 0, 'NÃO TRATADA'),
+(6, '6/20181120-P', 'ANÔNIMA', 1, 4, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">&nbsp;Seu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aqui</p>', 15, 18, 'JUDSON, WILLIAMS', '2018-11-20', '2018-11-05', '01104 000055/2018', 0, 4, 1, '2018-11-26', 'EM TRIAGEM', 1, 1, 'PROCEDENTE');
 
 -- --------------------------------------------------------
 
@@ -242,9 +243,21 @@ CREATE TABLE `tb_historico_denuncia` (
   `ID` int(20) NOT NULL,
   `ID_DENUNCIA` int(20) NOT NULL,
   `ID_SERVIDOR` int(20) NOT NULL,
-  `DS_TIPO_ACAO` enum('CRIAÇÃO') NOT NULL,
-  `DS_MENSAGEM` varchar(100) NOT NULL
+  `DT_ACAO` datetime NOT NULL,
+  `DS_TIPO_ACAO` enum('CADASTRO','EDIÇÃO','SALVAMENTO DE TRIAGEM','CONCLUSÃO DE TRIAGEM','ANDAMENTO') NOT NULL,
+  `DS_MENSAGEM` enum('EFETUOU O CADASTRO','EDITOU A DENÚNCIA','SALVOU A TRIAGEM','CONCLUIU A TRIAGEM','DEU ANDAMENTO A DENÚNCIA') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_historico_denuncia`
+--
+
+INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACAO`, `DS_TIPO_ACAO`, `DS_MENSAGEM`) VALUES
+(1, 6, 1, '2018-11-05 09:37:27', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(2, 6, 1, '2018-11-05 09:37:54', 'EDIÇÃO', 'EDITOU A DENÚNCIA'),
+(3, 6, 1, '2018-11-05 09:38:31', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM'),
+(4, 6, 1, '2018-11-05 09:38:39', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
+(5, 6, 1, '2018-11-05 09:38:56', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA');
 
 -- --------------------------------------------------------
 
@@ -634,7 +647,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
@@ -646,13 +659,13 @@ ALTER TABLE `tb_assuntos_denuncia`
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_municipios`

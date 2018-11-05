@@ -234,8 +234,6 @@ class DenunciasModel extends Model{
 			
 		";
 		
-		//echo $query; exit;
-		
 		$id = $this->executarQueryID($query);
 		
 		$dataSemTraco = str_replace('-','', $this->dataRegistroEOUV);
@@ -243,6 +241,10 @@ class DenunciasModel extends Model{
 		$numeroProvisorio = $id . "/" . $dataSemTraco . "-P";
 		
 		$query = "UPDATE tb_denuncias SET DS_NUMERO = '$numeroProvisorio' WHERE ID = $id";
+		
+		$this->setID($id);
+		
+		$this->cadastrarHistorico('CADASTRO', 'EFETUOU O CADASTRO');
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -280,6 +282,8 @@ class DenunciasModel extends Model{
 			}
 			
 		}
+		
+		$this->cadastrarHistorico('SALVAMENTO DE TRIAGEM','SALVOU A TRIAGEM');
 		
 		return $resultado;
 		
@@ -322,6 +326,8 @@ class DenunciasModel extends Model{
 			}
 	
 		}
+		
+		$this->cadastrarHistorico('ANDAMENTO','DEU ANDAMENTO A DENÚNCIA');
 	
 		return $resultado;
 					
@@ -364,6 +370,8 @@ class DenunciasModel extends Model{
 		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('$this->nome', 'NULL'), DS_CPF_DENUNCIANTE = NULLIF('$this->CPF', 'NULL'), DS_TELEFONE_DENUNCIANTE = NULLIF('$this->telefone', 'NULL'), DS_EMAIL_DENUNCIANTE = NULLIF('$this->email', 'NULL'), TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = NULLIF('$this->envolvidos', 'NULL'), DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
+		
+		$this->cadastrarHistorico('EDIÇÃO','EDITOU A DENÚNCIA');
 		
 		return $resultado;
 
@@ -628,6 +636,8 @@ class DenunciasModel extends Model{
 		$modificarNumeroDenuncia = ($resultado == 'APTA') ? ", DS_NUMERO = REPLACE(DS_NUMERO,'-P','')" : '';
 		
 		$query = "UPDATE tb_denuncias SET BL_TRIAGEM_CONCLUIDA = 1 $modificarNumeroDenuncia WHERE ID = $this->id";
+		
+		$this->cadastrarHistorico('CONCLUSÃO DE TRIAGEM','CONCLUIU A TRIAGEM');
 		
 		$resultado = $this->executarQuery($query);
 

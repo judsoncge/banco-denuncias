@@ -177,11 +177,11 @@ class Model{
 		
 	}	
 	
-	public function cadastrarHistorico($mensagem, $acao){
+	public function cadastrarHistorico($acao, $mensagem){
 		
 		$data = date('Y-m-d H:i:s');
 		
-		$query = "INSERT INTO $this->tabelaHistorico (ID_REFERENTE, TX_MENSAGEM, ID_SERVIDOR, DT_ACAO, DS_ACAO) VALUES ($this->id, '$mensagem', ".$_SESSION['ID'].", '$data', '$acao')";
+		$query = "INSERT INTO tb_historico_denuncia (ID_DENUNCIA, ID_SERVIDOR, DT_ACAO, DS_TIPO_ACAO, DS_MENSAGEM) VALUES ($this->id, ".$_SESSION['ID'].", '$data', '$acao', '$mensagem')";
 		
 		$resultado = $this->executarQuery($query);
 		
