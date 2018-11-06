@@ -25,6 +25,7 @@ class DenunciasModel extends Model{
 	private $relevancia;
 	private $termino;
 	private $situacao;
+	private $andamento;
 	private $unidadeApuracao;
 	
 	private $anexos;
@@ -45,6 +46,11 @@ class DenunciasModel extends Model{
 	private $agrupadores;
 	private $tiposAlertas;
 	private $emailsAlertas;
+	
+	public function setAndamento($andamento){
+		$this->andamento = $andamento;
+		
+	}
 	
 	public function setAgrupadores($agrupadores){
 		$this->agrupadores = $agrupadores;
@@ -262,7 +268,7 @@ class DenunciasModel extends Model{
 	
 	public function triagem(){
 		
-		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -287,6 +293,30 @@ class DenunciasModel extends Model{
 		
 		return $resultado;
 		
+	}
+	
+	public function getTriagensPrazoExpirado(){
+		
+		$query = "
+		
+		SELECT a.*,
+
+		b.DS_NOME_MACRO NOME_MACRO, b.DS_NOME_MICRO NOME_MICRO
+		
+		FROM tb_denuncias a
+		
+		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID
+		
+		WHERE DT_TERMINO_TRIAGEM IS NOT NULL 
+		
+		AND DT_TERMINO_TRIAGEM > NOW() 
+		
+		AND ID_RESPONSAVEL_TRIAGEM = ".$_SESSION['ID']."";
+		
+		$lista = $this->executarQueryLista($query);
+		
+		return $lista;
+
 	}
 	
 	public function andamento(){
@@ -335,6 +365,8 @@ class DenunciasModel extends Model{
 	
 	public function cadastrarAnexos(){
 		
+		$data = date('Y-m-d');
+		
 		foreach($this->anexos['error'] as $key => $error){
 				
 			$nomeAnexo = $this->retiraCaracteresEspeciais($this->anexos['name'][$key]);	
@@ -355,9 +387,9 @@ class DenunciasModel extends Model{
 					
 			$comentario = ($this->comentarios[$key] == '') ? '' : addslashes($this->comentarios[$key]);
 						
-			$data = $this->datas[$key];
+			$dataEOUV = $this->datas[$key];
 			
-			$query = "INSERT INTO tb_anexos (ID_DENUNCIA, DS_TIPO, DS_COMENTARIOS, DT_RECEBIMENTO, NM_ARQUIVO) VALUES ('$this->id','$tipo','$comentario','$data','$nomeAnexo')";
+			$query = "INSERT INTO tb_anexos (ID_DENUNCIA, DS_TIPO, DS_COMENTARIOS, DT_RECEBIMENTO_EOUV, DT_RECEBIMENTO_SISTEMA, NM_ARQUIVO) VALUES ('$this->id','$tipo','$comentario','$dataEOUV', '$data','$nomeAnexo')";
 			
 			$resultado = $this->executarQuery($query);
 			

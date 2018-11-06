@@ -191,6 +191,7 @@ class DenunciasController extends Controller{
 		$responsavel = $_POST['responsavel'];
 		$relevancia = $_POST['relevancia'];
 		$termino = $_POST['termino'];
+		$andamento = $_POST['andamento'];
 		$situacao = $_POST['situacao'];
 		$unidadeApuracao = $_POST['unidadeApuracao'];
 		
@@ -205,6 +206,7 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setResponsavel($responsavel);
 		$this->denunciasModel->setRelevancia($relevancia);
 		$this->denunciasModel->setTermino($termino);
+		$this->denunciasModel->setAndamento($andamento);
 		$this->denunciasModel->setSituacao($situacao);
 		$this->denunciasModel->setUnidadeApuracao($unidadeApuracao);
 		

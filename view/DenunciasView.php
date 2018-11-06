@@ -881,9 +881,22 @@ class DenunciasView extends View{
 				</div>  
 			</div>
 		</div>
-		<hr>
 		<div class='row'>
-			<div class='col-md-3'>
+			<div class='col-md-4'>
+				<?php 
+					$interfaceResultado = ($listaDados['DS_ANDAMENTO'] != NULL) ? $listaDados['DS_ANDAMENTO'] : 'Selecione';
+					$valueResultado = ($listaDados['DS_ANDAMENTO'] != NULL) ? $listaDados['DS_ANDAMENTO'] : '';
+				?>
+				<div class='form-group'>
+					<label class='control-label'>Andamento da triagem</label>
+					<select class='form-control' id='andamento' name='andamento' required />
+						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
+						<option value='AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE'>AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE</option>
+						<option value='AGUARDANDO ANÁLISE PRELIMINAR DA OUVIDORIA'>AGUARDANDO ANÁLISE PRELIMINAR DA OUVIDORIA</option>
+					</select>
+				</div> 
+			</div>
+			<div class='col-md-4'>
 				<?php 
 					$interfaceResultado = ($listaDados['DS_SITUACAO'] != NULL) ? $listaDados['DS_SITUACAO'] : 'Selecione';
 					$valueResultado = ($listaDados['DS_SITUACAO'] != NULL) ? $listaDados['DS_SITUACAO'] : '';
@@ -897,7 +910,7 @@ class DenunciasView extends View{
 					</select>
 				</div> 
 			</div>
-			<div class='col-md-9'>
+			<div class='col-md-4'>
 				<?php 
 					$interfaceUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ABREVIACAO_ORGAO'] . ' - ' . $listaDados['ABREVIACAO_UNIDADE'] . ' - ' . $listaDados['NOME_UNIDADE'] : 'Selecione';
 					

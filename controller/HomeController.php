@@ -8,24 +8,16 @@ class HomeController extends Controller{
 	
 	function __construct(){
 		
-		//$this->comunicacaoModel = new comunicacaoModel();
-		
 		$tipoView = $_SESSION['TYPE_VIEW'];
 		$tipoView .= 'HomeView';
 		$this->homeView = new $tipoView();
+		$this->denunciasModel = new DenunciasModel();
 		
 	}
 
 	public function carregarHome(){
 				
-		//$_REQUEST['LISTA_NOTICIAS'] = $this->comunicacaoModel->getCincoNoticiasMaisAtuais();
-		
-		//if(isset($_GET['404'])){
-			
-		//	$_SESSION['RESULTADO_OPERACAO'] = 0;
-		//	$_SESSION['MENSAGEM'] = 'Página não encontrada';
-			
-		//}
+		$_REQUEST['TRIAGENS_EXPIRADAS'] = $this->denunciasModel->getTriagensPrazoExpirado();
 		
 		$this->homeView->setTitulo("<center>Bem vindo(a) ao Banco de Denúncias, <br>" . $_SESSION['NOME'] . "</center>");
 
