@@ -309,7 +309,7 @@ class DenunciasModel extends Model{
 		
 		WHERE DT_TERMINO_TRIAGEM IS NOT NULL 
 		
-		AND DT_TERMINO_TRIAGEM > NOW() 
+		AND DT_TERMINO_TRIAGEM < NOW() 
 		
 		AND ID_RESPONSAVEL_TRIAGEM = ".$_SESSION['ID']."";
 		
