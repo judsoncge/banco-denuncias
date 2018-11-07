@@ -181,7 +181,7 @@ class Model{
 		
 		$data = date('Y-m-d H:i:s');
 		
-		$query = "INSERT INTO tb_historico_denuncia (ID_DENUNCIA, ID_SERVIDOR, DT_ACAO, DS_TIPO_ACAO, DS_MENSAGEM) VALUES ($this->id, ".$_SESSION['ID'].", '$data', '$acao', '$mensagem')";
+		$query = "INSERT INTO tb_historico_denuncia (ID_DENUNCIA, ID_SERVIDOR, DT_ACAO, DS_TIPO_ACAO, TX_MENSAGEM) VALUES ($this->id, ".$_SESSION['ID'].", '$data', '$acao', '$mensagem')";
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -207,11 +207,11 @@ class Model{
 		
 		s.DS_NOME, s.DS_FOTO
 		
-		FROM $this->tabelaHistorico a
+		FROM tb_historico_denuncia a
 		
 		INNER JOIN tb_servidores s ON a.ID_SERVIDOR = s.ID
 		
-		WHERE a.ID_REFERENTE = $this->id
+		WHERE a.ID_DENUNCIA = $this->id
 		
 		ORDER BY ID DESC
 		

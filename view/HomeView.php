@@ -15,7 +15,7 @@ class HomeView extends View{
 				
 					<?php foreach($listaTriagensExpiradas as $triagem){ ?>
 						
-					- Denúncia <?php $triagem['DS_TIPO'] ?> de número <?php echo $triagem['DS_NUMERO'] ?> sobre <?php echo $triagem['NOME_MACRO'] ?> - <?php echo $triagem['NOME_MICRO'] ?>. <a href='/denuncias/triagem/<?php echo $triagem['ID'] ?>'>Continuar</a>	
+					- Denúncia <?php $triagem['DS_TIPO'] ?> de número <?php echo $triagem['DS_NUMERO'] ?> sobre <?php echo $triagem['NOME_MACRO'] ?> - <?php echo $triagem['NOME_MICRO'] ?>. <a href='/denuncias/triagem/<?php echo $triagem['ID'] ?>'>Continuar</a><br>	
 					
 	
 					<?php } ?>

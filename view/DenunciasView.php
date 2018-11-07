@@ -1060,6 +1060,8 @@ class DenunciasView extends View{
 		
 		$listaTrilhas = $_REQUEST['LISTA_TRILHAS'];
 		
+		$historico = $_REQUEST['HISTORICO'];
+		
 ?>		
 		STATUS: <?php echo $listaDados['DS_STATUS'] ?>
 		<div class='well'>
@@ -1125,8 +1127,8 @@ class DenunciasView extends View{
 						<td><?php echo $anexo['DS_TIPO'] ?></td>
 						<td><?php echo $anexo['DS_COMENTARIOS'] ?></td>
 						<td><?php 
-								if($anexo['DT_RECEBIMENTO']!='0000-00-00'){
-									echo date_format(new DateTime($anexo['DT_RECEBIMENTO']), 'd/m/Y');
+								if($anexo['DT_RECEBIMENTO_EOUV']!='0000-00-00'){
+									echo date_format(new DateTime($anexo['DT_RECEBIMENTO_EOUV']), 'd/m/Y');
 								}else{
 								    echo 'Sem data';
 								} 
@@ -1185,6 +1187,9 @@ class DenunciasView extends View{
 			</table>
 		</div>
 		<?php } ?>
+		<div class='well'>
+		<?php $this->carregarHistorico($historico); ?>
+		</div>
 		
 <?php
 		

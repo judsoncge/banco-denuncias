@@ -32,6 +32,8 @@ class DenunciasController extends Controller{
 		
 		$_REQUEST['LISTA_TRILHAS'] = $this->denunciasModel->getTrilhas();
 		
+		$_REQUEST['HISTORICO'] = $this->denunciasModel->getHistorico();
+		
 		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO'] . ' > VISUALIZAR');
 		
 		$this->denunciasView->setConteudo('visualizar');

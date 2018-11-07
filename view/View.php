@@ -338,7 +338,7 @@ class View{
 	}
 	
 	
-	public function carregarHistorico($historico){
+	public function carregarHistorico($historico){ 
 
 ?>
 		
@@ -350,49 +350,23 @@ class View{
 			
 				foreach($historico as $hist){ 
 				
-					switch($hist['DS_ACAO']){
+					switch($hist['DS_TIPO_ACAO']){
 						
-						case 'ABERTURA':
-						case 'AVALIAÇÃO':
-						case 'TRAMITAÇÃO':
-						case 'VOLTAR':
-						case 'RESPONSÁVEIS':
-						case 'REMOVER RESPONSÁVEL':
-						case 'CRIAÇÃO DE DOCUMENTO':
-						case 'EXCLUSÃO DE DOCUMENTO':
+						case 'CADASTRO':
 						case 'EDIÇÃO':
-						case 'LÍDER':
-						case 'APENSAR':
-						case 'REMOÇÃO DE APENSO':
 							$rgb = 'rgba(46, 204, 113,0.3)';
 							break;
 							
-						case 'MENSAGEM':
+						case 'SALVAMENTO DE TRIAGEM':
 							$rgb = 'rgba(243, 156, 18,0.4)';
 							break;
 							
-						case 'FECHAMENTO':
-						case 'ENCERRAMENTO':
-						case 'CONCLUSÃO':
-						case 'FINALIZAÇÃO':
-						case 'FINALIZAÇÃO DESFEITA':
-						case 'ARQUIVAMENTO':
-						case 'DESARQUIVAMENTO':
-						case 'SAÍDA':
+						case 'CONCLUSÃO DE TRIAGEM':
 							$rgb = 'rgba(52,152,219 ,1)';
 							break;
 							
-						case 'URGENTE':
-						case 'SOBRESTADO':
-							$rgb = 'rgba(231,76,60 ,1)';
-							break;
-							
-						case 'CONFIRMAR PROCESSO':
+						case 'ANDAMENTO':
 							$rgb = 'rgba(39,174,96 ,1)';
-							break;
-							
-						case 'RETORNAR PROCESSO':
-							$rgb = 'rgba(127,140,141 ,1)';
 							break;
 					}
 

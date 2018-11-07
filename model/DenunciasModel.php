@@ -399,12 +399,31 @@ class DenunciasModel extends Model{
 	
 	public function editar(){
 		
+		$textoMudanca = 'Foram alterados os dados: ';
+		
+		$query = "SELECT * FROM tb_denuncias WHERE ID=$this->id";
+		
+		$lista = $this->executarQueryListaID($query);
+		
+		$textoMudanca .= ($lista['DS_TIPO'] == $this->tipo) ? '' : ' Tipo da denúncia;';
+		$textoMudanca .= ($lista['ID_ASSUNTO'] == $this->assunto) ? '' : ' Assunto da denúncia;';
+		$textoMudanca .= ($lista['DS_NOME_DENUNCIANTE'] == $this->nome) ? '' : ' Nome do denunciante;';
+		$textoMudanca .= ($lista['DS_CPF_DENUNCIANTE'] == $this->CPF) ? '' : ' CPF do denunciante;';
+		$textoMudanca .= ($lista['DS_TELEFONE_DENUNCIANTE'] == $this->telefone) ? '' : ' Telefone do denunciante;';
+		$textoMudanca .= ($lista['DS_EMAIL_DENUNCIANTE'] == $this->email) ? '' : ' E-mail do denunciante;';
+		$textoMudanca .= ($lista['TX_DESCRICAO_FATO'] == $this->descricao) ? '' : ' Texto de descrição da denúncia;';
+		$textoMudanca .= ($lista['ID_ORGAO_DENUNCIADO'] == $this->orgao) ? '' : ' Órgão denunciado;';
+		$textoMudanca .= ($lista['ID_MUNICIPIO_FATO'] == $this->municipio) ? '' : ' Município fato;';
+		$textoMudanca .= ($lista['DS_ENVOLVIDOS'] == $this->envolvidos) ? '' : ' Envolvidos;';
+		$textoMudanca .= ($lista['DT_REGISTRO_EOUV'] == $this->dataRegistroEOUV) ? '' : ' Data do registro no EOUV;';
+		$textoMudanca .= ($lista['DS_NUMERO_PROCESSO_SEI'] == $this->processo) ? '' : ' Número do processo no SEI;';
+	
 		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('$this->nome', 'NULL'), DS_CPF_DENUNCIANTE = NULLIF('$this->CPF', 'NULL'), DS_TELEFONE_DENUNCIANTE = NULLIF('$this->telefone', 'NULL'), DS_EMAIL_DENUNCIANTE = NULLIF('$this->email', 'NULL'), TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = NULLIF('$this->envolvidos', 'NULL'), DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
 		
-		$this->cadastrarHistorico('EDIÇÃO','EDITOU A DENÚNCIA');
-		
+		$this->cadastrarHistorico('EDIÇÃO',"EDITOU A DENÚNCIA. $textoMudanca");
+	
 		return $resultado;
 
 	}
