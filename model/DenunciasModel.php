@@ -47,6 +47,10 @@ class DenunciasModel extends Model{
 	private $tiposAlertas;
 	private $emailsAlertas;
 	
+	
+	
+	
+	
 	public function setAndamento($andamento){
 		$this->andamento = $andamento;
 		
@@ -268,13 +272,29 @@ class DenunciasModel extends Model{
 	
 	public function triagem(){
 		
+		$textoMudanca = 'Foram alterados os dados: ';
+		
+		$query = "SELECT * FROM tb_denuncias WHERE ID=$this->id";
+		
+		$lista = $this->executarQueryListaID($query);
+		
+		$textoMudanca .= ($lista['BL_ACESSO_RESTRITO'] == $this->restrito) ? '' : ' Acesso restrito;';
+		$textoMudanca .= ($lista['ID_RESPONSAVEL_TRIAGEM'] == $this->responsavel) ? '' : ' Responsável pela triagem;';
+		$textoMudanca .= ($lista['BL_RELEVANCIA'] == $this->relevancia) ? '' : ' Relevância;';
+		$textoMudanca .= ($lista['DT_TERMINO_TRIAGEM'] == $this->termino) ? '' : ' Data de término da triagem;';
+		$textoMudanca .= ($lista['DS_ANDAMENTO'] == $this->andamento) ? '' : ' Andamento;';
+		$textoMudanca .= ($lista['DS_SITUACAO'] == $this->situacao) ? '' : ' Situação;';
+		$textoMudanca .= ($lista['ID_UNIDADE_APURACAO'] == $this->unidadeApuracao) ? '' : ' Unidade de apuração;';
+		
 		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		
 		if($this->anexos != NULL){
-			
+	
 			$this->cadastrarAnexos();
+			
+			$textoMudanca .= ' Adicionou anexos;';
 			
 		}
 		
@@ -284,12 +304,14 @@ class DenunciasModel extends Model{
 				
 				$query = "INSERT INTO tb_palavras_chave_denuncia (ID_DENUNCIA, DS_PALAVRA_CHAVE) VALUES ($this->id, '$palavra')";
 				
-				$this->executarQuery($query);			
+				$this->executarQuery($query);				
 			}
+			
+			$textoMudanca .= ' Adicionou palavras-chave;';		
 			
 		}
 		
-		$this->cadastrarHistorico('SALVAMENTO DE TRIAGEM','SALVOU A TRIAGEM');
+		$this->cadastrarHistorico('SALVAMENTO DE TRIAGEM',"SALVOU A TRIAGEM. $textoMudanca");
 		
 		return $resultado;
 		
@@ -407,14 +429,24 @@ class DenunciasModel extends Model{
 		
 		$textoMudanca .= ($lista['DS_TIPO'] == $this->tipo) ? '' : ' Tipo da denúncia;';
 		$textoMudanca .= ($lista['ID_ASSUNTO'] == $this->assunto) ? '' : ' Assunto da denúncia;';
-		$textoMudanca .= ($lista['DS_NOME_DENUNCIANTE'] == $this->nome) ? '' : ' Nome do denunciante;';
-		$textoMudanca .= ($lista['DS_CPF_DENUNCIANTE'] == $this->CPF) ? '' : ' CPF do denunciante;';
-		$textoMudanca .= ($lista['DS_TELEFONE_DENUNCIANTE'] == $this->telefone) ? '' : ' Telefone do denunciante;';
-		$textoMudanca .= ($lista['DS_EMAIL_DENUNCIANTE'] == $this->email) ? '' : ' E-mail do denunciante;';
+		if($this->nome != 'NULL'){
+			$textoMudanca .= ($lista['DS_NOME_DENUNCIANTE'] == $this->nome) ? '' : ' Nome do denunciante;';
+		}
+		if($this->CPF != 'NULL'){
+			$textoMudanca .= ($lista['DS_CPF_DENUNCIANTE'] == $this->CPF) ? '' : ' CPF do denunciante;';
+		}
+		if($this->telefone != 'NULL'){
+			$textoMudanca .= ($lista['DS_TELEFONE_DENUNCIANTE'] == $this->telefone) ? '' : ' Telefone do denunciante;';
+		}
+		if($this->email != 'NULL'){
+			$textoMudanca .= ($lista['DS_EMAIL_DENUNCIANTE'] == $this->email) ? '' : ' E-mail do denunciante;';
+		}
 		$textoMudanca .= ($lista['TX_DESCRICAO_FATO'] == $this->descricao) ? '' : ' Texto de descrição da denúncia;';
 		$textoMudanca .= ($lista['ID_ORGAO_DENUNCIADO'] == $this->orgao) ? '' : ' Órgão denunciado;';
 		$textoMudanca .= ($lista['ID_MUNICIPIO_FATO'] == $this->municipio) ? '' : ' Município fato;';
-		$textoMudanca .= ($lista['DS_ENVOLVIDOS'] == $this->envolvidos) ? '' : ' Envolvidos;';
+		if($this->envolvidos != 'NULL'){
+			$textoMudanca .= ($lista['DS_ENVOLVIDOS'] == $this->envolvidos) ? '' : ' Envolvidos;';
+		}
 		$textoMudanca .= ($lista['DT_REGISTRO_EOUV'] == $this->dataRegistroEOUV) ? '' : ' Data do registro no EOUV;';
 		$textoMudanca .= ($lista['DS_NUMERO_PROCESSO_SEI'] == $this->processo) ? '' : ' Número do processo no SEI;';
 	
@@ -531,6 +563,8 @@ class DenunciasModel extends Model{
 		
 		$this->excluirArquivo('anexos', $this->nomeAnexo);
 		
+		$this->cadastrarHistorico('REMOÇÃO DE ANEXO','REMOVEU UM ANEXO');
+		
 		return $resultado;
 			
 	}
@@ -540,6 +574,8 @@ class DenunciasModel extends Model{
 		$query = "DELETE FROM tb_palavras_chave_denuncia WHERE ID = $this->idPalavraChave";
 		
 		$resultado = $this->executarQuery($query);
+		
+		$this->cadastrarHistorico('REMOÇÃO DE PALAVRA-CHAVE','REMOVEU UMA PALAVRA-CHAVE');
 		
 		return $resultado;
 			

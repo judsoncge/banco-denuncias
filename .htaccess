@@ -30,7 +30,7 @@ RewriteRule ^denuncias/listar/1                   /index.php?acao=listar&modulo=
 RewriteRule ^denuncias/editar/(.*)                /index.php?acao=carregarEdicao&modulo=Denuncias&id=$1
 RewriteRule ^denuncias/visualizar/(.*)            /index.php?acao=visualizar&modulo=Denuncias&id=$1
 RewriteRule ^editar/denuncia/remover-anexo/(.*)/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=remover-anexo&id=$1&idAnexo=$2&nomeAnexo=$3
-RewriteRule ^editar/denuncia/remover-palavra-chave/(.*)          /index.php?acao=editar&modulo=Denuncias&operacao=remover-palavra-chave&idPalavra=$1
+RewriteRule ^editar/denuncia/remover-palavra-chave/(.*)/(.*)          /index.php?acao=editar&modulo=Denuncias&operacao=remover-palavra-chave&id=$1&idPalavra=$2
 RewriteRule ^editar/denuncia/(.*)/(.*)/           /index.php?acao=editar&modulo=Denuncias&operacao=$1&id=$2
 RewriteRule ^denuncias/triagem/(.*)               /index.php?acao=carregarTriagem&modulo=Denuncias&id=$1
 RewriteRule ^triagem/(.*)                         /index.php?acao=triagem&modulo=Denuncias&id=$1

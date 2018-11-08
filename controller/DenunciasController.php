@@ -373,19 +373,19 @@ class DenunciasController extends Controller{
 				
 				$this->denunciasModel->setIDAnexo($idAnexo);
 				
-				$this->denunciasModel->setNomeAnexo($nomeAnexo);
+				$this->denunciasModel->setNomeAnexo($nomeAnexo);				
 			
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerAnexo();
 				
 				break;
 				
 			case 'remover-palavra-chave':
-			
+							
 				$idPalavraChave = $_GET['idPalavra'];
 				
 				$this->denunciasModel->setIDPalavraChave($idPalavraChave);
 			
-				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerPalavraChave	();
+				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerPalavraChave();
 				
 				break;
 					

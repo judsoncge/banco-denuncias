@@ -368,6 +368,11 @@ class View{
 						case 'ANDAMENTO':
 							$rgb = 'rgba(39,174,96 ,1)';
 							break;
+							
+						case 'REMOÇÃO DE ANEXO';
+						case 'REMOÇÃO DE PALAVRA-CHAVE';
+							$rgb = 'rgba(149, 165, 166,1.0)';
+							break;
 					}
 
 			?>

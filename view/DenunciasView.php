@@ -643,7 +643,6 @@ class DenunciasView extends View{
 			$nomeBotao = 'Editar';
 			$valueTipo = $listaDados['DS_TIPO'];
 			$nomeTipo = $listaDados['DS_TIPO'];
-			$camposDenunciante = "value = '' disabled";
 			
 	
 		}else{
@@ -680,10 +679,8 @@ class DenunciasView extends View{
 						
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo $camposDenunciante ; 
-							}else{
 								echo "value = '".$listaDados['DS_NOME_DENUNCIANTE']."'";
-							} 
+							}
 						?>
 						
 						
@@ -693,7 +690,13 @@ class DenunciasView extends View{
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>CPF do denunciante</label>
-						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' <?php if($this->conteudo == 'editar'){echo $camposDenunciante ; }else{echo 'value = '.$listaDados['DS_CPF_DENUNCIANTE'];} ?> />				  
+						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' 
+						<?php 
+							if($this->conteudo == 'editar'){
+								echo "value = '".$listaDados['DS_CPF_DENUNCIANTE']."'";
+							}
+						?> 
+						/>				  
 					</div>				
 				</div>
 				<div class='col-md-3'>
@@ -703,10 +706,8 @@ class DenunciasView extends View{
 
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo $camposDenunciante ; 
-							}else{
-								echo "value = '".$listaDados['DS_EMAIL_DENUNCIANTE']."'";
-							} 
+								echo "value = '".$listaDados['DS_EMAIL_DENUNCIANTE']."'"; 
+							}
 						?>
 
 						/>				  
@@ -715,7 +716,13 @@ class DenunciasView extends View{
 				<div class='col-md-3'>
 					<div class='form-group'>
 						<label class='control-label'>Telefone do denunciante</label>
-						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' <?php if($this->conteudo == 'editar'){echo $camposDenunciante ; }else{echo 'value = '.$listaDados['DS_TELEFONE_DENUNCIANTE'];} ?> />				  
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' 
+						<?php 
+							if($this->conteudo == 'editar'){
+								echo "value = '".$listaDados['DS_TELEFONE_DENUNCIANTE']."'";
+							}
+						?>
+						/>				  
 					</div>				
 				</div>
 			</div>	
@@ -948,7 +955,7 @@ class DenunciasView extends View{
 				<?php
 					foreach($listaPalavrasChave as $palavraChave){
 						
-						echo $palavraChave['DS_PALAVRA_CHAVE'] . " <a href='/editar/denuncia/remover-palavra-chave/".$palavraChave['ID']."'>remover</a><br> "; 
+						echo $palavraChave['DS_PALAVRA_CHAVE'] . " <a href='/editar/denuncia/remover-palavra-chave/".$listaDados['ID']."/".$palavraChave['ID']."'>remover</a><br> "; 
 						
 					}
 				?>	
@@ -1103,7 +1110,7 @@ class DenunciasView extends View{
 				Acesso Restrito: <?php if($listaDados['BL_ACESSO_RESTRITO']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
 				Responsável pela triagem: <?php echo $listaDados['NOME_RESPONSAVEL_TRIAGEM'] ?><br>
 				Relevância: <?php if($listaDados['BL_RELEVANCIA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
-				Data de término da triagem: <?php echo date_format(new DateTime($listaDados['DT_TERMINO_TRIAGEM']), 'd/m/Y'); ?><br>
+				Data de término da triagem: <?php if($listaDados['DT_TERMINO_TRIAGEM']!=NULL){echo date_format(new DateTime($listaDados['DT_TERMINO_TRIAGEM']), 'd/m/Y');}else{echo 'Sem data';} ?><br>
 				Situação: <?php echo $listaDados['DS_SITUACAO'] ?><br>
 				Unidade de apuração: <?php echo $listaDados['NOME_UNIDADE'] ?><br>
 				Triagem concluída: <?php if($listaDados['BL_TRIAGEM_CONCLUIDA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>

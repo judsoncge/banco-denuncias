@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07-Nov-2018 às 14:49
+-- Generation Time: 08-Nov-2018 às 13:05
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -37,19 +37,6 @@ CREATE TABLE `tb_anexos` (
   `DT_RECEBIMENTO_SISTEMA` date NOT NULL,
   `NM_ARQUIVO` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_anexos`
---
-
-INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO_EOUV`, `DT_RECEBIMENTO_SISTEMA`, `NM_ARQUIVO`) VALUES
-(1, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2018-10-23', '0000-00-00', 'credenciais-github.txt'),
-(3, 1, 'COMPLEMENTO DO DENUNCIANTE', NULL, '2019-02-20', '0000-00-00', 'credenciais-ODP.txt'),
-(31, 1, 'STATUS DA DENUNCIA', 'asadasdasdasdadadasdasdasd', '0000-00-00', '0000-00-00', '[1]Painel-de-Controle-da-Transparencia.docx'),
-(32, 1, 'STATUS DA DENUNCIA', 'ASDASDASDAS', '0000-00-00', '0000-00-00', '[1]credenciais-ODP.txt'),
-(33, 1, 'STATUS DA DENUNCIA', 'ASDADADADAS', '0000-00-00', '0000-00-00', 'Relatorio-FAPEAL.doc'),
-(34, 1, 'STATUS DA DENUNCIA', 'sadasdasdasda', '0000-00-00', '0000-00-00', '[2]Painel-de-Controle-da-Transparencia.docx'),
-(35, 6, 'STATUS DA DENUNCIA', 'hehehehehhehee', '0000-00-00', '0000-00-00', '[2]credenciais-ODP.txt');
 
 -- --------------------------------------------------------
 
@@ -230,10 +217,7 @@ CREATE TABLE `tb_denuncias` (
 --
 
 INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_ANDAMENTO`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
-(1, '1/20181001', 'ANÔNIMA', 1, 57, NULL, NULL, NULL, NULL, '<h2 style=\"text-align: left;\"><em>Est&aacute;gio</em></h2>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\"><em>Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio e n&atilde;o arrumo. Eu quero um est&aacute;gio </em></p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Judson Bandeira</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">cora&ccedil;&atilde;o&nbsp;</p>', 66, 26, 'sdasdsadasdasdasdas', '2018-10-01', '2018-12-02', '01104 000563/2018', 1, 1, 1, '2018-10-24', NULL, 'APTA', 1, 1, 'NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'),
-(2, '2/20181024-P', 'IDENTIFICADA', 1, 95, 'Antonio', NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>\r\n<p style=\"text-align: justify;\">&nbsp;</p>\r\n<p style=\"text-align: justify;\"><span style=\"text-align: start;\">Seu texto aqui&nbsp;</span>Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui&nbsp;</p>', 11, 12, NULL, '2018-10-24', '2019-01-01', '12000 000555/2018', 1, 1, 1, '2018-10-31', NULL, 'EM TRIAGEM', 1, 0, 'NÃO TRATADA'),
-(3, '3/20181024-P', 'ANÔNIMA', 1, 11, NULL, NULL, NULL, NULL, '<p>Seu texto aqui xto aqui xto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aquixto aqui xto aqui</p>', 12, 7, NULL, '2018-10-24', '2018-10-31', '55555 555555/2018', NULL, NULL, NULL, NULL, NULL, 'EM TRIAGEM', NULL, 0, 'NÃO TRATADA'),
-(6, '6/20181120-P', 'ANÔNIMA', 1, 4, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">&nbsp;Seu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aquiSeu texto aqui</p>', 15, 18, 'JUDSON, WILLIAMS', '2018-11-20', '2018-11-05', '01104 000055/2018', 0, 4, 1, '2018-11-05', NULL, 'EM TRIAGEM', 2, 1, 'PROCEDENTE');
+(8, '8/20181122-P', 'ANÔNIMA', 4, 3, NULL, NULL, NULL, NULL, '<p>O denunciante quer saber que medidas est&atilde;o sendo tomadas para o combate a corrup&ccedil;&otilde;a. hoje viram dois suspeitos com uma mala com dinheiro e n&atilde;o fizeram nada.</p>', 11, 8, 'fulano, beltrano, sicrano', '2018-11-22', '2018-11-08', '01104 008005/2019', 1, 1, 1, NULL, 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'EM TRIAGEM', 1, 1, 'NÃO TRATADA');
 
 -- --------------------------------------------------------
 
@@ -246,7 +230,7 @@ CREATE TABLE `tb_historico_denuncia` (
   `ID_DENUNCIA` int(20) NOT NULL,
   `ID_SERVIDOR` int(20) NOT NULL,
   `DT_ACAO` datetime NOT NULL,
-  `DS_TIPO_ACAO` enum('CADASTRO','EDIÇÃO','SALVAMENTO DE TRIAGEM','CONCLUSÃO DE TRIAGEM','ANDAMENTO') NOT NULL,
+  `DS_TIPO_ACAO` enum('CADASTRO','EDIÇÃO','SALVAMENTO DE TRIAGEM','CONCLUSÃO DE TRIAGEM','ANDAMENTO','REMOÇÃO DE ANEXO','REMOÇÃO DE PALAVRA-CHAVE') NOT NULL,
   `TX_MENSAGEM` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -255,17 +239,13 @@ CREATE TABLE `tb_historico_denuncia` (
 --
 
 INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACAO`, `DS_TIPO_ACAO`, `TX_MENSAGEM`) VALUES
-(1, 6, 1, '2018-11-05 09:37:27', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(2, 6, 1, '2018-11-05 09:37:54', 'EDIÇÃO', 'EDITOU A DENÚNCIA'),
-(3, 6, 1, '2018-11-05 09:38:31', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM'),
-(4, 6, 1, '2018-11-05 09:38:39', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(5, 6, 1, '2018-11-05 09:38:56', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA'),
-(6, 3, 4, '2018-11-07 09:18:52', 'EDIÇÃO', 'EDITOU A DENÚNCIA'),
-(7, 3, 4, '2018-11-07 09:50:54', 'EDIÇÃO', 'EDITOU A DENÚNCIA'),
-(8, 3, 4, '2018-11-07 09:58:03', 'EDIÇÃO', ''),
-(9, 3, 4, '2018-11-07 09:58:42', 'EDIÇÃO', ''),
-(10, 3, 4, '2018-11-07 09:59:49', 'EDIÇÃO', ''),
-(11, 3, 4, '2018-11-07 10:01:57', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Assunto da denúncia; Nome do denunciante; CPF do denunciante; Telefone do denunciante; E-mail do denunciante; Envolvidos;');
+(19, 8, 4, '2018-11-08 08:08:50', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(20, 8, 4, '2018-11-08 08:11:12', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Assunto da denúncia; Município fato; Número do processo no SEI;'),
+(21, 8, 4, '2018-11-08 08:11:27', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Tipo da denúncia;'),
+(22, 8, 4, '2018-11-08 08:39:42', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Andamento; Situação; Unidade de apuração; Adicionou anexos; Adicionou palavras-chave; Adicionou palavras-chave;'),
+(23, 8, 4, '2018-11-08 08:58:49', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
+(24, 8, 4, '2018-11-08 09:01:44', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
+(25, 8, 4, '2018-11-08 09:04:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM');
 
 -- --------------------------------------------------------
 
@@ -482,17 +462,6 @@ CREATE TABLE `tb_palavras_chave_denuncia` (
   `DS_PALAVRA_CHAVE` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `tb_palavras_chave_denuncia`
---
-
-INSERT INTO `tb_palavras_chave_denuncia` (`ID`, `ID_DENUNCIA`, `DS_PALAVRA_CHAVE`) VALUES
-(3, 1, 'teste'),
-(4, 1, 'automatico'),
-(5, 2, 'judson'),
-(6, 2, 'melo'),
-(7, 2, 'bandeira');
-
 -- --------------------------------------------------------
 
 --
@@ -539,13 +508,6 @@ CREATE TABLE `tb_trilhas` (
   `DS_EMAIL_ALERTA` varchar(50) NOT NULL,
   `BL_AGRUPADOR` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_trilhas`
---
-
-INSERT INTO `tb_trilhas` (`ID`, `ID_DENUNCIA`, `DS_NOME`, `BL_ALERTA`, `ID_UNIDADE_APURACAO`, `NR_PERIODICIDADE`, `DS_TIPO_ALERTA`, `DS_EMAIL_ALERTA`, `BL_AGRUPADOR`) VALUES
-(5, 1, 'asdasdasd', 1, 1, 4, 'GERAR ALERTA SEMPRE QUE REGISTROS RESULTANTES MAIOR QUE REGISTROS', 'asdsas@sdasdasd', 1);
 
 -- --------------------------------------------------------
 
@@ -655,7 +617,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
@@ -667,13 +629,13 @@ ALTER TABLE `tb_assuntos_denuncia`
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tb_municipios`
@@ -691,7 +653,7 @@ ALTER TABLE `tb_orgaos`
 -- AUTO_INCREMENT for table `tb_palavras_chave_denuncia`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_servidores`
