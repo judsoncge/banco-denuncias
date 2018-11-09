@@ -147,7 +147,7 @@ class UapDenunciasView extends DenunciasView{
 			<center>				
 				<h5>
 					<div id='qtde'>Total: <?php echo sizeof($listaDenuncias) . " " ?>
-						<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>
+						<!--<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>-->
 					</div>
 					
 				</h5>
@@ -201,5 +201,19 @@ class UapDenunciasView extends DenunciasView{
 		
 	}
 	
+	public function cadastrar(){
+		echo "<script>alert('Você não tem permissão para acessar esta página.')</script>";
+		echo "<script>history.back();</script>";
+	}
+	
+	public function editar(){
+		echo "<script>alert('Você não tem permissão para acessar esta página.')</script>";
+		echo "<script>history.back();</script>";
+	}
+	
+	public function triagem(){
+		echo "<script>alert('Você não tem permissão para acessar esta página.')</script>";
+		echo "<script>history.back();</script>";
+	}
 
 }

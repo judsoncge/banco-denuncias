@@ -416,7 +416,7 @@ class DenunciasView extends View{
 			<center>				
 				<h5>
 					<div id='qtde'>Total: <?php echo sizeof($listaDenuncias) . " " ?>
-						<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>
+						<!--<button onclick='javascript: exportar();' class='btn btn-sm btn-success' name='submit' value='Send'>Exportar</button>-->
 					</div>
 					
 				</h5>
@@ -784,7 +784,7 @@ class DenunciasView extends View{
 				<div class='col-md-6'>
 					<div class='form-group'>
 						<label class='control-label'>Data de registro no e-OUV*</label>
-						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
+						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' style='height:37px;' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
 					</div>  
 				</div>
 				<div class='col-md-6'>
@@ -884,7 +884,7 @@ class DenunciasView extends View{
 				?>
 				<div class='form-group'>
 					<label class='control-label'>Previsão para término da triagem</label>
-					<input class='form-control' id='termino' name='termino' type='date' value="<?php echo $data ?>" />
+					<input class='form-control' id='termino' name='termino' type='date' style='height:37px;' value="<?php echo $data ?>" />
 				</div>  
 			</div>
 		</div>
@@ -1065,6 +1065,8 @@ class DenunciasView extends View{
 		
 		$listaAnexos = $_REQUEST['LISTA_ANEXOS'];
 		
+		$listaPalavrasChave = $_REQUEST['LISTA_PALAVRAS_CHAVE'];
+		
 		$listaTrilhas = $_REQUEST['LISTA_TRILHAS'];
 		
 		$historico = $_REQUEST['HISTORICO'];
@@ -1143,6 +1145,17 @@ class DenunciasView extends View{
 						</td>
 						<td><a href='/_registros/anexos/<?php echo $anexo['NM_ARQUIVO'] ?>' download>Baixar</a></td>
 					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
+		<?php } 
+		if($listaPalavrasChave != NULL){ ?>
+		<div class='well'>
+			<strong>Palavras-chave:</strong><br><br>
+					
+				<?php foreach($listaPalavrasChave as $palavra){ 
+					 echo $palavra['DS_PALAVRA_CHAVE'] ?>;</br>
 				<?php } ?>
 				</tbody>
 			</table>

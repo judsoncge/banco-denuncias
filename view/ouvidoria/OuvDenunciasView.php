@@ -4,6 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/view/DenunciasView.php';
 
 class OuvDenunciasView extends DenunciasView{
 	
+	public function andamento(){
+		echo "<script>alert('Você não tem permissão para acessar esta página.')</script>";
+		echo "<script>history.back();</script>";
+		
+	}
+	
 	public function listar(){
 		
 		

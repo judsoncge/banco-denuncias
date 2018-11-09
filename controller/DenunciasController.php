@@ -30,6 +30,8 @@ class DenunciasController extends Controller{
 		
 		$_REQUEST['LISTA_ANEXOS'] = $this->denunciasModel->getAnexos();
 		
+		$_REQUEST['LISTA_PALAVRAS_CHAVE'] = $this->denunciasModel->getPalavrasChave();
+		
 		$_REQUEST['LISTA_TRILHAS'] = $this->denunciasModel->getTrilhas();
 		
 		$_REQUEST['HISTORICO'] = $this->denunciasModel->getHistorico();

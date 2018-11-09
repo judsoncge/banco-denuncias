@@ -343,6 +343,8 @@ class DenunciasModel extends Model{
 	
 	public function andamento(){
 		
+		$textoMensagem = 'DEU ANDAMENTO A DENÚNCIA.';
+		
 		$query = "UPDATE tb_denuncias SET DS_STATUS = '$this->status' WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
@@ -350,6 +352,8 @@ class DenunciasModel extends Model{
 		if($this->anexos != NULL){
 		
 			$resultado = $this->cadastrarAnexos();
+			
+			$textoMensagem .= ' Foram adicionados anexos.';
 			
 		}
 		
@@ -376,10 +380,12 @@ class DenunciasModel extends Model{
 				$this->executarQuery($query);
 			
 			}
+			
+			$textoMensagem .= ' Foram adicionadas trilhas.';
 	
 		}
 		
-		$this->cadastrarHistorico('ANDAMENTO','DEU ANDAMENTO A DENÚNCIA');
+		$this->cadastrarHistorico('ANDAMENTO', $textoMensagem);
 	
 		return $resultado;
 					

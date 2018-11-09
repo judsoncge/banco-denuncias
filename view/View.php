@@ -136,7 +136,7 @@ class View{
 						<li id='denuncias'>
 							<a href='#'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Denúncias</a>
 						</li>
-							<?php if($_SESSION['TIPO'] == 'OUVIDORIA' OR $_SESSION['TIPO'] == 'ADMINISTRADOR'){ ?>
+							<?php if($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO'){ ?>
 								<li class='denuncias-subitem'>
 									<a href='/denuncias/cadastrar/'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Cadastrar</a>
 								</li>
@@ -145,17 +145,19 @@ class View{
 								<a href='/denuncias/listar/0'><i class='fa fa-exclamation-circle icone-menu' aria-hidden='true'></i>Consulta</a>
 							</li>
 						
-						<li id='servidores'>
-							<a href='#'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Servidores</a>
-						</li>	
-							
-							<li class='servidores-subitem'>
-								<a href='/servidores/cadastrar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Cadastrar</a>
-							</li>
-							
-							<li class='servidores-subitem'>
-								<a href='/servidores/listar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Listar</a>
-							</li>
+						<?php if($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO'){ ?>
+							<li id='servidores'>
+								<a href='#'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Servidores</a>
+							</li>	
+								
+								<li class='servidores-subitem'>
+									<a href='/servidores/cadastrar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Cadastrar</a>
+								</li>
+								
+								<li class='servidores-subitem'>
+									<a href='/servidores/listar/'><i class='fa fa-user icone-menu' aria-hidden='true'></i>Listar</a>
+								</li>
+						<?php } ?>
 						
 						<li>
 							<a href='/sobre/'><i class='fa fa-info-circle icone-menu' aria-hidden='true'></i>Sobre</a>
