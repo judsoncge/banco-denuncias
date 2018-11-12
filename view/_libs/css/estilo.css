@@ -973,6 +973,10 @@ footer{
     display: block;
 }
 
+input[type=date]{
+	height:37px;
+}
+
 input[readonly] {
   background-color: white !important;
   cursor: text !important;

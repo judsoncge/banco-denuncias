@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08-Nov-2018 às 13:05
+-- Generation Time: 12-Nov-2018 às 13:52
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -31,12 +31,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_anexos` (
   `ID` int(20) NOT NULL,
   `ID_DENUNCIA` int(20) NOT NULL,
-  `DS_TIPO` enum('COMPLEMENTO DO DENUNCIANTE','RESULTADO DE TRIAGEM','STATUS DA DENUNCIA') NOT NULL,
+  `DS_TIPO` enum('COMPLEMENTO DO DENUNCIANTE','RESULTADO DE TRIAGEM','STATUS DA DENUNCIA','CADASTRO') NOT NULL,
   `DS_COMENTARIOS` varchar(100) DEFAULT NULL,
   `DT_RECEBIMENTO_EOUV` date DEFAULT NULL,
   `DT_RECEBIMENTO_SISTEMA` date NOT NULL,
   `NM_ARQUIVO` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_anexos`
+--
+
+INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO_EOUV`, `DT_RECEBIMENTO_SISTEMA`, `NM_ARQUIVO`) VALUES
+(6, 11, 'COMPLEMENTO DO DENUNCIANTE', 'contato do itec', '2018-11-30', '2018-11-12', 'contato-ITEC.txt');
 
 -- --------------------------------------------------------
 
@@ -187,7 +194,7 @@ INSERT INTO `tb_assuntos_denuncia` (`ID`, `DS_NOME_MACRO`, `DS_NOME_MICRO`) VALU
 CREATE TABLE `tb_denuncias` (
   `ID` int(20) NOT NULL,
   `DS_NUMERO` varchar(20) NOT NULL,
-  `DS_TIPO` enum('IDENTIFICADA','ANÔNIMA') NOT NULL,
+  `DS_TIPO` enum('IDENTIFICADA','NÃO IDENTIFICADA') NOT NULL,
   `ID_SERVIDOR` int(20) NOT NULL,
   `ID_ASSUNTO` int(20) NOT NULL,
   `DS_NOME_DENUNCIANTE` varchar(50) DEFAULT NULL,
@@ -200,10 +207,11 @@ CREATE TABLE `tb_denuncias` (
   `DS_ENVOLVIDOS` varchar(100) DEFAULT NULL,
   `DT_REGISTRO_EOUV` date NOT NULL,
   `DT_REGISTRO` date NOT NULL,
+  `DS_PROTOCOLO_EOUV` varchar(10) NOT NULL,
   `DS_NUMERO_PROCESSO_SEI` varchar(23) NOT NULL,
   `BL_ACESSO_RESTRITO` tinyint(1) DEFAULT NULL,
   `ID_RESPONSAVEL_TRIAGEM` int(20) DEFAULT NULL,
-  `BL_RELEVANCIA` tinyint(1) DEFAULT NULL,
+  `DS_RELEVANCIA` enum('BAIXO','MÉDIO','ALTO') DEFAULT NULL,
   `DT_TERMINO_TRIAGEM` date DEFAULT NULL,
   `DS_ANDAMENTO` enum('AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE','AGUARDANDO ANÁLISE PRELIMINAR DA OUVIDORIA') DEFAULT NULL,
   `DS_SITUACAO` enum('AGUARDANDO TRIAGEM','EM TRIAGEM','APTA','NÃO APTA') DEFAULT 'AGUARDANDO TRIAGEM',
@@ -216,8 +224,11 @@ CREATE TABLE `tb_denuncias` (
 -- Extraindo dados da tabela `tb_denuncias`
 --
 
-INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `BL_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_ANDAMENTO`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
-(8, '8/20181122-P', 'ANÔNIMA', 4, 3, NULL, NULL, NULL, NULL, '<p>O denunciante quer saber que medidas est&atilde;o sendo tomadas para o combate a corrup&ccedil;&otilde;a. hoje viram dois suspeitos com uma mala com dinheiro e n&atilde;o fizeram nada.</p>', 11, 8, 'fulano, beltrano, sicrano', '2018-11-22', '2018-11-08', '01104 008005/2019', 1, 1, 1, NULL, 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'EM TRIAGEM', 1, 1, 'NÃO TRATADA');
+INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_PROTOCOLO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `DS_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_ANDAMENTO`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
+(8, '8/20181122-P', 'NÃO IDENTIFICADA', 4, 3, NULL, NULL, NULL, NULL, '<p>O denunciante quer saber que medidas est&atilde;o sendo tomadas para o combate a corrup&ccedil;&otilde;a. hoje viram dois suspeitos com uma mala com dinheiro e n&atilde;o fizeram nada.</p>', 11, 8, 'fulano, beltrano, sicrano', '2018-11-22', '2018-11-08', '0001/2018', '01104 008005/2019', 1, 1, 'BAIXO', '0000-00-00', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'EM TRIAGEM', 1, 1, 'NÃO TRATADA'),
+(9, '9/20181120-P', 'IDENTIFICADA', 4, 3, 'Fulano', NULL, NULL, NULL, 'Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. ', 14, 17, 'sicrano, beltrano, zilano', '2018-11-20', '2018-11-12', '0001/2018', '11045 000025/2018', NULL, NULL, NULL, NULL, NULL, 'AGUARDANDO TRIAGEM', NULL, 0, 'NÃO TRATADA'),
+(10, '10/20181116-P', 'NÃO IDENTIFICADA', 4, 4, NULL, NULL, NULL, NULL, '<p>Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando.&nbsp;</p>', 3, NULL, 'fulano', '2018-11-16', '2018-11-12', '0001/2018', '11040 000005/2018', NULL, NULL, NULL, NULL, NULL, 'EM TRIAGEM', NULL, 0, 'NÃO TRATADA'),
+(11, '11/20181130-P', 'NÃO IDENTIFICADA', 4, 4, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui v</p>', 69, 6, 'paulo', '2018-11-30', '2018-11-12', '0002/2018', '10000 000002/2018', 1, 4, 'MÉDIO', '2018-11-13', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 1, 0, 'NÃO TRATADA');
 
 -- --------------------------------------------------------
 
@@ -245,7 +256,20 @@ INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACA
 (22, 8, 4, '2018-11-08 08:39:42', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Andamento; Situação; Unidade de apuração; Adicionou anexos; Adicionou palavras-chave; Adicionou palavras-chave;'),
 (23, 8, 4, '2018-11-08 08:58:49', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
 (24, 8, 4, '2018-11-08 09:01:44', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(25, 8, 4, '2018-11-08 09:04:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM');
+(25, 8, 4, '2018-11-08 09:04:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
+(26, 8, 4, '2018-11-09 08:58:48', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou anexos; Adicionou palavras-chave;'),
+(27, 9, 4, '2018-11-12 07:41:13', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(28, 9, 4, '2018-11-12 07:45:37', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
+(29, 9, 4, '2018-11-12 07:45:46', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
+(30, 9, 4, '2018-11-12 07:49:28', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados: '),
+(31, 9, 4, '2018-11-12 07:50:05', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
+(32, 10, 4, '2018-11-12 07:54:05', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(33, 10, 4, '2018-11-12 07:54:22', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
+(34, 10, 4, '2018-11-12 08:03:27', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato;'),
+(35, 10, 4, '2018-11-12 08:04:04', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato;'),
+(36, 10, 4, '2018-11-12 08:07:13', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato; Protocolo vinculado ao EOUV;'),
+(37, 11, 4, '2018-11-12 08:08:23', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(38, 11, 4, '2018-11-12 08:19:48', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem; Andamento; Situação; Unidade de apuração; Adicionou anexos; Adicionou palavras-chave;');
 
 -- --------------------------------------------------------
 
@@ -462,6 +486,19 @@ CREATE TABLE `tb_palavras_chave_denuncia` (
   `DS_PALAVRA_CHAVE` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `tb_palavras_chave_denuncia`
+--
+
+INSERT INTO `tb_palavras_chave_denuncia` (`ID`, `ID_DENUNCIA`, `DS_PALAVRA_CHAVE`) VALUES
+(1, 8, 'avaliação'),
+(2, 8, 'denúncia'),
+(3, 8, 'governo'),
+(4, 11, 'itec'),
+(5, 11, 'tecnologia'),
+(6, 11, 'governo'),
+(7, 11, 'alagoas');
+
 -- --------------------------------------------------------
 
 --
@@ -539,7 +576,7 @@ INSERT INTO `tb_unidades_apuracao` (`ID`, `ID_ORGAO`, `DS_ABREVIACAO`, `DS_NOME`
 --
 ALTER TABLE `tb_anexos`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_DENUNCIA` (`ID_DENUNCIA`);
+  ADD KEY `tb_anexos_ibfk_1` (`ID_DENUNCIA`);
 
 --
 -- Indexes for table `tb_assuntos_denuncia`
@@ -564,8 +601,8 @@ ALTER TABLE `tb_denuncias`
 --
 ALTER TABLE `tb_historico_denuncia`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_DENUNCIA` (`ID_DENUNCIA`),
-  ADD KEY `ID_SERVIDOR` (`ID_SERVIDOR`);
+  ADD KEY `ID_SERVIDOR` (`ID_SERVIDOR`),
+  ADD KEY `tb_historico_denuncia_ibfk_1` (`ID_DENUNCIA`);
 
 --
 -- Indexes for table `tb_municipios`
@@ -584,7 +621,7 @@ ALTER TABLE `tb_orgaos`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_DENUNCIA` (`ID_DENUNCIA`);
+  ADD KEY `tb_palavras_chave_denuncia_ibfk_1` (`ID_DENUNCIA`);
 
 --
 -- Indexes for table `tb_servidores`
@@ -599,15 +636,15 @@ ALTER TABLE `tb_servidores`
 --
 ALTER TABLE `tb_trilhas`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_DENUNCIA` (`ID_DENUNCIA`),
-  ADD KEY `ID_UNIDADE_APURACAO` (`ID_UNIDADE_APURACAO`);
+  ADD KEY `ID_UNIDADE_APURACAO` (`ID_UNIDADE_APURACAO`),
+  ADD KEY `tb_trilhas_ibfk_1` (`ID_DENUNCIA`);
 
 --
 -- Indexes for table `tb_unidades_apuracao`
 --
 ALTER TABLE `tb_unidades_apuracao`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_ORGAO` (`ID_ORGAO`);
+  ADD KEY `tb_unidades_apuracao_ibfk_1` (`ID_ORGAO`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -617,7 +654,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
@@ -629,13 +666,13 @@ ALTER TABLE `tb_assuntos_denuncia`
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tb_municipios`
@@ -653,7 +690,7 @@ ALTER TABLE `tb_orgaos`
 -- AUTO_INCREMENT for table `tb_palavras_chave_denuncia`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_servidores`
@@ -665,7 +702,7 @@ ALTER TABLE `tb_servidores`
 -- AUTO_INCREMENT for table `tb_trilhas`
 --
 ALTER TABLE `tb_trilhas`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_unidades_apuracao`
@@ -681,7 +718,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- Limitadores para a tabela `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  ADD CONSTRAINT `tb_anexos_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`);
+  ADD CONSTRAINT `tb_anexos_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_denuncias`
@@ -698,14 +735,14 @@ ALTER TABLE `tb_denuncias`
 -- Limitadores para a tabela `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  ADD CONSTRAINT `tb_historico_denuncia_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`),
+  ADD CONSTRAINT `tb_historico_denuncia_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_historico_denuncia_ibfk_2` FOREIGN KEY (`ID_SERVIDOR`) REFERENCES `tb_servidores` (`ID`);
 
 --
 -- Limitadores para a tabela `tb_palavras_chave_denuncia`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
-  ADD CONSTRAINT `tb_palavras_chave_denuncia_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`);
+  ADD CONSTRAINT `tb_palavras_chave_denuncia_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_servidores`
@@ -718,14 +755,14 @@ ALTER TABLE `tb_servidores`
 -- Limitadores para a tabela `tb_trilhas`
 --
 ALTER TABLE `tb_trilhas`
-  ADD CONSTRAINT `tb_trilhas_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`),
+  ADD CONSTRAINT `tb_trilhas_ibfk_1` FOREIGN KEY (`ID_DENUNCIA`) REFERENCES `tb_denuncias` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_trilhas_ibfk_2` FOREIGN KEY (`ID_UNIDADE_APURACAO`) REFERENCES `tb_unidades_apuracao` (`ID`);
 
 --
 -- Limitadores para a tabela `tb_unidades_apuracao`
 --
 ALTER TABLE `tb_unidades_apuracao`
-  ADD CONSTRAINT `tb_unidades_apuracao_ibfk_1` FOREIGN KEY (`ID_ORGAO`) REFERENCES `tb_orgaos` (`ID`);
+  ADD CONSTRAINT `tb_unidades_apuracao_ibfk_1` FOREIGN KEY (`ID_ORGAO`) REFERENCES `tb_orgaos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

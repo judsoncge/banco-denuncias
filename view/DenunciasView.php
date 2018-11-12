@@ -10,7 +10,7 @@ class DenunciasView extends View{
 		
 		if($this->conteudo == 'listar'){ ?>
 			<script src='/view/_libs/js/filtros.js'></script>
-			<script src='/view/_libs/js/exportar.js'></script>
+			<!--<script src='/view/_libs/js/exportar.js'></script>-->
 			<script type='text/javascript'>
 				function esconderMostrarFiltro(){
 					
@@ -41,7 +41,7 @@ class DenunciasView extends View{
 
         <?php			
 		
-		}elseif($this->conteudo == 'triagem'){ ?>
+		}elseif($this->conteudo == 'cadastrar' or $this->conteudo == 'editar' or $this->conteudo == 'triagem'){ ?>
 		
 			<script type='text/javascript'>
 		
@@ -69,6 +69,7 @@ class DenunciasView extends View{
 							"Tipo:<br>"+
 							"<select id='tipos' name='tipos[]' required>:"+
 								"<option value=''>Selecione</option>"+	
+								"<option value='CADASTRO'>CADASTRO</option>"+	
 								"<option value='COMPLEMENTO DO DENUNCIANTE'>COMPLEMENTO DO DENUNCIANTE</option>"+	
 								"<option value='RESULTADO DE TRIAGEM'>RESULTADO DE TRIAGEM</option>"+	
 							"</select>"+	
@@ -136,10 +137,7 @@ class DenunciasView extends View{
 				
 			</script>
         
-		<?php   
-        
-		}elseif($this->conteudo == 'cadastrar' or $this->conteudo == 'editar'){ ?>
-		
+			
 			<script src='/view/_libs/tinymce/tinymce.min.js'></script>
 		
 			<script>tinymce.init({ selector:'textarea', language:'pt_BR' })</script>
@@ -149,7 +147,7 @@ class DenunciasView extends View{
 					
 					var tipo = document.getElementById("tipo").value;
 					
-					if(tipo == 'ANÔNIMA'){
+					if(tipo == 'NÃO IDENTIFICADA'){
 						
 						document.getElementById("nome").value = "";
 						document.getElementById('nome').disabled = true;
@@ -213,8 +211,8 @@ class DenunciasView extends View{
 							"</select>"+	
 						"</div>"+
 						"<div class='col-md-2'>"+
-							"Periodicidade do alerta:<br>"+
-							"<input class='form-control' id='periodicidades' name='periodicidades[]' type='number' required />"+	
+							"Periodicidade:<br>"+
+							"<input class='form-control' placeholder='Em dias' id='periodicidades' name='periodicidades[]' type='number' required />"+	
 						"</div>"+
 						"<div class='col-md-2'>"+
 							"Possui agrupador?<br>"+
@@ -358,7 +356,7 @@ class DenunciasView extends View{
 						<div class='col-md-3'>
 							<div class='form-group'>
 								<label class='control-label'>Período</label><br>
-								<input class='form-control' type='date' id='filtroperiodo' name='filtroperiodo' style='height:37px;'>
+								<input class='form-control' type='date' id='filtroperiodo' name='filtroperiodo' >
 							</div>
 						</div>
 						<div class='col-md-3'>
@@ -634,7 +632,9 @@ class DenunciasView extends View{
 		
 		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
 		
-		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];		
+		$listaOrgaos = $_REQUEST['LISTA_ORGAOS'];	
+		
+		$listaAnexos = ($this->conteudo == 'cadastrar') ? NULL : $_REQUEST['LISTA_ANEXOS'];
 		
 		if($this->conteudo == 'editar'){
 			
@@ -664,7 +664,7 @@ class DenunciasView extends View{
 						<label class='control-label'>Tipo*</label>
 						<select class='form-control' id='tipo' name='tipo' onblur='travarDestravarCamposDenunciante()' required />
 							<option value='<?php echo $valueTipo ?>'><?php echo $nomeTipo ?></option>
-							<option value='ANÔNIMA'>ANÔNIMA</option>
+							<option value='NÃO IDENTIFICADA'>NÃO IDENTIFICADA</option>
 							<option value='IDENTIFICADA'>IDENTIFICADA</option>
 						</select>
 					</div> 
@@ -679,7 +679,7 @@ class DenunciasView extends View{
 						
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo "value = '".$listaDados['DS_NOME_DENUNCIANTE']."'";
+								echo "value = '".$listaDados['DS_NOME_DENUNCIANTE']."' disabled";
 							}
 						?>
 						
@@ -693,7 +693,7 @@ class DenunciasView extends View{
 						<input class='form-control' id='CPF' name='CPF' placeholder='Digite o CPF' type='text' 
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo "value = '".$listaDados['DS_CPF_DENUNCIANTE']."'";
+								echo "value = '".$listaDados['DS_CPF_DENUNCIANTE']."' disabled";
 							}
 						?> 
 						/>				  
@@ -706,7 +706,7 @@ class DenunciasView extends View{
 
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo "value = '".$listaDados['DS_EMAIL_DENUNCIANTE']."'"; 
+								echo "value = '".$listaDados['DS_EMAIL_DENUNCIANTE']."' disabled"; 
 							}
 						?>
 
@@ -719,7 +719,7 @@ class DenunciasView extends View{
 						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' 
 						<?php 
 							if($this->conteudo == 'editar'){
-								echo "value = '".$listaDados['DS_TELEFONE_DENUNCIANTE']."'";
+								echo "value = '".$listaDados['DS_TELEFONE_DENUNCIANTE']."' disabled";
 							}
 						?>
 						/>				  
@@ -781,18 +781,53 @@ class DenunciasView extends View{
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-md-6'>
+				<div class='col-md-4'>
 					<div class='form-group'>
 						<label class='control-label'>Data de registro no e-OUV*</label>
-						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date' style='height:37px;' value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
+						<input class='form-control' id='dataRegistro' name='dataRegistro' type='date'  value="<?php if($this->conteudo=='editar'){echo $listaDados['DT_REGISTRO_EOUV'];} ?>" required />
 					</div>  
 				</div>
-				<div class='col-md-6'>
+				<div class='col-md-4'>
+					<div class='form-group'>
+						<label class='control-label'>Número do Protocolo Vinculado ao EOUV</label>
+						<input class='form-control' id='protocolo' name='protocolo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_PROTOCOLO_EOUV'];} ?>" maxlength='10' required />
+					</div>  
+				</div>
+				<div class='col-md-4'>
 					<div class='form-group'>
 						<label class='control-label'>Número do Processo vinculado cadastrado no SEI*</label>
 						<input class='form-control' id='processo' name='processo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_NUMERO_PROCESSO_SEI'];} ?>" required />
 					</div>  
 				</div>
+			</div>
+			<hr>
+			<?php if($listaAnexos != NULL and $this->conteudo == 'editar'){ ?>
+			<div class='row'>	
+				<div class='col-md-12'>
+					<label class='control-label'>Anexos cadastrados</label>
+					<div class='well'>
+					<?php
+						foreach($listaAnexos as $anexo){
+							
+							echo $anexo['NM_ARQUIVO'] . " <a href='/editar/denuncia/remover-anexo/".$listaDados['ID']."/".$anexo['ID']."/".$anexo['NM_ARQUIVO']."/'>remover</a><br> "; 
+							
+						}
+					?>	
+					</div>
+				</div>
+			</div>
+			<hr>
+			<?php } ?>
+			<div class='row'>	
+				<div class='col-md-6'>
+					<label class='control-label'>Adicionar anexos</label>
+					<a href='javascript:void(0)' onclick='adicionarAnexo()'>
+						<i class='fa fa-plus-circle' aria-hidden='true'></i>
+					</a>
+				</div>
+			</div>
+			<div id='adicionarAnexo'>
+
 			</div>
 			<div class='row' id='cad-button'>
 				<div class='col-md-12'>
@@ -861,20 +896,16 @@ class DenunciasView extends View{
 			</div>
 			<div class='col-md-3'>
 				<?php 
-					if($listaDados['BL_RELEVANCIA'] != NULL){
-						$interfaceRelevancia = ($listaDados['BL_RELEVANCIA']) ? 'SIM' : 'NÃO';
-						$valueRelevancia = ($listaDados['BL_RELEVANCIA']) ? 1 : 0;
-					}else{
-						$interfaceRelevancia = 'Selecione';
-						$valueRelevancia = ''; 
-					} 
+					$interfaceRelevancia = ($listaDados['DS_RELEVANCIA'] != NULL) ? $listaDados['DS_RELEVANCIA'] : 'Selecione';
+					$valueRelevancia = ($listaDados['DS_RELEVANCIA'] != NULL) ? $listaDados['DS_RELEVANCIA'] : '';
 				?>
 				<div class='form-group'>
 					<label class='control-label'>Grau de relevância do fato</label>
 					<select class='form-control' id='relevancia' name='relevancia' />
 						<option value='<?php echo $valueRelevancia ?>'><?php echo $interfaceRelevancia ?></option>
-						<option value='1'>SIM</option>
-						<option value='0'>NÃO</option>
+						<option value='BAIXO'>BAIXO</option>
+						<option value='MÉDIO'>MÉDIO</option>
+						<option value='ALTO'>ALTO</option>
 					</select>
 				</div> 
 			</div>
@@ -884,7 +915,7 @@ class DenunciasView extends View{
 				?>
 				<div class='form-group'>
 					<label class='control-label'>Previsão para término da triagem</label>
-					<input class='form-control' id='termino' name='termino' type='date' style='height:37px;' value="<?php echo $data ?>" />
+					<input class='form-control' id='termino' name='termino' type='date'  value="<?php echo $data ?>" />
 				</div>  
 			</div>
 		</div>
@@ -1103,6 +1134,7 @@ class DenunciasView extends View{
 				Envolvidos: <?php echo $listaDados['DS_ENVOLVIDOS']; ?><br>
 				Data de registro no EOUV: <?php echo date_format(new DateTime($listaDados['DT_REGISTRO_EOUV']), 'd/m/Y'); ?><br>
 				Data de registro no Sistema: <?php echo date_format(new DateTime($listaDados['DT_REGISTRO']), 'd/m/Y'); ?><br>
+				Número do protocolo vinculado ao EOUV: <?php echo $listaDados['DS_PROTOCOLO_EOUV']; ?><br>
 				Número do processo no SEI: <?php echo $listaDados['DS_NUMERO_PROCESSO_SEI']; ?><br>
 	
 		</div>
@@ -1111,8 +1143,8 @@ class DenunciasView extends View{
 				
 				Acesso Restrito: <?php if($listaDados['BL_ACESSO_RESTRITO']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
 				Responsável pela triagem: <?php echo $listaDados['NOME_RESPONSAVEL_TRIAGEM'] ?><br>
-				Relevância: <?php if($listaDados['BL_RELEVANCIA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>
-				Data de término da triagem: <?php if($listaDados['DT_TERMINO_TRIAGEM']!=NULL){echo date_format(new DateTime($listaDados['DT_TERMINO_TRIAGEM']), 'd/m/Y');}else{echo 'Sem data';} ?><br>
+				Grau de Relevância: <?php echo $listaDados['DS_RELEVANCIA'] ?><br>
+				Data de término da triagem: <?php if($listaDados['DT_TERMINO_TRIAGEM']!='0000-00-00'){echo date_format(new DateTime($listaDados['DT_TERMINO_TRIAGEM']), 'd/m/Y');}else{echo 'Sem data';} ?><br>
 				Situação: <?php echo $listaDados['DS_SITUACAO'] ?><br>
 				Unidade de apuração: <?php echo $listaDados['NOME_UNIDADE'] ?><br>
 				Triagem concluída: <?php if($listaDados['BL_TRIAGEM_CONCLUIDA']){echo 'SIM';}else{echo 'NÃO';}  ?><br>

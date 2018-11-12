@@ -140,6 +140,8 @@ class DenunciasController extends Controller{
 		
 		$_REQUEST['LISTA_ASSUNTOS'] = $this->assuntosModel->getAssuntos();
 		
+		$_REQUEST['LISTA_ANEXOS'] = $this->denunciasModel->getAnexos();
+		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'] = $this->denunciasModel->getDadosID();
 		
 		$this->denunciasView->setTitulo('DENÚNCIAS > '.$listaDados['DS_NUMERO_PROCESSO_SEI'] . ' - ' . $listaDados['NOME_MACRO_ASSUNTO'] .' > EDITAR');
@@ -284,14 +286,20 @@ class DenunciasController extends Controller{
 		$nome         =  empty($_POST['nome']) ? 'NULL' : $_POST['nome'];
 		$CPF          =  empty($_POST['CPF']) ? 'NULL' : $_POST['CPF'];;
 		$email        =  empty($_POST['email']) ? 'NULL' : $_POST['email'];
-		$telefone     =  empty($_POST['telefone']) ? 'NULL' : $_POST['telefone'];;
+		$telefone     =  empty($_POST['telefone']) ? 'NULL' : $_POST['telefone'];
 		$assunto      =  $_POST['assunto'];
 		$descricao    =  $_POST['descricao'];
 		$orgao        =  empty($_POST['orgao']) ? 'NULL' : $_POST['orgao'];
 		$municipio    =  empty($_POST['municipio']) ? 'NULL' : $_POST['municipio'];
 		$envolvidos   =  empty($_POST['envolvidos']) ? 'NULL' : $_POST['envolvidos'];
 		$dataRegistro =  $_POST['dataRegistro'];
+		$protocolo     =  $_POST['protocolo'];
 		$processo     =  $_POST['processo'];
+		
+		$anexos = (isset($_FILES['anexos'])) ? $_FILES['anexos'] : NULL;
+		$tipos = (isset($_POST['tipos'])) ? $_POST['tipos'] : NULL;
+		$comentarios = (isset($_POST['comentarios'])) ? $_POST['comentarios'] : NULL;
+		$datas = (isset($_POST['datas'])) ? $_POST['datas'] : NULL;
 		
 		$this->denunciasModel->setTipo($tipo);
 		$this->denunciasModel->setNome($nome);
@@ -305,6 +313,12 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setEnvolvidos($envolvidos);
 		$this->denunciasModel->setDataRegistroEOUV($dataRegistro);
 		$this->denunciasModel->setProcesso($processo);
+		$this->denunciasModel->setProtocolo($protocolo);
+		
+		$this->denunciasModel->setAnexos($anexos);
+		$this->denunciasModel->setTipos($tipos);
+		$this->denunciasModel->setComentarios($comentarios);
+		$this->denunciasModel->setDatas($datas);
 		
 		
 		$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->cadastrar();
@@ -342,7 +356,13 @@ class DenunciasController extends Controller{
 				$municipio    =  empty($_POST['municipio']) ? 'NULL' : $_POST['municipio'];
 				$envolvidos   =  empty($_POST['envolvidos']) ? 'NULL' : $_POST['envolvidos'];
 				$dataRegistro =  $_POST['dataRegistro'];
+				$protocolo    =  $_POST['protocolo'];
 				$processo     =  $_POST['processo'];
+				
+				$anexos = (isset($_FILES['anexos'])) ? $_FILES['anexos'] : NULL;
+				$tipos = (isset($_POST['tipos'])) ? $_POST['tipos'] : NULL;
+				$comentarios = (isset($_POST['comentarios'])) ? $_POST['comentarios'] : NULL;
+				$datas = (isset($_POST['datas'])) ? $_POST['datas'] : NULL;
 				
 				$this->denunciasModel->setTipo($tipo);
 				$this->denunciasModel->setNome($nome);
@@ -355,7 +375,13 @@ class DenunciasController extends Controller{
 				$this->denunciasModel->setOrgao($orgao);
 				$this->denunciasModel->setEnvolvidos($envolvidos);
 				$this->denunciasModel->setDataRegistroEOUV($dataRegistro);
+				$this->denunciasModel->setProtocolo($protocolo);
 				$this->denunciasModel->setProcesso($processo);
+				
+				$this->denunciasModel->setAnexos($anexos);
+				$this->denunciasModel->setTipos($tipos);
+				$this->denunciasModel->setComentarios($comentarios);
+				$this->denunciasModel->setDatas($datas);
 				
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->editar();
 						

@@ -18,6 +18,7 @@ class DenunciasModel extends Model{
 	private $dataRegistro;
 	private $dataRegistroEOUV;
 	private $processo;
+	private $protocolo;
 	private $numero;
 	
 	private $restrito;
@@ -48,8 +49,10 @@ class DenunciasModel extends Model{
 	private $emailsAlertas;
 	
 	
-	
-	
+	public function setProtocolo($protocolo){
+		$this->protocolo = $protocolo;
+		
+	}
 	
 	public function setAndamento($andamento){
 		$this->andamento = $andamento;
@@ -234,13 +237,13 @@ class DenunciasModel extends Model{
 		
 		INSERT INTO tb_denuncias 
 		
-		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, TX_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DT_REGISTRO, DS_NUMERO_PROCESSO_SEI) 
+		(DS_TIPO, ID_SERVIDOR, ID_ASSUNTO, DS_NOME_DENUNCIANTE, DS_CPF_DENUNCIANTE, DS_EMAIL_DENUNCIANTE, DS_TELEFONE_DENUNCIANTE, TX_DESCRICAO_FATO, ID_ORGAO_DENUNCIADO, ID_MUNICIPIO_FATO, DS_ENVOLVIDOS, DT_REGISTRO_EOUV, DT_REGISTRO, DS_PROTOCOLO_EOUV, DS_NUMERO_PROCESSO_SEI) 
 		
 		
 		VALUES 
 		
 		
-		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('$this->nome', 'NULL'), NULLIF('$this->CPF', 'NULL'), NULLIF('$this->email', 'NULL'), NULLIF('$this->telefone', 'NULL'), '$this->descricao', $this->orgao, $this->municipio, NULLIF('$this->envolvidos', 'NULL'), '$this->dataRegistroEOUV', '$registro', '$this->processo')
+		('$this->tipo', ".$_SESSION['ID'].", $this->assunto, NULLIF('$this->nome', 'NULL'), NULLIF('$this->CPF', 'NULL'), NULLIF('$this->email', 'NULL'), NULLIF('$this->telefone', 'NULL'), '$this->descricao', $this->orgao, $this->municipio, NULLIF('$this->envolvidos', 'NULL'), '$this->dataRegistroEOUV', '$registro', '$this->protocolo', '$this->processo')
 			
 		";
 		
@@ -248,13 +251,19 @@ class DenunciasModel extends Model{
 		
 		$dataSemTraco = str_replace('-','', $this->dataRegistroEOUV);
 		
-		$numeroProvisorio = $id . "/" . $dataSemTraco . "-P";
+		$numeroProvisorio = $id . "/" . $dataSemTraco . "-T";
 		
 		$query = "UPDATE tb_denuncias SET DS_NUMERO = '$numeroProvisorio' WHERE ID = $id";
 		
 		$this->setID($id);
 		
 		$this->cadastrarHistorico('CADASTRO', 'EFETUOU O CADASTRO');
+		
+		if($this->anexos != NULL){
+	
+			$this->cadastrarAnexos();
+			
+		}
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -280,13 +289,13 @@ class DenunciasModel extends Model{
 		
 		$textoMudanca .= ($lista['BL_ACESSO_RESTRITO'] == $this->restrito) ? '' : ' Acesso restrito;';
 		$textoMudanca .= ($lista['ID_RESPONSAVEL_TRIAGEM'] == $this->responsavel) ? '' : ' Responsável pela triagem;';
-		$textoMudanca .= ($lista['BL_RELEVANCIA'] == $this->relevancia) ? '' : ' Relevância;';
+		$textoMudanca .= ($lista['DS_RELEVANCIA'] == $this->relevancia) ? '' : ' Relevância;';
 		$textoMudanca .= ($lista['DT_TERMINO_TRIAGEM'] == $this->termino) ? '' : ' Data de término da triagem;';
 		$textoMudanca .= ($lista['DS_ANDAMENTO'] == $this->andamento) ? '' : ' Andamento;';
 		$textoMudanca .= ($lista['DS_SITUACAO'] == $this->situacao) ? '' : ' Situação;';
 		$textoMudanca .= ($lista['ID_UNIDADE_APURACAO'] == $this->unidadeApuracao) ? '' : ' Unidade de apuração;';
 		
-		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, BL_RELEVANCIA = $this->relevancia, DT_TERMINO_TRIAGEM = '$this->termino', DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, DS_RELEVANCIA = '$this->relevancia', DT_TERMINO_TRIAGEM = '$this->termino', DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -454,13 +463,22 @@ class DenunciasModel extends Model{
 			$textoMudanca .= ($lista['DS_ENVOLVIDOS'] == $this->envolvidos) ? '' : ' Envolvidos;';
 		}
 		$textoMudanca .= ($lista['DT_REGISTRO_EOUV'] == $this->dataRegistroEOUV) ? '' : ' Data do registro no EOUV;';
+		$textoMudanca .= ($lista['DS_PROTOCOLO_EOUV'] == $this->protocolo) ? '' : ' Protocolo vinculado ao EOUV;';
 		$textoMudanca .= ($lista['DS_NUMERO_PROCESSO_SEI'] == $this->processo) ? '' : ' Número do processo no SEI;';
 	
-		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('$this->nome', 'NULL'), DS_CPF_DENUNCIANTE = NULLIF('$this->CPF', 'NULL'), DS_TELEFONE_DENUNCIANTE = NULLIF('$this->telefone', 'NULL'), DS_EMAIL_DENUNCIANTE = NULLIF('$this->email', 'NULL'), TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = NULLIF('$this->envolvidos', 'NULL'), DT_REGISTRO_EOUV = '$this->dataRegistroEOUV' , DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET DS_TIPO = '$this->tipo', ID_ASSUNTO = $this->assunto , DS_NOME_DENUNCIANTE = NULLIF('$this->nome', 'NULL'), DS_CPF_DENUNCIANTE = NULLIF('$this->CPF', 'NULL'), DS_TELEFONE_DENUNCIANTE = NULLIF('$this->telefone', 'NULL'), DS_EMAIL_DENUNCIANTE = NULLIF('$this->email', 'NULL'), TX_DESCRICAO_FATO = '$this->descricao' , ID_ORGAO_DENUNCIADO = $this->orgao, ID_MUNICIPIO_FATO = $this->municipio , DS_ENVOLVIDOS = NULLIF('$this->envolvidos', 'NULL'), DT_REGISTRO_EOUV = '$this->dataRegistroEOUV',  DS_PROTOCOLO_EOUV='$this->protocolo', DS_NUMERO_PROCESSO_SEI = '$this->processo' WHERE ID = $this->id";
 
 		$resultado = $this->executarQuery($query);
 		
 		$this->cadastrarHistorico('EDIÇÃO',"EDITOU A DENÚNCIA. $textoMudanca");
+		
+		if($this->anexos != NULL){
+	
+			$this->cadastrarAnexos();
+			
+			$textoMudanca .= ' Adicionou anexos;';
+			
+		}
 	
 		return $resultado;
 
@@ -738,7 +756,7 @@ class DenunciasModel extends Model{
 		
 		$resultado = $this->executarQueryRegistro($query);
 		
-		$modificarNumeroDenuncia = ($resultado == 'APTA') ? ", DS_NUMERO = REPLACE(DS_NUMERO,'-P','')" : '';
+		$modificarNumeroDenuncia = ($resultado == 'APTA') ? ", DS_NUMERO = REPLACE(DS_NUMERO,'-T','')" : '';
 		
 		$query = "UPDATE tb_denuncias SET BL_TRIAGEM_CONCLUIDA = 1 $modificarNumeroDenuncia WHERE ID = $this->id";
 		
