@@ -358,6 +358,36 @@ class Model{
 		return $nomeAnexo;
 		
 	}
+	
+	public function enviarEmail($corpo, $email, $nome){
+		
+		$mail = new PHPMailer();
+		
+		$mail->IsSMTP(); 
+		$mail->Host = 'tls://smtp-mail.outlook.com'; 
+		$mail->Port = 587;
+		$mail->SMTPSecure = 'tls';
+		$mail->SMTPAuth = true; 
+		$mail->Username = 'judsonmb@outlook.com'; 
+		$mail->Password = '';
+
+		$mail->From = 'denuncia@cge.al.gov.br'; 
+
+		$mail->AddAddress($email, $nome);
+
+		$mail->IsHTML(true); 
+		$mail->Subject  = 'Banco de Denúncias: Nova Denúncia'; 
+		$mail->Body = $corpo;
+		$mail->AltBody = 'Controladoria Geral do Estado de Alagoas';
+
+		if (!$mail->send()){
+			echo "Erro!: " . $mail->ErrorInfo;
+		}
+
+		$mail->ClearAllRecipients();
+		$mail->ClearAttachments();
+	
+	}
 
 }
 

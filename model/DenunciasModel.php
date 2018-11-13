@@ -1,6 +1,7 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/model/Model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/phpmailer/PHPMailer.php';
 
 class DenunciasModel extends Model{
 
@@ -763,6 +764,38 @@ class DenunciasModel extends Model{
 		$this->cadastrarHistorico('CONCLUSÃO DE TRIAGEM','CONCLUIU A TRIAGEM');
 		
 		$resultado = $this->executarQuery($query);
+		
+		$query = "SELECT 
+		
+		a.DS_TIPO, a.ID_UNIDADE_APURACAO,
+
+		b.DS_NOME as NOME_ASSUNTO
+		
+		FROM tb_denuncias a
+
+        INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID		
+		
+		WHERE a.ID = $this->id";
+		
+		$denuncia = $this->executarQueryListaID($query);
+		
+		$tipo = $denuncia['DS_TIPO'];
+		
+		$unidadeApuracao = $denuncia['ID_UNIDADE_APURACAO'];
+		
+		$assunto = $denuncia['NOME_ASSUNTO'];
+		
+		$query = "SELECT DS_NOME, DS_EMAIL FROM tb_servidores WHERE ID_UNIDADE_APURACAO = $unidadeApuracao";
+		
+		$listaServidores = $this->executarQueryLista($query);
+		
+		$corpoEmail = "Foi direcionada uma denúncia para a sua unidade de apuração do tipo $tipo com o assunto $assunto. Verifique o sistema Banco de Denúncias para ver mais detalhes.";
+		
+		foreach($listaServidores as $servidor){
+			
+			$this->enviarEmail($corpoEmail, $servidor['DS_EMAIL'], $servidor['DS_NOME']);
+			
+		}
 
 		return $resultado;
 	
