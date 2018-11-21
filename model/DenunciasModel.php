@@ -765,7 +765,7 @@ class DenunciasModel extends Model{
 		
 		$resultado = $this->executarQuery($query);
 		
-		$query = "SELECT 
+		/*$query = "SELECT 
 		
 		a.DS_TIPO, a.ID_UNIDADE_APURACAO,
 
@@ -795,7 +795,7 @@ class DenunciasModel extends Model{
 			
 			$this->enviarEmail($corpoEmail, $servidor['DS_EMAIL'], $servidor['DS_NOME']);
 			
-		}
+		}*/
 
 		return $resultado;
 	

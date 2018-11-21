@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Nov-2018 às 13:52
+-- Generation Time: 21-Nov-2018 às 15:09
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -37,13 +37,6 @@ CREATE TABLE `tb_anexos` (
   `DT_RECEBIMENTO_SISTEMA` date NOT NULL,
   `NM_ARQUIVO` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_anexos`
---
-
-INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO_EOUV`, `DT_RECEBIMENTO_SISTEMA`, `NM_ARQUIVO`) VALUES
-(6, 11, 'COMPLEMENTO DO DENUNCIANTE', 'contato do itec', '2018-11-30', '2018-11-12', 'contato-ITEC.txt');
 
 -- --------------------------------------------------------
 
@@ -220,16 +213,6 @@ CREATE TABLE `tb_denuncias` (
   `DS_STATUS` enum('PROCEDENTE','NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO','NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS','NÃO TRATADA') NOT NULL DEFAULT 'NÃO TRATADA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `tb_denuncias`
---
-
-INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_PROTOCOLO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `DS_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_ANDAMENTO`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
-(8, '8/20181122-P', 'NÃO IDENTIFICADA', 4, 3, NULL, NULL, NULL, NULL, '<p>O denunciante quer saber que medidas est&atilde;o sendo tomadas para o combate a corrup&ccedil;&otilde;a. hoje viram dois suspeitos com uma mala com dinheiro e n&atilde;o fizeram nada.</p>', 11, 8, 'fulano, beltrano, sicrano', '2018-11-22', '2018-11-08', '0001/2018', '01104 008005/2019', 1, 1, 'BAIXO', '0000-00-00', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'EM TRIAGEM', 1, 1, 'NÃO TRATADA'),
-(9, '9/20181120-P', 'IDENTIFICADA', 4, 3, 'Fulano', NULL, NULL, NULL, 'Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. Quero saber quanto sicrano recebe de salário. ', 14, 17, 'sicrano, beltrano, zilano', '2018-11-20', '2018-11-12', '0001/2018', '11045 000025/2018', NULL, NULL, NULL, NULL, NULL, 'AGUARDANDO TRIAGEM', NULL, 0, 'NÃO TRATADA'),
-(10, '10/20181116-P', 'NÃO IDENTIFICADA', 4, 4, NULL, NULL, NULL, NULL, '<p>Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando. Gostaria de saber pq a internet nao esta funcionando.&nbsp;</p>', 3, NULL, 'fulano', '2018-11-16', '2018-11-12', '0001/2018', '11040 000005/2018', NULL, NULL, NULL, NULL, NULL, 'EM TRIAGEM', NULL, 0, 'NÃO TRATADA'),
-(11, '11/20181130-P', 'NÃO IDENTIFICADA', 4, 4, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui Seu texto aqui v</p>', 69, 6, 'paulo', '2018-11-30', '2018-11-12', '0002/2018', '10000 000002/2018', 1, 4, 'MÉDIO', '2018-11-13', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 1, 0, 'NÃO TRATADA');
-
 -- --------------------------------------------------------
 
 --
@@ -244,32 +227,6 @@ CREATE TABLE `tb_historico_denuncia` (
   `DS_TIPO_ACAO` enum('CADASTRO','EDIÇÃO','SALVAMENTO DE TRIAGEM','CONCLUSÃO DE TRIAGEM','ANDAMENTO','REMOÇÃO DE ANEXO','REMOÇÃO DE PALAVRA-CHAVE') NOT NULL,
   `TX_MENSAGEM` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_historico_denuncia`
---
-
-INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACAO`, `DS_TIPO_ACAO`, `TX_MENSAGEM`) VALUES
-(19, 8, 4, '2018-11-08 08:08:50', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(20, 8, 4, '2018-11-08 08:11:12', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Assunto da denúncia; Município fato; Número do processo no SEI;'),
-(21, 8, 4, '2018-11-08 08:11:27', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Tipo da denúncia;'),
-(22, 8, 4, '2018-11-08 08:39:42', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Andamento; Situação; Unidade de apuração; Adicionou anexos; Adicionou palavras-chave; Adicionou palavras-chave;'),
-(23, 8, 4, '2018-11-08 08:58:49', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
-(24, 8, 4, '2018-11-08 09:01:44', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(25, 8, 4, '2018-11-08 09:04:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(26, 8, 4, '2018-11-09 08:58:48', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou anexos; Adicionou palavras-chave;'),
-(27, 9, 4, '2018-11-12 07:41:13', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(28, 9, 4, '2018-11-12 07:45:37', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(29, 9, 4, '2018-11-12 07:45:46', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(30, 9, 4, '2018-11-12 07:49:28', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados: '),
-(31, 9, 4, '2018-11-12 07:50:05', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(32, 10, 4, '2018-11-12 07:54:05', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(33, 10, 4, '2018-11-12 07:54:22', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(34, 10, 4, '2018-11-12 08:03:27', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato;'),
-(35, 10, 4, '2018-11-12 08:04:04', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato;'),
-(36, 10, 4, '2018-11-12 08:07:13', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados:  Município fato; Protocolo vinculado ao EOUV;'),
-(37, 11, 4, '2018-11-12 08:08:23', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(38, 11, 4, '2018-11-12 08:19:48', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem; Andamento; Situação; Unidade de apuração; Adicionou anexos; Adicionou palavras-chave;');
 
 -- --------------------------------------------------------
 
@@ -485,19 +442,6 @@ CREATE TABLE `tb_palavras_chave_denuncia` (
   `ID_DENUNCIA` int(20) NOT NULL,
   `DS_PALAVRA_CHAVE` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_palavras_chave_denuncia`
---
-
-INSERT INTO `tb_palavras_chave_denuncia` (`ID`, `ID_DENUNCIA`, `DS_PALAVRA_CHAVE`) VALUES
-(1, 8, 'avaliação'),
-(2, 8, 'denúncia'),
-(3, 8, 'governo'),
-(4, 11, 'itec'),
-(5, 11, 'tecnologia'),
-(6, 11, 'governo'),
-(7, 11, 'alagoas');
 
 -- --------------------------------------------------------
 

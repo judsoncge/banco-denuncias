@@ -364,12 +364,12 @@ class Model{
 		$mail = new PHPMailer();
 		
 		$mail->IsSMTP(); 
-		$mail->Host = 'tls://smtp-mail.outlook.com'; 
+		$mail->Host = 'mail.expresso.al.gov.br'; 
 		$mail->Port = 587;
-		$mail->SMTPSecure = 'tls';
-		$mail->SMTPAuth = true; 
-		$mail->Username = 'judsonmb@outlook.com'; 
-		$mail->Password = '';
+		//$mail->SMTPSecure = 'tls';
+		//$mail->SMTPAuth = true; 
+		$mail->Username = 'denuncia.cge'; 
+		$mail->Password = 'denuncia123';
 
 		$mail->From = 'denuncia@cge.al.gov.br'; 
 
