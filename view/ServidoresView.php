@@ -159,7 +159,7 @@ class ServidoresView extends View{
 				<div class='col-md-4'>
 					<div class='form-group'>
 						<label class='control-label'>Unidade de apuração</label>
-						<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' required />
+						<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' />
 							<option value='<?php echo $idUnidade ?>'><?php echo $nomeUnidade ?></option>
 							<?php foreach($listaUnidadesApuracao as $unidadeApuracao){ ?>
 								<option value='<?php echo $unidadeApuracao['ID'] ?>'><?php echo $unidadeApuracao['ABREVIACAO_ORGAO'] . ' - ' .$unidadeApuracao['DS_ABREVIACAO'] . ' - ' . $unidadeApuracao['DS_NOME'] ; ?></option>

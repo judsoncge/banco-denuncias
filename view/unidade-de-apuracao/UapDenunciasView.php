@@ -182,11 +182,27 @@ class UapDenunciasView extends DenunciasView{
 							<td><?php echo $denuncia['NOME_MUNICIPIO'] ?></td>
 							
 							<td>	
+								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
+									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar Informações'>
+										<i class='fa fa-eye' aria-hidden='true'></i>
+									</button>
+								</a>
+							
 								<?php if($denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
 								
 									<a href="/denuncias/andamento/<?php echo $denuncia['ID'] ?>" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Dar andamento'>
 											<i class='fa fa-forward' aria-hidden='true'></i>
+										</button>
+									</a>
+								
+								<?php } ?>
+								
+								<?php if($denuncia['DS_STATUS'] != 'NÃO TRATADA'){ ?>
+								
+									<a href="/editar/denuncia/encerrar/<?php echo $denuncia['ID'] ?>/" >
+										<button type='button' class='btn btn-secondary btn-sm' title='Encerrar Denúncia'>
+											<i class='fa fa-check' aria-hidden='true'></i>
 										</button>
 									</a>
 								

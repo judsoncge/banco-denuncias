@@ -46,8 +46,6 @@ class DenunciasModel extends Model{
 	private $unidadesTrilha;
 	private $periodicidadesTrilha;
 	private $agrupadores;
-	private $tiposAlertas;
-	private $emailsAlertas;
 	
 	
 	public function setProtocolo($protocolo){
@@ -272,14 +270,6 @@ class DenunciasModel extends Model{
 		
 	}
 	
-	public function modificarParaEmTriagem(){
-		
-		$query = "UPDATE tb_denuncias SET DS_SITUACAO = 'EM TRIAGEM' WHERE ID = $this->id";
-		
-		$this->executarQuery($query);
-
-	}
-	
 	public function triagem(){
 		
 		$textoMudanca = 'Foram alterados os dados: ';
@@ -380,12 +370,8 @@ class DenunciasModel extends Model{
 				$periodicidadeTrilha = $this->periodicidadesTrilha[$key];
 				
 				$agrupador = $this->agrupadores[$key];
-				
-				$tipoAlerta = $this->tiposAlertas[$key];
-							
-				$emailAlerta = $this->emailsAlertas[$key];
 			
-				$query = "INSERT INTO tb_trilhas (ID_DENUNCIA, DS_NOME, BL_ALERTA, ID_UNIDADE_APURACAO, NR_PERIODICIDADE, DS_TIPO_ALERTA, DS_EMAIL_ALERTA, BL_AGRUPADOR) VALUES ($this->id, '$nomeTrilha', '$gerarAlerta', $unidadeTrilha, '$periodicidadeTrilha', '$tipoAlerta', '$emailAlerta',  '$agrupador')";
+				$query = "INSERT INTO tb_trilhas (ID_DENUNCIA, DS_NOME, BL_ALERTA, ID_UNIDADE_APURACAO, NR_PERIODICIDADE, BL_AGRUPADOR) VALUES ($this->id, '$nomeTrilha', '$gerarAlerta', $unidadeTrilha, '$periodicidadeTrilha', '$agrupador')";
 				
 				$this->executarQuery($query);
 			
@@ -568,6 +554,16 @@ class DenunciasModel extends Model{
 		return $listaTrilhas;
 		
 	}
+	
+	public function encerrar(){
+		
+		$query = "UPDATE tb_denuncias SET DS_STATUS = 'ENCERRADA' WHERE ID = $this->id";
+		
+		$resultado = $this->executarQuery($query);
+		
+		return $resultado;
+		
+	}
 
 
 	public function getPalavrasChave(){
@@ -610,13 +606,13 @@ class DenunciasModel extends Model{
 		
 		$unidade = $_SESSION['UNIDADE'];
 		
-		$restricaoUsuario = ($_SESSION['TIPO'] == 'UNIDADE DE APURAÇÃO') ? "WHERE a.ID_UNIDADE_APURACAO = $unidade" : '';
+		$restricaoUsuario = ($_SESSION['TIPO'] == 'UNIDADE DE APURAÇÃO') ? "AND (a.ID_UNIDADE_APURACAO = $unidade)" : '';
 		
 		$query = 
 		
 			"SELECT 
 			
-			a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA,
+			a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
 			
 			b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 			
@@ -635,6 +631,8 @@ class DenunciasModel extends Model{
 			INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
 			
 			LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
+			
+			WHERE DS_STATUS != 'ENCERRADA'
 			
 			$restricaoUsuario
 			
@@ -699,7 +697,7 @@ class DenunciasModel extends Model{
 		
 		"SELECT 
 		
-		a.ID, a.DS_TIPO, a.ID_SERVIDOR, BL_TRIAGEM_CONCLUIDA,
+		a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
 		
 		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		

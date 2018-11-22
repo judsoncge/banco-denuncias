@@ -223,19 +223,6 @@ class DenunciasView extends View{
 							"</select>"+	
 						"</div>"+
 					"</div>"+
-					"<div class='row'>"+
-						"<div class='col-md-8'>"+
-							"Tipo de alerta:<br>"+
-							"<select id='tiposAlertas' name='tiposAlertas[]' required>:"+
-								"<option value=''>Selecione</option>"+	
-								"<option value='GERAR ALERTA SEMPRE QUE A TRILHA FOR EXECUTADA'>GERAR ALERTA SEMPRE QUE A TRILHA FOR EXECUTADA</option>"+	
-								"<option value='GERAR ALERTA SEMPRE QUE REGISTROS RESULTANTES MAIOR QUE REGISTROS'>GERAR ALERTA SEMPRE QUE REGISTROS RESULTANTES MAIOR QUE REGISTROS</option>"+	
-							"</select>"+	
-						"</div>"+
-						"<div class='col-md-4'>"+
-							"E-mail para envio de alerta:<br>"+
-							"<input class='form-control' id='emails' name='emails[]' type='email' maxlength='50' placeholder='Máx. 50 caracteres'/>"+	
-						"</div>"+
 					"</div><a href='javascript:void(0)' onclick='removerTrilha("+id+");'>Remover</a><hr>";
 					
 					var nova_anexo = document.getElementById("adicionarTrilha");
@@ -474,6 +461,16 @@ class DenunciasView extends View{
 									<a href="/denuncias/andamento/<?php echo $denuncia['ID'] ?>" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Dar andamento'>
 											<i class='fa fa-forward' aria-hidden='true'></i>
+										</button>
+									</a>
+								
+								<?php }
+								
+								if($denuncia['DS_STATUS'] != 'NÃO TRATADA'){ ?>
+								
+									<a href="/editar/denuncia/encerrar/<?php echo $denuncia['ID'] ?>/" >
+										<button type='button' class='btn btn-secondary btn-sm' title='Encerrar Denúncia'>
+											<i class='fa fa-check' aria-hidden='true'></i>
 										</button>
 									</a>
 								
@@ -943,6 +940,7 @@ class DenunciasView extends View{
 					<label class='control-label'>Resultado da triagem</label>
 					<select class='form-control' id='situacao' name='situacao' required />
 						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
+						<option value='EM TRIAGEM'>EM TRIAGEM</option>
 						<option value='APTA'>APTA</option>
 						<option value='NÃO APTA'>NÃO APTA</option>
 					</select>
@@ -1045,7 +1043,7 @@ class DenunciasView extends View{
 			<div class='col-md-4'>
 				<div class='form-group'>
 					<label class='control-label'>Status da Denúncia</label>
-					<select class='form-control' id='status' name='status' />
+					<select class='form-control' id='status' name='status' required />
 						<option value=''>Selecione</option>
 						<option value='PROCEDENTE'>PROCEDENTE</option>
 						<option value='NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'>NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO</option>
@@ -1062,7 +1060,7 @@ class DenunciasView extends View{
 			<div class='col-md-3'>
 				<div class='form-group'>
 					<label class='control-label'>Anexo</label>
-					<input type='file' id='selecao-arquivo' name='anexo[]' required />
+					<input type='file' id='selecao-arquivo' name='anexo[]' />
 				</div>  
 			</div>
 		</div>
@@ -1204,8 +1202,6 @@ class DenunciasView extends View{
 						<th>Alerta?</th>
 						<th>Unidade</th>
 						<th>Periodicidade</th>
-						<th>Tipo de alerta</th>
-						<th>Email do alerta</th>
 						<th>Agrupador?</th>
 					</tr>
 				</thead>
@@ -1223,8 +1219,6 @@ class DenunciasView extends View{
 						</td>
 						<td><?php echo $trilha['NOME_UNIDADE'] ?></td>
 						<td><?php echo $trilha['NR_PERIODICIDADE'] . ' dias'?></td>
-						<td><?php echo $trilha['DS_TIPO_ALERTA'] ?></td>
-						<td><?php echo $trilha['DS_EMAIL_ALERTA'] ?></td>
 						<td><?php 
 								if($trilha['BL_AGRUPADOR']){
 									echo 'SIM';

@@ -155,8 +155,6 @@ class DenunciasController extends Controller{
 		
 		$this->denunciasModel->setID($_GET['id']);
 		
-		$this->denunciasModel->modificarParaEmTriagem();
-		
 		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
 		
 		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();
@@ -249,8 +247,6 @@ class DenunciasController extends Controller{
 		$unidadesTrilha = (isset($_POST['unidades'])) ? $_POST['unidades'] : NULL;
 		$periodicidadesTrilha = (isset($_POST['periodicidades'])) ? $_POST['periodicidades'] : NULL;	
 		$agrupadores = (isset($_POST['agrupadores'])) ? $_POST['agrupadores'] : NULL;	
-		$tiposAlertas = (isset($_POST['tiposAlertas'])) ? $_POST['tiposAlertas'] : NULL;	
-		$emailsAlertas = (isset($_POST['emails'])) ? $_POST['emails'] : NULL;	
 		
 		$this->denunciasModel->setStatus($status);
 		$this->denunciasModel->setComentarios($comentario);
@@ -262,8 +258,6 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setUnidadesTrilha($unidadesTrilha);
 		$this->denunciasModel->setPeriodicidadesTrilha($periodicidadesTrilha);
 		$this->denunciasModel->setAgrupadores($agrupadores);
-		$this->denunciasModel->setTiposAlertas($tiposAlertas);
-		$this->denunciasModel->setEmailsAlertas($emailsAlertas);
 		
 		$this->denunciasModel->setID($id);
 		
@@ -271,11 +265,7 @@ class DenunciasController extends Controller{
 		
 		$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
 		
-		if($_SESSION['RESULTADO_OPERACAO']){
-			Header('Location: /denuncias/listar/0');
-		}else{
-			Header("Location: /denuncias/andamento/$id");
-		}
+		Header('Location: /denuncias/listar/0');
 		
 	}
 	
@@ -416,6 +406,10 @@ class DenunciasController extends Controller{
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerPalavraChave();
 				
 				break;
+				
+			case 'encerrar':
+			
+				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->encerrar();
 					
 		}
 				
