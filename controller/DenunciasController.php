@@ -405,7 +405,11 @@ class DenunciasController extends Controller{
 			
 				$_SESSION['RESULTADO_OPERACAO'] = $this->denunciasModel->removerPalavraChave();
 				
-				break;
+				$_SESSION['MENSAGEM'] = $this->denunciasModel->getMensagemResposta();
+				
+				Header("Location: /denuncias/triagem/$id");
+				
+				die();
 				
 			case 'encerrar':
 			

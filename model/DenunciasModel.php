@@ -612,7 +612,7 @@ class DenunciasModel extends Model{
 		
 			"SELECT 
 			
-			a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
+			a.ID, a.DS_NUMERO, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
 			
 			b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 			
@@ -697,13 +697,11 @@ class DenunciasModel extends Model{
 		
 		"SELECT 
 		
-		a.ID, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
+		a.ID, a.DS_NUMERO, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
 		
 		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		
 		c.DS_ABREVIACAO NOME_ORGAO_DENUNCIADO,
-		
-		d.DS_NOME NOME_SERVIDOR,
 		
 		e.DS_NOME NOME_MUNICIPIO
 		
@@ -712,8 +710,6 @@ class DenunciasModel extends Model{
 		INNER JOIN tb_assuntos_denuncia b ON a.ID_ASSUNTO = b.ID 
 		
 		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID 
-		
-		INNER JOIN tb_servidores d ON a.ID_SERVIDOR = d.ID 
 		
 		LEFT JOIN tb_municipios e ON a.ID_MUNICIPIO_FATO = e.ID 
 		

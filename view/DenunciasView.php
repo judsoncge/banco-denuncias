@@ -60,7 +60,7 @@ class DenunciasView extends View{
 					newdiv.innerHTML = 
 					"<div class='row'>"+
 						"<div class='col-md-3'>"+
-							"Selecione a anexo: <a href='javascript:void(0)' title='remover' onclick='removerAnexo("+id+");'><i class='fa fa-times' aria-hidden='true'></i></a><br>"+
+							"Selecione o anexo: <a href='javascript:void(0)' title='remover' onclick='removerAnexo("+id+");'><i class='fa fa-times' aria-hidden='true'></i></a><br>"+
 								"<input type='file' id='selecao-arquivo' name='anexos[]' id='anexo' required />"+	
 						"</div>"+
 					"</div>"+
@@ -110,9 +110,9 @@ class DenunciasView extends View{
 					
 					var newdiv = document.createElement('div');
 					
-					newdiv.setAttribute("name", "campos"+idPalavra);
+					newdiv.setAttribute("name", "palavra-"+idPalavra);
 					
-					newdiv.setAttribute("id", idPalavra);
+					newdiv.setAttribute("id", "palavra-"+idPalavra);
 					
 					newdiv.innerHTML = 
 					"<div class='row'>"+
@@ -131,7 +131,7 @@ class DenunciasView extends View{
 				
 				function removerPalavraChave(idPalavra){
 					
-					document.getElementById(idPalavra).innerHTML=""; 
+					document.getElementById("palavra-"+idPalavra).innerHTML=""; 
 					
 				}
 				
@@ -267,7 +267,7 @@ class DenunciasView extends View{
 					<div class='row'>	
 						<div class='col-md-3'>
 							<div class='form-group'>
-								<label class='control-label'>NCD</label><br>
+								<label class='control-label' title='Número da denúncia'>NCD</label><br>
 								<input class='form-control' type='text' id='filtroncd' name='filtroncd'>
 							</div>
 						</div>
@@ -410,7 +410,7 @@ class DenunciasView extends View{
 			<table class='table table-hover tabela-dados'>
 				<thead>
 					<tr>
-						<th>Servidor cadastro</th>
+						<th>Número</th>
 						<th>Tipo</th>
 						<th>Assunto Macro</th>
 						<th>Assunto Micro</th>
@@ -428,7 +428,7 @@ class DenunciasView extends View{
 					?>
 						
 						<tr>
-							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
+							<td><?php echo $denuncia['DS_NUMERO'] ?></td>
 							<td><?php echo $denuncia['DS_TIPO'] ?></td>
 							<td><?php echo $denuncia['DS_NOME_MACRO']  ?></td>
 							<td><?php echo $denuncia['DS_NOME_MICRO'] ?></td>
@@ -741,14 +741,14 @@ class DenunciasView extends View{
 				<div class='col-md-12'>
 					<div class='form-group'>
 						<label class='control-label'>Descrição do fato*</label>
-						<textarea class='form-control' id='descricao' name='descricao' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_DESCRICAO_FATO'];}else{echo "Seu texto aqui";} ?></textarea>
+						<textarea class='form-control' id='descricao' name='descricao' rows='15' required /><?php if($this->conteudo=='editar'){echo $listaDados['TX_DESCRICAO_FATO'];}else{echo '.';} ?></textarea>
 					</div>  
 				</div>
 			</div>			
 			<div class='row'>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Órgão fato</label>
+						<label class='control-label'>Órgão do fato</label>
 						<select class='form-control' id='orgao' name='orgao'/>
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_ORGAO_DENUNCIADO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['ABREVIACAO_ORGAO'] . " - " . $listaDados['NOME_ORGAO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaOrgaos as $orgao){ ?>
@@ -759,7 +759,7 @@ class DenunciasView extends View{
 				</div>
 				<div class='col-md-6'>
 					<div class='form-group'>
-						<label class='control-label'>Município fato</label>
+						<label class='control-label'>Município do fato</label>
 						<select class='form-control' id='municipio' name='municipio'/>
 							<option value="<?php if($this->conteudo=='editar'){echo $listaDados['ID_MUNICIPIO_FATO'];} ?>"><?php if($this->conteudo=='editar'){echo $listaDados['NOME_MUNICIPIO'];}else{echo 'Selecione';} ?></option>
 								<?php foreach($listaMunicipios as $municipio){ ?>
@@ -786,7 +786,7 @@ class DenunciasView extends View{
 				</div>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<label class='control-label'>Número do Protocolo Vinculado ao EOUV</label>
+						<label class='control-label'>Número do Protocolo Vinculado ao EOUV*</label>
 						<input class='form-control' id='protocolo' name='protocolo' type='text' value="<?php if($this->conteudo=='editar'){echo $listaDados['DS_PROTOCOLO_EOUV'];} ?>" maxlength='10' required />
 					</div>  
 				</div>
@@ -852,7 +852,9 @@ class DenunciasView extends View{
 	<div class='well' style='height:70px;'>
 		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
 		
-		<a href="/editar/denuncia/concluir/<?php echo $listaDados['ID'] ?>/"><button type='submit' class='btn btn-sm btn-info pull-right' name='submit' value='Send' id='botao-dar-saida'>Concluir Triagem</button></a>
+		<?php if($listaDados['DS_SITUACAO']!='AGUARDANDO TRIAGEM' AND $listaDados['DS_SITUACAO']!='EM TRIAGEM') { ?>
+			<a href="/editar/denuncia/concluir/<?php echo $listaDados['ID'] ?>/"><button type='submit' class='btn btn-sm btn-info pull-right' name='submit' value='Send' id='botao-dar-saida'>Concluir Triagem</button></a>
+		<?php } ?>
 	</div>
 	<hr>
 	<form name='cadastro' method='POST' action="/triagem/<?php echo $listaDados['ID'] ?>" enctype='multipart/form-data'> 
@@ -1037,7 +1039,9 @@ class DenunciasView extends View{
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'];
 				
 ?>		
-		
+	<div style='height:70px;'>
+		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
+	</div>
 	<form name='cadastro' method='POST' action="/andamento/<?php echo $listaDados['ID'] ?>" enctype='multipart/form-data'> 
 		<div class='row'>
 			<div class='col-md-4'>
@@ -1101,6 +1105,10 @@ class DenunciasView extends View{
 		$historico = $_REQUEST['HISTORICO'];
 		
 ?>		
+
+		<div style='height:70px;'>
+			<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>
+		</div>
 		STATUS: <?php echo $listaDados['DS_STATUS'] ?>
 		<div class='well'>
 			<strong>Dados de cadastro:</strong><br><br>

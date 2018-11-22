@@ -1,8 +1,7 @@
 jQuery(function($){ 
 	$("#processo").mask("99999 999999/9999"); 
 	$("#CPF").mask("999.999.999-99");					
-	$("#telefone").mask("9999-9999");								
-	$("#matricula").mask("99999-9");								
+	$("#telefone").mask("9999-9999");		
 	
 });
 

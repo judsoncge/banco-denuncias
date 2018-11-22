@@ -77,6 +77,8 @@ class ServidoresController extends Controller{
 		
 		$this->servidoresModel->setTipo($tipo);
 		
+		$this->servidoresModel->setUnidadeApuracao($unidadeApuracao);
+		
 		$_SESSION['RESULTADO_OPERACAO'] = $this->servidoresModel->cadastrar();
 		
 		$_SESSION['MENSAGEM'] = $this->servidoresModel->getMensagemResposta();
