@@ -79,7 +79,9 @@ class DenunciasController extends Controller{
 			
 			$filtroMunicipio = isset($_POST['filtromunicipio']) ? $_POST['filtromunicipio'] : '%';
 
-			$filtroPeriodo = ($_POST['filtroperiodo'] != '') ? $_POST['filtroperiodo'] : '%';
+			$filtroPeriodoInicio = ($_POST['filtroperiodoinicio'] != '') ? $_POST['filtroperiodoinicio'] : '%';
+			
+			$filtroPeriodoFim = ($_POST['filtroperiodofim'] != '') ? $_POST['filtroperiodofim'] : '%';
 			
 			$filtroRestrito = isset($_POST['filtrorestrito']) ? $_POST['filtrorestrito'] : '%';
 			
@@ -99,7 +101,9 @@ class DenunciasController extends Controller{
 			
 			$this->denunciasModel->setMunicipio($filtroMunicipio);
 			
-			$this->denunciasModel->setDataRegistro($filtroPeriodo);
+			$this->denunciasModel->setDataRegistroInicio($filtroPeriodoInicio);
+			
+			$this->denunciasModel->setDataRegistroFim($filtroPeriodoFim);
 			
 			$this->denunciasModel->setRestrito($filtroRestrito);
 			
@@ -191,10 +195,11 @@ class DenunciasController extends Controller{
 		
 		$id = $_GET['id'];
 
-		$restrito = $_POST['restrito'];
-		$responsavel = $_POST['responsavel'];
+		$restrito = empty($_POST['restrito']) ? 'NULL' : $_POST['restrito'];
+		$responsavel = empty($_POST['responsavel']) ? 'NULL' : $_POST['responsavel'];
 		$relevancia = $_POST['relevancia'];
 		$termino = $_POST['termino'];
+		
 		$andamento = $_POST['andamento'];
 		$situacao = $_POST['situacao'];
 		$unidadeApuracao = $_POST['unidadeApuracao'];

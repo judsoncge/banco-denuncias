@@ -326,7 +326,7 @@ class DenunciasView extends View{
 						</div>
 					</div>
 					<div class='row'>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Município</label><br>
 									<select class='form-control'  id='filtromunicipio' name='filtromunicipio'>
@@ -340,13 +340,7 @@ class DenunciasView extends View{
 									</select>
 							</div>
 						</div>
-						<div class='col-md-3'>
-							<div class='form-group'>
-								<label class='control-label'>Período</label><br>
-								<input class='form-control' type='date' id='filtroperiodo' name='filtroperiodo' >
-							</div>
-						</div>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Acesso restrito</label><br>
 									<select class='form-control'  id='filtrorestrito' name='filtrorestrito'>
@@ -354,9 +348,9 @@ class DenunciasView extends View{
 										<option value='1'>SIM</option>
 										<option value='0'>NÃO</option>
 									</select>
-							</div>
+							</div>	
 						</div>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Situação Análise</label><br>
 									<select class='form-control'  id='filtroanalise' name='filtroanalise'>
@@ -365,6 +359,20 @@ class DenunciasView extends View{
 										<option value='NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'>NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO</option>
 										<option value='NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS'>NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS</option>
 									</select>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-6'>
+							<div class='form-group'>
+								<label class='control-label'>Período início</label><br>
+								<input class='form-control' type='date' id='filtroperiodoinicio' name='filtroperiodoinicio' >
+							</div>
+						</div>
+						<div class='col-md-6'>
+							<div class='form-group'>
+								<label class='control-label'>Período fim</label><br>
+								<input class='form-control' type='date' id='filtroperiodofim' name='filtroperiodofim' >
 							</div>
 						</div>
 					</div>
@@ -925,7 +933,7 @@ class DenunciasView extends View{
 					$valueResultado = ($listaDados['DS_ANDAMENTO'] != NULL) ? $listaDados['DS_ANDAMENTO'] : '';
 				?>
 				<div class='form-group'>
-					<label class='control-label'>Andamento da triagem</label>
+					<label class='control-label'>Andamento da triagem*</label>
 					<select class='form-control' id='andamento' name='andamento' required />
 						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
 						<option value='AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE'>AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE</option>
@@ -939,7 +947,7 @@ class DenunciasView extends View{
 					$valueResultado = ($listaDados['DS_SITUACAO'] != NULL) ? $listaDados['DS_SITUACAO'] : '';
 				?>
 				<div class='form-group'>
-					<label class='control-label'>Resultado da triagem</label>
+					<label class='control-label'>Resultado da triagem*</label>
 					<select class='form-control' id='situacao' name='situacao' required />
 						<option value='<?php echo $valueResultado ?>'><?php echo $interfaceResultado ?></option>
 						<option value='EM TRIAGEM'>EM TRIAGEM</option>
@@ -955,7 +963,7 @@ class DenunciasView extends View{
 					$valueUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ID_UNIDADE_APURACAO'] : '';
 				?>
 				<div class='form-group'>
-					<label class='control-label'>Unidade de apuração</label>
+					<label class='control-label'>Unidade de apuração*</label>
 					<select class='form-control' id='unidadeApuracao' name='unidadeApuracao' required />
 						<option value='<?php echo $valueUnidade ?>'><?php echo $interfaceUnidade ?></option>
 						<?php foreach($listaUnidadesApuracao as $unidadeApuracao){ ?>

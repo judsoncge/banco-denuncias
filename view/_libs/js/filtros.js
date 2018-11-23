@@ -36,7 +36,7 @@ $(document).ready(function(){
 		});
 	
 	//quando o usuario escolher alguém no select, chama a função
-	$('#filtroncd, #filtrosituacao, #filtroresponsavel, #filtrounidade, #filtroassunto, #filtromunicipio, #filtroperiodo, #filtrorestrito, #filtroanalise, #filtropalavrachave').bind("keyup change", function(){
+	$('#filtroncd, #filtrosituacao, #filtroresponsavel, #filtrounidade, #filtroassunto, #filtromunicipio, #filtroperiodoinicio, #filtroperiodofim, #filtrorestrito, #filtroanalise, #filtropalavrachave').bind("keyup change", function(){
 		
 		//o gif de carregando vai aparecer até a busca concluir
 		$('#carregando').show();

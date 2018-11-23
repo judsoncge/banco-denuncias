@@ -17,6 +17,8 @@ class DenunciasModel extends Model{
 	private $orgao;
 	private $envolvidos;
 	private $dataRegistro;
+	private $dataRegistroInicio;
+	private $dataRegistroFim;
 	private $dataRegistroEOUV;
 	private $processo;
 	private $protocolo;
@@ -216,6 +218,14 @@ class DenunciasModel extends Model{
 		$this->dataRegistro = $dataRegistro;
 	}
 	
+	public function setDataRegistroInicio($dataRegistroInicio){
+		$this->dataRegistroInicio = $dataRegistroInicio;
+	}
+	
+	public function setDataRegistroFim($dataRegistroFim){
+		$this->dataRegistroFim = $dataRegistroFim;
+	}
+	
 	public function setDataRegistroEOUV($dataRegistroEOUV){
 		$this->dataRegistroEOUV = $dataRegistroEOUV;
 	}
@@ -286,7 +296,9 @@ class DenunciasModel extends Model{
 		$textoMudanca .= ($lista['DS_SITUACAO'] == $this->situacao) ? '' : ' Situação;';
 		$textoMudanca .= ($lista['ID_UNIDADE_APURACAO'] == $this->unidadeApuracao) ? '' : ' Unidade de apuração;';
 		
-		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, DS_RELEVANCIA = '$this->relevancia', DT_TERMINO_TRIAGEM = '$this->termino', DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
+		$query = "UPDATE tb_denuncias SET BL_ACESSO_RESTRITO = $this->restrito, ID_RESPONSAVEL_TRIAGEM = $this->responsavel, DS_RELEVANCIA = nullif('$this->relevancia',''), DT_TERMINO_TRIAGEM = nullif('$this->termino',''), DS_ANDAMENTO = '$this->andamento', DS_SITUACAO = '$this->situacao', ID_UNIDADE_APURACAO = $this->unidadeApuracao WHERE ID = $this->id";
+		
+		//echo $query; exit;
 		
 		$resultado = $this->executarQuery($query);
 		
@@ -658,7 +670,9 @@ class DenunciasModel extends Model{
 		
 		$municipio = ($this->municipio == '%') ? '' : "AND (ID_MUNICIPIO_FATO = $this->municipio)" ;
 		
-		$periodo = ($this->dataRegistro == '%') ? '' : "AND (DT_REGISTRO >= '$this->dataRegistro')" ;
+		$periodoInicio = ($this->dataRegistroInicio == '%') ? '' : "AND (DT_REGISTRO >= '$this->dataRegistroInicio')" ;
+		
+		$periodoFim = ($this->dataRegistroFim == '%') ? '' : "AND (DT_REGISTRO <= '$this->dataRegistroFim')" ;
 		
 		$restrito = ($this->restrito == '%') ? '' : "AND (BL_ACESSO_RESTRITO = $this->restrito)" ;
 		
@@ -727,7 +741,9 @@ class DenunciasModel extends Model{
 		
 		$municipio
 		
-		$periodo
+		$periodoInicio 
+		
+		$periodoFim 
 		
 		$restrito
 		
@@ -759,11 +775,11 @@ class DenunciasModel extends Model{
 		
 		$resultado = $this->executarQuery($query);
 		
-		/*$query = "SELECT 
+		$query = "SELECT 
 		
 		a.DS_TIPO, a.ID_UNIDADE_APURACAO,
 
-		b.DS_NOME as NOME_ASSUNTO
+		b.DS_NOME_MACRO as NOME_ASSUNTO_MACRO, b.DS_NOME_MICRO as NOME_ASSUNTO_MICRO
 		
 		FROM tb_denuncias a
 
@@ -777,7 +793,7 @@ class DenunciasModel extends Model{
 		
 		$unidadeApuracao = $denuncia['ID_UNIDADE_APURACAO'];
 		
-		$assunto = $denuncia['NOME_ASSUNTO'];
+		$assunto = $denuncia['NOME_ASSUNTO_MACRO'] . ' - ' . $denuncia['NOME_ASSUNTO_MICRO'];
 		
 		$query = "SELECT DS_NOME, DS_EMAIL FROM tb_servidores WHERE ID_UNIDADE_APURACAO = $unidadeApuracao";
 		
@@ -789,7 +805,9 @@ class DenunciasModel extends Model{
 			
 			$this->enviarEmail($corpoEmail, $servidor['DS_EMAIL'], $servidor['DS_NOME']);
 			
-		}*/
+			exit;
+			
+		}
 
 		return $resultado;
 	

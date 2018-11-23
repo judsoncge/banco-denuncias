@@ -364,16 +364,18 @@ class Model{
 		$mail = new PHPMailer();
 		
 		$mail->IsSMTP(); 
-		$mail->Host = 'mail.expresso.al.gov.br'; 
+		$mail->Host = ''; 
 		$mail->Port = 587;
-		//$mail->SMTPSecure = 'tls';
-		//$mail->SMTPAuth = true; 
+		$mail->SMTPSecure = 'tls';
+		$mail->SMTPAuth = true; 
 		$mail->Username = 'denuncia.cge'; 
 		$mail->Password = 'denuncia123';
+		
+		$mail->isSendmail();
 
-		$mail->From = 'denuncia@cge.al.gov.br'; 
-
-		$mail->AddAddress($email, $nome);
+		$mail->From = 'denuncia@cge.al.gov.br';
+		
+		//$mail->AddAddress($email, $nome);
 
 		$mail->IsHTML(true); 
 		$mail->Subject  = 'Banco de Denúncias: Nova Denúncia'; 
