@@ -164,54 +164,53 @@ class HomeView extends View{
 
 		</script>
 		
-		<?php if($_SESSION['TIPO']!='UNIDADE DE APURAÇÃO'){ ?>
-			<script type="text/javascript">
-		
-				google.charts.load('current', {packages: ['corechart', 'bar']});
-				google.charts.setOnLoadCallback(drawStacked);
-				
-				
+		<script type="text/javascript">
+	
+			google.charts.load('current', {packages: ['corechart', 'bar']});
+			google.charts.setOnLoadCallback(drawStacked);
+			
+			
 
-				function drawStacked() {
-					  var data = google.visualization.arrayToDataTable([
-						['Unidade', 'Quantidade'],
+			function drawStacked() {
+				  var data = google.visualization.arrayToDataTable([
+					['Unidade', 'Quantidade'],
+					
+					
+					 <?php 
+				  
+						$listaDenunciasUnidadeApuracao = $_REQUEST['QTD_DENUNCIAS_UNIDADE_APURACAO'];
+				  
+						foreach($listaDenunciasUnidadeApuracao as $unidade){ ?>
+					 
+							['<?php echo $unidade['NOME_UNIDADE'] ?>',<?php echo $unidade['QUANTIDADE'] ?>]
+							<?php if($unidade != end($listaDenunciasUnidadeApuracao)){ ?>,<?php } 
+					 
+						} 
 						
-						
-						 <?php 
-					  
-							$listaDenunciasUnidadeApuracao = $_REQUEST['QTD_DENUNCIAS_UNIDADE_APURACAO'];
-					  
-							foreach($listaDenunciasUnidadeApuracao as $unidade){ ?>
-						 
-								['<?php echo $unidade['NOME_UNIDADE'] ?>',<?php echo $unidade['QUANTIDADE'] ?>]
-								<?php if($unidade != end($listaDenunciasUnidadeApuracao)){ ?>,<?php } 
-						 
-							} 
-							
-							?>
-					  
-					  
-					  ]);
+						?>
+				  
+				  
+				  ]);
 
-					  var options = {
-						title: 'Quantidade de denúncias por Unidade de Apuração',
-						chartArea: {width: '70%'},
-						isStacked: true,
-						hAxis: {
-						  title: 'Total',
-						  format:'0',
-						  minValue: 0,
-						},
-						vAxis: {
-						  title: 'Unidade'
-						  
-						}
-					  };
-					  var chart = new google.visualization.BarChart(document.getElementById('denunciasUnidade'));
-					  chart.draw(data, options);
+				  var options = {
+					title: 'Quantidade de denúncias por Unidade de Apuração',
+					chartArea: {width: '70%'},
+					isStacked: true,
+					hAxis: {
+					  title: 'Total',
+					  format:'0',
+					  minValue: 0,
+					},
+					vAxis: {
+					  title: 'Unidade'
+					  
 					}
+				  };
+				  var chart = new google.visualization.BarChart(document.getElementById('denunciasUnidade'));
+				  chart.draw(data, options);
+				}
 
-			</script>
+		</script>
 		
 		
 		<script type="text/javascript">
@@ -238,7 +237,7 @@ class HomeView extends View{
 			  }
 		</script>
 		
-		<?php } ?>
+	
 	
 		
 		<center>
@@ -247,11 +246,11 @@ class HomeView extends View{
 			<div id='denunciasMunicipio' style='width: 900px; height: 500px;'></div>
 				
 			<div id='denunciasOrgao' style='width: 900px; height: 500px;'></div>
-			<?php if($_SESSION['TIPO']!='UNIDADE DE APURAÇÃO'){ ?>
+			
 			<div id='denunciasUnidade' style='width: 900px; height: 500px;'></div>
 			
 			<div id='triagensPrazo' style='width: 900px; height: 500px;'></div>
-			<?php } ?>
+			
 		</center>
 		
 		
