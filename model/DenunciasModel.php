@@ -799,11 +799,11 @@ class DenunciasModel extends Model{
 		
 		$listaServidores = $this->executarQueryLista($query);
 		
-		$corpoEmail = "Foi direcionada uma denúncia para a sua unidade de apuração do tipo $tipo com o assunto $assunto. Verifique o sistema Banco de Denúncias para ver mais detalhes.";
+		$mensagem = ", foi encaminhada uma denúncia para a sua unidade de apuração do tipo $tipo com o assunto $assunto. Verifique o sistema Banco de Denúncias para ver mais detalhes.";
 		
 		foreach($listaServidores as $servidor){
 			
-			$this->enviarEmail($corpoEmail, $servidor['DS_EMAIL'], $servidor['DS_NOME']);
+			mail($servidor['DS_EMAIL'], 'Uma denúncia foi encaminhada', $servidor['DS_NOME'].$mensagem);
 			
 			exit;
 			
@@ -812,7 +812,213 @@ class DenunciasModel extends Model{
 		return $resultado;
 	
 	}
+	
+	public function getQuantidadeTotalDenuncias(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'WHERE ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "SELECT COUNT(ID) FROM tb_denuncias $restricaoUsuario";
 
+		$quantidade = $this->executarQueryRegistro($query);
+		
+		return $quantidade;
+		
+	}
+	
+	public function getQuantidadeDenunciasTipo($tipo){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "SELECT COUNT(ID) FROM tb_denuncias WHERE DS_TIPO ='$tipo' $restricaoUsuario";
+		
+		$quantidade = $this->executarQueryRegistro($query);
+		
+		return $quantidade;
+		
+	}
+
+	
+	public function getQuantidadeDenunciasMunicipio(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT 
+		
+		c.ID,
+		c.DS_NOME NOME_MUNICIPIO,
+		COUNT(*) QUANTIDADE
+		
+		FROM tb_denuncias a
+		
+		LEFT JOIN tb_municipios c ON a.ID_MUNICIPIO_FATO = c.ID
+		
+		WHERE ID_MUNICIPIO_FATO IS NOT NULL
+		
+		$restricaoUsuario
+		
+		GROUP BY c.ID
+		
+		ORDER BY QUANTIDADE DESC
+
+		";
+		
+		$listaDados = $this->executarQueryLista($query);
+		
+		return $listaDados;
+		
+	}
+	
+	public function getQuantidadeDenunciasOrgao(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT 
+		
+		c.ID,
+		c.DS_ABREVIACAO NOME_ORGAO,
+		COUNT(*) QUANTIDADE
+		
+		FROM tb_denuncias a
+		
+		LEFT JOIN tb_orgaos c ON a.ID_ORGAO_DENUNCIADO = c.ID
+		
+		WHERE ID_ORGAO_DENUNCIADO IS NOT NULL
+		
+		$restricaoUsuario
+		
+		GROUP BY c.ID
+		
+		ORDER BY QUANTIDADE DESC
+
+		";
+		
+		$listaDados = $this->executarQueryLista($query);
+		
+		return $listaDados;
+		
+	}
+	
+	public function getQuantidadeDenunciasUnidade(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT 
+		
+		c.ID,
+		c.DS_NOME NOME_UNIDADE,
+		COUNT(*) QUANTIDADE
+		
+		FROM tb_denuncias a
+		
+		LEFT JOIN tb_unidades_apuracao c ON a.ID_UNIDADE_APURACAO = c.ID
+		
+		WHERE ID_UNIDADE_APURACAO IS NOT NULL
+		
+		$restricaoUsuario
+		
+		GROUP BY c.ID
+		
+		ORDER BY QUANTIDADE DESC
+
+		";
+		
+		$listaDados = $this->executarQueryLista($query);
+		
+		return $listaDados;
+		
+	}
+	
+	public function getQuantidadeTriagensDentroPrazo(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT COUNT(*) QUANTIDADE FROM tb_denuncias 
+		
+		WHERE DT_TERMINO_TRIAGEM IS NOT NULL
+		
+		$restricaoUsuario
+		
+		AND DT_TERMINO_TRIAGEM >= NOW()
+		
+		AND DS_STATUS != 'ENCERRADA'
+		
+		";
+		
+		$quantidade = $this->executarQueryRegistro($query);
+		
+		return $quantidade;
+	}
+	
+	public function getQuantidadeTriagensAtrasadas(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'AND ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT COUNT(*) QUANTIDADE FROM tb_denuncias 
+		
+		WHERE DT_TERMINO_TRIAGEM IS NOT NULL
+		
+		$restricaoUsuario
+		
+		AND DT_TERMINO_TRIAGEM < NOW()
+		
+		AND DS_STATUS != 'ENCERRADA'
+		
+		";
+
+		$quantidade = $this->executarQueryRegistro($query);
+		
+		return $quantidade;
+	}
+	
+	public function getQuantidadeDenunciasAssunto(){
+		
+		$restricaoUsuario = 
+		($_SESSION['TIPO'] != 'UNIDADE DE APURAÇÃO') ? '' : 'WHERE ID_UNIDADE_APURACAO = ' . $_SESSION['UNIDADE'];
+		
+		$query = "
+		
+		SELECT 
+		
+		c.ID,
+		c.DS_NOME_MACRO NOME_MACRO, c.DS_NOME_MICRO NOME_MICRO,
+		COUNT(*) QUANTIDADE
+		
+		FROM tb_denuncias a
+		
+		INNER JOIN tb_assuntos_denuncia c ON a.ID_ASSUNTO = c.ID
+		
+		$restricaoUsuario
+		
+		GROUP BY c.ID
+		
+		ORDER BY QUANTIDADE DESC
+		
+		";
+		
+		
+		$listaDados = $this->executarQueryLista($query);
+		
+		return $listaDados;
+		
+	}
+	
 }	
 
 ?>

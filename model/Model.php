@@ -43,7 +43,7 @@ class Model{
 		//conecta
 		//$this->conexao = mysqli_connect('10.50.119.149', 'desenvolvedor', 'cgeagt', 'banco-denuncias') or die(mysqli_error($nome_banco));
 		
-		$this->conexao = mysqli_connect('localhost', 'root', '', 'banco-denuncias') or die(mysqli_error($nome_banco));	
+		$this->conexao = mysqli_connect('localhost', 'root', '', 'banco-denuncias') or die(mysqli_error($this->conexao));	
 
 		mysqli_query($this->conexao, "SET NAMES 'utf8'");
 		
@@ -358,39 +358,6 @@ class Model{
 		return $nomeAnexo;
 		
 	}
-	
-	public function enviarEmail($corpo, $email, $nome){
-		
-		$mail = new PHPMailer();
-		
-		$mail->IsSMTP(); 
-		$mail->Host = ''; 
-		$mail->Port = 587;
-		$mail->SMTPSecure = 'tls';
-		$mail->SMTPAuth = true; 
-		$mail->Username = 'denuncia.cge'; 
-		$mail->Password = 'denuncia123';
-		
-		$mail->isSendmail();
-
-		$mail->From = 'denuncia@cge.al.gov.br';
-		
-		//$mail->AddAddress($email, $nome);
-
-		$mail->IsHTML(true); 
-		$mail->Subject  = 'Banco de Denúncias: Nova Denúncia'; 
-		$mail->Body = $corpo;
-		$mail->AltBody = 'Controladoria Geral do Estado de Alagoas';
-
-		if (!$mail->send()){
-			echo "Erro!: " . $mail->ErrorInfo;
-		}
-
-		$mail->ClearAllRecipients();
-		$mail->ClearAttachments();
-	
-	}
-
 }
 
 ?>
