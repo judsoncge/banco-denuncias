@@ -9,8 +9,6 @@ class UapDenunciasView extends DenunciasView{
 		
 		$listaServidores = $_REQUEST['LISTA_SERVIDORES']; 
 		
-		$listaUnidades = $_REQUEST['LISTA_UNIDADES_APURACAO']; 
-		
 		$listaMunicipios = $_REQUEST['LISTA_MUNICIPIOS']; 
 		
 		$listaAssuntos = $_REQUEST['LISTA_ASSUNTOS'];
@@ -27,7 +25,7 @@ class UapDenunciasView extends DenunciasView{
 					<div class='row'>	
 						<div class='col-md-4'>
 							<div class='form-group'>
-								<label class='control-label'>NCD</label><br>
+								<label class='control-label' title='Número da denúncia'>NCD</label><br>
 								<input class='form-control' type='text' id='filtroncd' name='filtroncd'>
 							</div>
 						</div>
@@ -73,7 +71,7 @@ class UapDenunciasView extends DenunciasView{
 						</div>
 					</div>
 					<div class='row'>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Município</label><br>
 									<select class='form-control'  id='filtromunicipio' name='filtromunicipio'>
@@ -87,13 +85,7 @@ class UapDenunciasView extends DenunciasView{
 									</select>
 							</div>
 						</div>
-						<div class='col-md-3'>
-							<div class='form-group'>
-								<label class='control-label'>Período</label><br>
-								<input class='form-control' type='date' id='filtroperiodo' name='filtroperiodo' style='height:37px;'>
-							</div>
-						</div>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Acesso restrito</label><br>
 									<select class='form-control'  id='filtrorestrito' name='filtrorestrito'>
@@ -101,9 +93,9 @@ class UapDenunciasView extends DenunciasView{
 										<option value='1'>SIM</option>
 										<option value='0'>NÃO</option>
 									</select>
-							</div>
+							</div>	
 						</div>
-						<div class='col-md-3'>
+						<div class='col-md-4'>
 							<div class='form-group'>
 								<label class='control-label'>Situação Análise</label><br>
 									<select class='form-control'  id='filtroanalise' name='filtroanalise'>
@@ -112,6 +104,20 @@ class UapDenunciasView extends DenunciasView{
 										<option value='NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO'>NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO</option>
 										<option value='NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS'>NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS</option>
 									</select>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-6'>
+							<div class='form-group'>
+								<label class='control-label'>Período início</label><br>
+								<input class='form-control' type='date' id='filtroperiodoinicio' name='filtroperiodoinicio' >
+							</div>
+						</div>
+						<div class='col-md-6'>
+							<div class='form-group'>
+								<label class='control-label'>Período fim</label><br>
+								<input class='form-control' type='date' id='filtroperiodofim' name='filtroperiodofim' >
 							</div>
 						</div>
 					</div>
@@ -156,7 +162,7 @@ class UapDenunciasView extends DenunciasView{
 			<table class='table table-hover tabela-dados'>
 				<thead>
 					<tr>
-						<th>Servidor cadastro</th>
+						<th>Número</th>
 						<th>Tipo</th>
 						<th>Assunto Macro</th>
 						<th>Assunto Micro</th>
@@ -174,7 +180,7 @@ class UapDenunciasView extends DenunciasView{
 					?>
 						
 						<tr>
-							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
+							<td><?php echo $denuncia['DS_NUMERO'] ?></td>
 							<td><?php echo $denuncia['DS_TIPO'] ?></td>
 							<td><?php echo $denuncia['DS_NOME_MACRO']  ?></td>
 							<td><?php echo $denuncia['DS_NOME_MICRO'] ?></td>
@@ -182,13 +188,14 @@ class UapDenunciasView extends DenunciasView{
 							<td><?php echo $denuncia['NOME_MUNICIPIO'] ?></td>
 							
 							<td>	
+							
 								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar Informações'>
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
-							
-								<?php if($denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
+								<?php if($denuncia['DS_STATUS'] != 'ENCERRADA'){ 
+									 if($denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
 								
 									<a href="/denuncias/andamento/<?php echo $denuncia['ID'] ?>" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Dar andamento'>
@@ -196,9 +203,9 @@ class UapDenunciasView extends DenunciasView{
 										</button>
 									</a>
 								
-								<?php } ?>
+								<?php } 
 								
-								<?php if($denuncia['DS_STATUS'] != 'NÃO TRATADA'){ ?>
+								 if($denuncia['DS_STATUS'] != 'NÃO TRATADA'){ ?>
 								
 									<a href="/editar/denuncia/encerrar/<?php echo $denuncia['ID'] ?>/" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Encerrar Denúncia'>
@@ -206,7 +213,8 @@ class UapDenunciasView extends DenunciasView{
 										</button>
 									</a>
 								
-								<?php } ?>
+							<?php } 
+							}?>
 							</td>				
 						</tr>
 				  <?php } ?>		

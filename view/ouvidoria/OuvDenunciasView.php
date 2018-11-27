@@ -34,7 +34,7 @@ class OuvDenunciasView extends DenunciasView{
 			<table class='table table-hover tabela-dados'>
 				<thead>
 					<tr>
-						<th>Servidor cadastro</th>
+						<th>Número</th>
 						<th>Tipo</th>
 						<th>Assunto Macro</th>
 						<th>Assunto Micro</th>
@@ -52,7 +52,7 @@ class OuvDenunciasView extends DenunciasView{
 					?>
 						
 						<tr>
-							<td><?php echo $denuncia['NOME_SERVIDOR'] ?></td>
+							<td><?php echo $denuncia['DS_NUMERO'] ?></td>
 							<td><?php echo $denuncia['DS_TIPO'] ?></td>
 							<td><?php echo $denuncia['DS_NOME_MACRO']  ?></td>
 							<td><?php echo $denuncia['DS_NOME_MICRO'] ?></td>
@@ -65,8 +65,8 @@ class OuvDenunciasView extends DenunciasView{
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
-								
-								<?php if(!$denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
+								<?php if($denuncia['DS_STATUS'] != 'ENCERRADA'){ 	
+									if(!$denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
 									
 									<a href="/denuncias/triagem/<?php echo $denuncia['ID'] ?>" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Fazer Triagem'>
@@ -80,8 +80,20 @@ class OuvDenunciasView extends DenunciasView{
 											<i class='fa fa-pencil' aria-hidden='true'></i>
 										</button>
 									</a>
+									
+									<?php }
 
-								<?php } ?>
+									if($denuncia['DS_SITUACAO'] == 'NÃO APTA' and $denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
+								
+									<a href="/editar/denuncia/encerrar/<?php echo $denuncia['ID'] ?>/" >
+										<button type='button' class='btn btn-secondary btn-sm' title='Encerrar Denúncia'>
+											<i class='fa fa-check' aria-hidden='true'></i>
+										</button>
+									</a>
+									
+									<?php }	
+								}
+								?>
 								
 							</td>				
 						</tr>

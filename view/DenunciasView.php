@@ -444,13 +444,14 @@ class DenunciasView extends View{
 							<td><?php echo $denuncia['NOME_MUNICIPIO'] ?></td>
 							
 							<td>	
+							
 								<a href="/denuncias/visualizar/<?php echo $denuncia['ID'] ?>">
 									<button type='button' class='btn btn-secondary btn-sm' title='Visualizar Informações'>
 										<i class='fa fa-eye' aria-hidden='true'></i>
 									</button>
 								</a>
-								
-								<?php if(!$denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
+							<?php if($denuncia['DS_STATUS'] != 'ENCERRADA'){ 	
+								  if(!$denuncia['BL_TRIAGEM_CONCLUIDA']){ ?>
 									<a href="/denuncias/triagem/<?php echo $denuncia['ID'] ?>" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Fazer Triagem'>
 											<i class='fa fa-exchange' aria-hidden='true'></i>
@@ -474,7 +475,7 @@ class DenunciasView extends View{
 								
 								<?php }
 								
-								if($denuncia['DS_STATUS'] != 'NÃO TRATADA'){ ?>
+								if($denuncia['DS_STATUS'] != 'NÃO TRATADA' or ($denuncia['DS_SITUACAO'] == 'NÃO APTA' and $denuncia['BL_TRIAGEM_CONCLUIDA'])){ ?>
 								
 									<a href="/editar/denuncia/encerrar/<?php echo $denuncia['ID'] ?>/" >
 										<button type='button' class='btn btn-secondary btn-sm' title='Encerrar Denúncia'>
@@ -482,7 +483,8 @@ class DenunciasView extends View{
 										</button>
 									</a>
 								
-								<?php } ?>
+							<?php } 
+							}?>
 							</td>				
 						</tr>
 				  <?php } ?>		
@@ -644,6 +646,12 @@ class DenunciasView extends View{
 		if($this->conteudo == 'editar'){
 			
 			$listaDados = $_REQUEST['DADOS_DENUNCIA'];
+			
+			if($listaDados['DS_STATUS']=='ENCERRADA'){
+				echo "<script>alert('A denúncia já foi encerrada. Você não pode editá-la mais.')</script>";
+				echo "<script>history.back();</script>";	
+			}
+			
 			$action = "/editar/denuncia/info/".$listaDados['ID']."/";
 			$nomeBotao = 'Editar';
 			$valueTipo = $listaDados['DS_TIPO'];
@@ -848,6 +856,11 @@ class DenunciasView extends View{
 		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'];
 		
+		if($listaDados['BL_TRIAGEM_CONCLUIDA']){
+			echo "<script>alert('A triagem já foi concluída. Você não pode acessar mais esta página.')</script>";
+			echo "<script>history.back();</script>";
+		}
+		
 		$listaServidores = $_REQUEST['LISTA_SERVIDORES'];
 		
 		$listaUnidadesApuracao = $_REQUEST['LISTA_UNIDADES_APURACAO'];
@@ -1045,6 +1058,12 @@ class DenunciasView extends View{
 	public function andamento(){
 		
 		$listaDados = $_REQUEST['DADOS_DENUNCIA'];
+		
+		if($listaDados['DS_STATUS']=='ENCERRADA'){
+		echo "<script>alert('A denúncia já foi encerrada. Você não pode mais acessar esta página.')</script>";
+			echo "<script>history.back();</script>";
+			
+		}
 				
 ?>		
 	<div style='height:70px;'>

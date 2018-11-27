@@ -573,6 +573,8 @@ class DenunciasModel extends Model{
 		
 		$resultado = $this->executarQuery($query);
 		
+		$this->cadastrarHistorico('ENCERRAMENTO','ENCERROU A DENÚNCIA');
+		
 		return $resultado;
 		
 	}
@@ -624,7 +626,7 @@ class DenunciasModel extends Model{
 		
 			"SELECT 
 			
-			a.ID, a.DS_NUMERO, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
+			a.*,
 			
 			b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 			
@@ -711,7 +713,7 @@ class DenunciasModel extends Model{
 		
 		"SELECT 
 		
-		a.ID, a.DS_NUMERO, a.DS_TIPO, a.ID_SERVIDOR, a.BL_TRIAGEM_CONCLUIDA, a.DS_STATUS,
+		a.*,
 		
 		b.DS_NOME_MACRO, b.DS_NOME_MICRO, 
 		

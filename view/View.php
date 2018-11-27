@@ -356,6 +356,7 @@ class View{
 						
 						case 'CADASTRO':
 						case 'EDIÇÃO':
+						case 'ENCERRAMENTO':
 							$rgb = 'rgba(46, 204, 113,0.3)';
 							break;
 							
