@@ -511,7 +511,9 @@ class DenunciasModel extends Model{
 		
 		f.DS_ABREVIACAO ABREVIACAO_UNIDADE, f.DS_NOME NOME_UNIDADE,
 		
-		g.DS_NOME SERVIDOR_CADASTROU
+		g.DS_NOME SERVIDOR_CADASTROU,
+		
+		h.DS_ABREVIACAO NOME_ORGAO_UNIDADE
 		
 		FROM tb_denuncias a
 		
@@ -526,6 +528,8 @@ class DenunciasModel extends Model{
 		LEFT JOIN tb_unidades_apuracao f ON a.ID_UNIDADE_APURACAO = f.ID
 		
 		INNER JOIN tb_servidores g ON a.ID_SERVIDOR = g.ID 
+		
+		INNER JOIN tb_orgaos h ON f.ID_ORGAO = h.ID
 
 		WHERE a.ID = $this->id
 		
@@ -775,7 +779,7 @@ class DenunciasModel extends Model{
 		
 		$this->cadastrarHistorico('CONCLUSÃO DE TRIAGEM','CONCLUIU A TRIAGEM');
 		
-		$resultado = $this->executarQuery($query);
+		$resultado = 1;
 		
 		$query = "SELECT 
 		
@@ -806,6 +810,8 @@ class DenunciasModel extends Model{
 		foreach($listaServidores as $servidor){
 			
 			mail($servidor['DS_EMAIL'], 'Uma denúncia foi encaminhada', $servidor['DS_NOME'].$mensagem);
+			
+			echo "tentativa de email para " . $servidor['DS_EMAIL'];
 			
 			exit;
 			

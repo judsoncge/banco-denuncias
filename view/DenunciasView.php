@@ -971,7 +971,7 @@ class DenunciasView extends View{
 			</div>
 			<div class='col-md-4'>
 				<?php 
-					$interfaceUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ABREVIACAO_ORGAO'] . ' - ' . $listaDados['ABREVIACAO_UNIDADE'] . ' - ' . $listaDados['NOME_UNIDADE'] : 'Selecione';
+					$interfaceUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['NOME_ORGAO_UNIDADE'] . ' - ' . $listaDados['ABREVIACAO_UNIDADE'] . ' - ' . $listaDados['NOME_UNIDADE'] : 'Selecione';
 					
 					$valueUnidade = ($listaDados['ID_UNIDADE_APURACAO'] != NULL) ? $listaDados['ID_UNIDADE_APURACAO'] : '';
 				?>
