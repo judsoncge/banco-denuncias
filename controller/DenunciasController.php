@@ -88,6 +88,8 @@ class DenunciasController extends Controller{
 			$filtroAnalise = isset($_POST['filtroanalise']) ? $_POST['filtroanalise'] : '%';
 			
 			$filtroPalavraChave= isset($_POST['filtropalavrachave']) ? $_POST['filtropalavrachave'] : '%';
+			
+			$filtroTrilha= isset($_POST['filtrotrilha']) ? $_POST['filtrotrilha'] : '%';
 
 			$this->denunciasModel->setNumero($filtroNCD);
 			
@@ -110,6 +112,8 @@ class DenunciasController extends Controller{
 			$this->denunciasModel->setStatus($filtroAnalise);
 			
 			$this->denunciasModel->setIDPalavraChave($filtroPalavraChave);
+			
+			$this->denunciasModel->setNomesTrilha($filtroTrilha);
 		
 			$_REQUEST['LISTA_DENUNCIAS'] = $this->denunciasModel->getDenunciasComFiltro();
 		
@@ -251,7 +255,6 @@ class DenunciasController extends Controller{
 		$gerarAlerta = (isset($_POST['gerarAlertas'])) ? $_POST['gerarAlertas'] : NULL;
 		$unidadesTrilha = (isset($_POST['unidades'])) ? $_POST['unidades'] : NULL;
 		$periodicidadesTrilha = (isset($_POST['periodicidades'])) ? $_POST['periodicidades'] : NULL;	
-		$agrupadores = (isset($_POST['agrupadores'])) ? $_POST['agrupadores'] : NULL;	
 		
 		$this->denunciasModel->setStatus($status);
 		$this->denunciasModel->setComentarios($comentario);
@@ -262,7 +265,6 @@ class DenunciasController extends Controller{
 		$this->denunciasModel->setGerarAlertas($gerarAlerta);
 		$this->denunciasModel->setUnidadesTrilha($unidadesTrilha);
 		$this->denunciasModel->setPeriodicidadesTrilha($periodicidadesTrilha);
-		$this->denunciasModel->setAgrupadores($agrupadores);
 		
 		$this->denunciasModel->setID($id);
 		

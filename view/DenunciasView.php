@@ -189,17 +189,9 @@ class DenunciasView extends View{
 					
 					newdiv.innerHTML = 
 					"<div class='row'>"+
-						"<div class='col-md-2'>"+
+						"<div class='col-md-4'>"+
 							"Nome da trilha:<br>"+
 							"<input class='form-control' id='nomes' name='nomes[]' type='text' maxlength='50' placeholder='Máx. 50 caracteres'required/>"+	
-						"</div>"+
-						"<div class='col-md-2'>"+
-							"Gerar Alerta?<br>"+
-							"<select id='gerarAlertas' name='gerarAlertas[]' required >:"+
-								"<option value=''>Selecione</option>"+	
-								"<option value='1'>SIM</option>"+	
-								"<option value='0'>NÃO</option>"+	
-							"</select>"+	
 						"</div>"+
 						"<div class='col-md-4'>"+
 							"Unidade de apuração<br>"+
@@ -211,16 +203,16 @@ class DenunciasView extends View{
 							"</select>"+	
 						"</div>"+
 						"<div class='col-md-2'>"+
-							"Periodicidade:<br>"+
-							"<input class='form-control' placeholder='Em dias' id='periodicidades' name='periodicidades[]' type='number' required />"+	
-						"</div>"+
-						"<div class='col-md-2'>"+
-							"Possui agrupador?<br>"+
-							"<select id='agrupadores' name='agrupadores[]' required>:"+
+							"Gerar Alerta?<br>"+
+							"<select id='gerarAlertas' name='gerarAlertas[]' required >:"+
 								"<option value=''>Selecione</option>"+	
 								"<option value='1'>SIM</option>"+	
 								"<option value='0'>NÃO</option>"+	
 							"</select>"+	
+						"</div>"+
+						"<div class='col-md-2'>"+
+							"Periodicidade:<br>"+
+							"<input class='form-control' placeholder='Em dias' id='periodicidades' name='periodicidades[]' type='number' required />"+	
 						"</div>"+
 					"</div>"+
 					"</div><a href='javascript:void(0)' onclick='removerTrilha("+id+");'>Remover</a><hr>";
@@ -381,6 +373,14 @@ class DenunciasView extends View{
 							<div class='form-group'>
 								<label class='control-label'>Palavras-chave</label><br>
 								<input type='text' class='form-control'  id='filtropalavrachave' name='filtropalavrachave' placeholder='utilize vírgulas para separar as palavras'/>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-12'>
+							<div class='form-group'>
+								<label class='control-label'>Trilha</label><br>
+								<input type='text' class='form-control'  id='filtrotrilha' name='filtrotrilha' placeholder='digite aqui o nome da trilha'/>
 							</div>
 						</div>
 					</div>

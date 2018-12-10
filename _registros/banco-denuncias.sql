@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 27-Nov-2018 às 12:55
+-- Generation Time: 10-Dez-2018 às 16:00
 -- Versão do servidor: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -46,7 +46,12 @@ INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_R
 (18, 13, 'STATUS DA DENUNCIA', '', '0000-00-00', '2018-11-22', '[1]'),
 (19, 13, 'STATUS DA DENUNCIA', 'hehe', '0000-00-00', '2018-11-22', '[1]'),
 (20, 15, 'STATUS DA DENUNCIA', 'teste de encerramento', '0000-00-00', '2018-11-27', '[1]'),
-(21, 16, 'STATUS DA DENUNCIA', '', '0000-00-00', '2018-11-27', '[1]');
+(21, 16, 'STATUS DA DENUNCIA', '', '0000-00-00', '2018-11-27', '[1]'),
+(22, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', 'university-professor-icon-vector-13465242.jpg'),
+(23, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[1]university-professor-icon-vector-13465242.jpg'),
+(24, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[2]university-professor-icon-vector-13465242.jpg'),
+(25, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[3]university-professor-icon-vector-13465242.jpg'),
+(26, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[4]university-professor-icon-vector-13465242.jpg');
 
 -- --------------------------------------------------------
 
@@ -231,7 +236,8 @@ INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASS
 (13, '13/20181115', 'IDENTIFICADA', 4, 15, 'Fulano', '002.000.525-55', 'fulano@detal.com.br', '8888-8888', '<p style=\"text-align: justify;\">Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o&nbsp;</p>', 14, 16, 'sicrano, beltrano, zilano', '2018-11-15', '2018-11-22', '152200', '14000 000002/2018', 1, 4, 'BAIXO', '2018-11-24', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 1, 1, 'ENCERRADA'),
 (14, '14/20181107', 'NÃO IDENTIFICADA', 4, 11, NULL, NULL, NULL, NULL, '<p>ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe&nbsp;</p>', 2, 3, 'beltrano, zilano', '2018-11-07', '2018-11-22', '55555-5', '55555 555555/5555', 1, 6, 'BAIXO', '2018-11-05', 'AGUARDANDO ANÁLISE PRELIMINAR DA OUVIDORIA', 'NÃO APTA', 1, 1, 'ENCERRADA'),
 (15, '15/20181129', 'NÃO IDENTIFICADA', 4, 14, NULL, NULL, NULL, NULL, '<p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum&nbsp;</p>', 14, 16, 'fulano, sicrano, beltrano', '2018-11-29', '2018-11-01', '1222333', '10040 000050/2018', 1, 1, 'MÉDIO', '2018-11-30', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'NÃO APTA', 2, 1, 'ENCERRADA'),
-(16, '16/20181121-T', 'NÃO IDENTIFICADA', 4, 15, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira&nbsp;</p>', NULL, NULL, NULL, '2018-11-21', '2018-11-23', '10002', '14000 000000/2018', 1, NULL, NULL, NULL, 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'NÃO APTA', 1, 1, 'ENCERRADA');
+(16, '16/20181121-T', 'NÃO IDENTIFICADA', 4, 15, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira&nbsp;</p>', NULL, NULL, NULL, '2018-11-21', '2018-11-23', '10002', '14000 000000/2018', 1, NULL, NULL, NULL, 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'NÃO APTA', 1, 1, 'ENCERRADA'),
+(17, '17/20181128', 'NÃO IDENTIFICADA', 4, 11, NULL, NULL, NULL, NULL, '<div style=\"margin: 0px 14.4px 0px 28.8px; padding: 0px; width: 436.8px; float: left; font-family: \'Open Sans\', Arial, sans-serif;\">\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n</div>\r\n<div style=\"margin: 0px 28.8px 0px 14.4px; padding: 0px; width: 436.8px; float: right; font-family: \'Open Sans\', Arial, sans-serif;\">\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px;\">Why do we use it?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n<p>&nbsp;</p>\r\n</div>', 1, 8, 'fulano, sicrano, beltrano', '2018-11-28', '2018-11-28', '050000000', '14000 000005/2018', 1, 4, 'MÉDIO', '2018-12-26', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 2, 1, 'PROCEDENTE');
 
 -- --------------------------------------------------------
 
@@ -319,7 +325,16 @@ INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACA
 (118, 16, 5, '2018-11-27 08:35:10', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
 (119, 16, 5, '2018-11-27 08:36:12', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
 (120, 16, 4, '2018-11-27 08:53:11', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos.'),
-(121, 16, 4, '2018-11-27 08:53:14', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA');
+(121, 16, 4, '2018-11-27 08:53:14', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
+(122, 17, 4, '2018-11-28 07:50:25', 'CADASTRO', 'EFETUOU O CADASTRO'),
+(123, 17, 4, '2018-11-28 07:51:11', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Andamento; Situação; Unidade de apuração;'),
+(124, 17, 4, '2018-11-28 07:51:29', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem;'),
+(125, 17, 4, '2018-12-06 10:55:02', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem;'),
+(126, 17, 4, '2018-12-06 10:55:05', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
+(127, 17, 4, '2018-12-06 10:57:35', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
+(128, 17, 4, '2018-12-06 11:02:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
+(129, 17, 4, '2018-12-10 11:57:03', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos. Foram adicionadas trilhas.'),
+(130, 17, 4, '2018-12-10 11:59:04', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos. Foram adicionadas trilhas.');
 
 -- --------------------------------------------------------
 
@@ -581,15 +596,18 @@ CREATE TABLE `tb_trilhas` (
   `BL_ALERTA` tinyint(4) NOT NULL,
   `ID_UNIDADE_APURACAO` int(20) NOT NULL,
   `NR_PERIODICIDADE` int(3) NOT NULL,
-  `BL_AGRUPADOR` tinyint(4) NOT NULL
+  `DT_ALERTA` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_trilhas`
 --
 
-INSERT INTO `tb_trilhas` (`ID`, `ID_DENUNCIA`, `DS_NOME`, `BL_ALERTA`, `ID_UNIDADE_APURACAO`, `NR_PERIODICIDADE`, `BL_AGRUPADOR`) VALUES
-(6, 13, 'fabricia', 1, 1, 6, 1);
+INSERT INTO `tb_trilhas` (`ID`, `ID_DENUNCIA`, `DS_NOME`, `BL_ALERTA`, `ID_UNIDADE_APURACAO`, `NR_PERIODICIDADE`, `DT_ALERTA`) VALUES
+(6, 17, 'fabricia', 1, 1, 6, '2018-12-10'),
+(7, 17, 'MEDICAMENTO DE HOSPITAL', 1, 2, 5, '0000-00-00'),
+(8, 17, 'HEHEHEHEHEHE', 1, 2, 8, '2018-12-18'),
+(9, 17, 'apuração de medicos', 1, 1, 7, '2018-12-17');
 
 -- --------------------------------------------------------
 
@@ -699,7 +717,7 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
@@ -711,13 +729,13 @@ ALTER TABLE `tb_assuntos_denuncia`
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `tb_municipios`
@@ -747,7 +765,7 @@ ALTER TABLE `tb_servidores`
 -- AUTO_INCREMENT for table `tb_trilhas`
 --
 ALTER TABLE `tb_trilhas`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_unidades_apuracao`

@@ -129,6 +129,14 @@ class UapDenunciasView extends DenunciasView{
 							</div>
 						</div>
 					</div>
+					<div class='row'>
+						<div class='col-md-12'>
+							<div class='form-group'>
+								<label class='control-label'>Trilha</label><br>
+								<input type='text' class='form-control'  id='filtrotrilha' name='filtrotrilha' placeholder='digite aqui o nome da trilha'/>
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>

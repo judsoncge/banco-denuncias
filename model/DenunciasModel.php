@@ -47,7 +47,6 @@ class DenunciasModel extends Model{
 	private $gerarAlertas;
 	private $unidadesTrilha;
 	private $periodicidadesTrilha;
-	private $agrupadores;
 	
 	
 	public function setProtocolo($protocolo){
@@ -57,11 +56,6 @@ class DenunciasModel extends Model{
 	
 	public function setAndamento($andamento){
 		$this->andamento = $andamento;
-		
-	}
-	
-	public function setAgrupadores($agrupadores){
-		$this->agrupadores = $agrupadores;
 		
 	}
 	
@@ -380,10 +374,8 @@ class DenunciasModel extends Model{
 				$unidadeTrilha = $this->unidadesTrilha[$key];
 				
 				$periodicidadeTrilha = $this->periodicidadesTrilha[$key];
-				
-				$agrupador = $this->agrupadores[$key];
 			
-				$query = "INSERT INTO tb_trilhas (ID_DENUNCIA, DS_NOME, BL_ALERTA, ID_UNIDADE_APURACAO, NR_PERIODICIDADE, BL_AGRUPADOR) VALUES ($this->id, '$nomeTrilha', '$gerarAlerta', $unidadeTrilha, '$periodicidadeTrilha', '$agrupador')";
+				$query = "INSERT INTO tb_trilhas (ID_DENUNCIA, DS_NOME, BL_ALERTA, ID_UNIDADE_APURACAO, NR_PERIODICIDADE, DT_ALERTA) VALUES ($this->id, '$nomeTrilha', '$gerarAlerta', $unidadeTrilha, '$periodicidadeTrilha', CURDATE()+$periodicidadeTrilha)";
 				
 				$this->executarQuery($query);
 			
@@ -712,6 +704,8 @@ class DenunciasModel extends Model{
 			
 		}
 		
+		$trilha = ($this->nomesTrilha == '%' or $this->nomesTrilha == '') ? '' : "AND a.ID IN (SELECT ID_DENUNCIA FROM tb_trilhas WHERE DS_NOME LIKE '%$this->nomesTrilha%')";
+		
 		
 		$query = 
 		
@@ -756,6 +750,8 @@ class DenunciasModel extends Model{
 		$analise
 		
 		$palavras
+		
+		$trilha
 		
 		ORDER BY a.DT_REGISTRO_EOUV desc
 		
