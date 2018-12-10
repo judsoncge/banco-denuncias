@@ -777,9 +777,9 @@ class DenunciasModel extends Model{
 		
 		$query = "UPDATE tb_denuncias SET BL_TRIAGEM_CONCLUIDA = 1 $modificarNumeroDenuncia WHERE ID = $this->id";
 		
-		$this->cadastrarHistorico('CONCLUSÃO DE TRIAGEM','CONCLUIU A TRIAGEM');
+		$resultado = $this->executarQuery($query);
 		
-		$resultado = 1;
+		$this->cadastrarHistorico('CONCLUSÃO DE TRIAGEM','CONCLUIU A TRIAGEM');
 		
 		$query = "SELECT 
 		
@@ -809,11 +809,7 @@ class DenunciasModel extends Model{
 		
 		foreach($listaServidores as $servidor){
 			
-			mail($servidor['DS_EMAIL'], 'Uma denúncia foi encaminhada', $servidor['DS_NOME'].$mensagem);
-			
-			echo "tentativa de email para " . $servidor['DS_EMAIL'];
-			
-			exit;
+			mail($servidor['DS_EMAIL'], utf8_decode('Uma denúncia foi encaminhada'), $servidor['DS_NOME'].utf8_decode($mensagem));
 			
 		}
 
