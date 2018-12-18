@@ -869,6 +869,8 @@ class DenunciasView extends View{
 		
 		$listaPalavrasChave = $_REQUEST['LISTA_PALAVRAS_CHAVE'];
 		
+		
+		
 ?>	
 	<div class='well' style='height:70px;'>
 		<a href="/denuncias/listar/0"><button type='submit' class='btn btn-sm btn-info pull-left' name='submit' value='Send' id='botao-dar-saida'><i class='fa fa-arrow-left' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Voltar</button></a>

@@ -162,7 +162,7 @@ class DenunciasController extends Controller{
 	public function carregarTriagem(){
 		
 		$this->denunciasModel->setID($_GET['id']);
-		
+	
 		$_REQUEST['LISTA_SERVIDORES'] = $this->servidoresModel->getServidores();
 		
 		$_REQUEST['LISTA_UNIDADES_APURACAO'] = $this->orgaosModel->getUnidadesApuracao();

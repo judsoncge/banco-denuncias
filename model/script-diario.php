@@ -2,7 +2,7 @@
 
 date_default_timezone_set('America/Bahia');
 
-$conexao = mysqli_connect('localhost', 'root', '', 'banco-denuncias') or die(mysqli_error($conexao));	
+$conexao = mysqli_connect('localhost', 'root', 'cgeagt', 'banco-denuncias') or die(mysqli_error($conexao));	
 
 mysqli_query($conexao, "SET NAMES 'utf8'");
 
@@ -14,7 +14,7 @@ mysqli_query($conexao, 'SET character_set_results=utf8');
 
 $dataHoje = date('Y-m-d');
 
-$resultadoQuery = mysqli_query($this->conexao, 
+$resultadoQuery = mysqli_query($conexao, 
 
 "
 
@@ -45,16 +45,26 @@ t.DT_ALERTA = '$dataHoje'
 
 ");
 
+$idUsado = 0;
+
 while($trilha = mysqli_fetch_array($resultadoQuery)){
+	
 	
 	$nomeTrilha = $trilha['NOME_TRILHA'];
 	$nomeServidor = $trilha['NOME_SERVIDOR'];
 	$id = $trilha['ID'];
-	$periodicidade = $trilha['NR_PERIODICIDADE'];
 	
 	mail($trilha['DS_EMAIL'], utf8_decode("Banco de Denúncias - Lembrete de trilha"), utf8_decode("$nomeServidor, este é um lembrete para resolução da trilha $nomeTrilha"));
 	
-	mysqli_query($this->conexao, "UPDATE tb_trilhas SET DT_ALERTA = DATE_ADD(DT_ALERTA, INTERVAL $periodicidade DAY) WHERE ID = $id");
+	
+	if($idUsado != $id){
+		
+		$periodicidade = $trilha['NR_PERIODICIDADE'];
+		
+		mysqli_query($conexao, "UPDATE tb_trilhas SET DT_ALERTA = DATE_ADD(DT_ALERTA, INTERVAL $periodicidade DAY) WHERE ID = $id");
+	}
+	
+	$idUsado = $id;
 			
 } 
 

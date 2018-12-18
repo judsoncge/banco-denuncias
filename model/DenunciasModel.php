@@ -339,7 +339,11 @@ class DenunciasModel extends Model{
 		
 		AND DT_TERMINO_TRIAGEM < NOW() 
 		
-		AND ID_RESPONSAVEL_TRIAGEM = ".$_SESSION['ID']."";
+		AND ID_RESPONSAVEL_TRIAGEM = ".$_SESSION['ID']."
+		
+		AND BL_TRIAGEM_CONCLUIDA = 0
+		
+		";
 		
 		$lista = $this->executarQueryLista($query);
 		
@@ -521,7 +525,7 @@ class DenunciasModel extends Model{
 		
 		INNER JOIN tb_servidores g ON a.ID_SERVIDOR = g.ID 
 		
-		INNER JOIN tb_orgaos h ON f.ID_ORGAO = h.ID
+		LEFT JOIN tb_orgaos h ON f.ID_ORGAO = h.ID
 
 		WHERE a.ID = $this->id
 		
