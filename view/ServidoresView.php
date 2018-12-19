@@ -178,7 +178,7 @@ class ServidoresView extends View{
 				<div class='col-md-4'>
 					<div class='form-group'>
 						<label class='control-label'>Telefone</label>
-						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='8' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
+						<input class='form-control' id='telefone' name='telefone' placeholder='Digite o telefone' type='text' maxlength='10' value='<?php if($this->conteudo == 'editar'){echo $listaDados['DS_TELEFONE'];} ?>' required />				  
 					</div>				
 				</div>
 				<div class='col-md-4'>

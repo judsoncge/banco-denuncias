@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 10-Dez-2018 às 16:00
--- Versão do servidor: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Host: localhost
+-- Generation Time: 19-Dez-2018 às 11:06
+-- Versão do servidor: 5.5.61-MariaDB-1ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -37,21 +35,6 @@ CREATE TABLE `tb_anexos` (
   `DT_RECEBIMENTO_SISTEMA` date NOT NULL,
   `NM_ARQUIVO` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_anexos`
---
-
-INSERT INTO `tb_anexos` (`ID`, `ID_DENUNCIA`, `DS_TIPO`, `DS_COMENTARIOS`, `DT_RECEBIMENTO_EOUV`, `DT_RECEBIMENTO_SISTEMA`, `NM_ARQUIVO`) VALUES
-(18, 13, 'STATUS DA DENUNCIA', '', '0000-00-00', '2018-11-22', '[1]'),
-(19, 13, 'STATUS DA DENUNCIA', 'hehe', '0000-00-00', '2018-11-22', '[1]'),
-(20, 15, 'STATUS DA DENUNCIA', 'teste de encerramento', '0000-00-00', '2018-11-27', '[1]'),
-(21, 16, 'STATUS DA DENUNCIA', '', '0000-00-00', '2018-11-27', '[1]'),
-(22, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', 'university-professor-icon-vector-13465242.jpg'),
-(23, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[1]university-professor-icon-vector-13465242.jpg'),
-(24, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[2]university-professor-icon-vector-13465242.jpg'),
-(25, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[3]university-professor-icon-vector-13465242.jpg'),
-(26, 17, 'STATUS DA DENUNCIA', 'hehehehehe', '0000-00-00', '2018-12-10', '[4]university-professor-icon-vector-13465242.jpg');
 
 -- --------------------------------------------------------
 
@@ -228,17 +211,6 @@ CREATE TABLE `tb_denuncias` (
   `DS_STATUS` enum('PROCEDENTE','NÃO PROCEDENTE - NÃO OCORRÊNCIA DO FATO DENUNCIADO','NÃO PROCEDENTE - INEXISTÊNCIA DE PROVAS','NÃO TRATADA','ENCERRADA') NOT NULL DEFAULT 'NÃO TRATADA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `tb_denuncias`
---
-
-INSERT INTO `tb_denuncias` (`ID`, `DS_NUMERO`, `DS_TIPO`, `ID_SERVIDOR`, `ID_ASSUNTO`, `DS_NOME_DENUNCIANTE`, `DS_CPF_DENUNCIANTE`, `DS_EMAIL_DENUNCIANTE`, `DS_TELEFONE_DENUNCIANTE`, `TX_DESCRICAO_FATO`, `ID_ORGAO_DENUNCIADO`, `ID_MUNICIPIO_FATO`, `DS_ENVOLVIDOS`, `DT_REGISTRO_EOUV`, `DT_REGISTRO`, `DS_PROTOCOLO_EOUV`, `DS_NUMERO_PROCESSO_SEI`, `BL_ACESSO_RESTRITO`, `ID_RESPONSAVEL_TRIAGEM`, `DS_RELEVANCIA`, `DT_TERMINO_TRIAGEM`, `DS_ANDAMENTO`, `DS_SITUACAO`, `ID_UNIDADE_APURACAO`, `BL_TRIAGEM_CONCLUIDA`, `DS_STATUS`) VALUES
-(13, '13/20181115', 'IDENTIFICADA', 4, 15, 'Fulano', '002.000.525-55', 'fulano@detal.com.br', '8888-8888', '<p style=\"text-align: justify;\">Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o Text&atilde;o&nbsp;</p>', 14, 16, 'sicrano, beltrano, zilano', '2018-11-15', '2018-11-22', '152200', '14000 000002/2018', 1, 4, 'BAIXO', '2018-11-24', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 1, 1, 'ENCERRADA'),
-(14, '14/20181107', 'NÃO IDENTIFICADA', 4, 11, NULL, NULL, NULL, NULL, '<p>ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe ehhehehehehe&nbsp;</p>', 2, 3, 'beltrano, zilano', '2018-11-07', '2018-11-22', '55555-5', '55555 555555/5555', 1, 6, 'BAIXO', '2018-11-05', 'AGUARDANDO ANÁLISE PRELIMINAR DA OUVIDORIA', 'NÃO APTA', 1, 1, 'ENCERRADA'),
-(15, '15/20181129', 'NÃO IDENTIFICADA', 4, 14, NULL, NULL, NULL, NULL, '<p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum&nbsp;</p>', 14, 16, 'fulano, sicrano, beltrano', '2018-11-29', '2018-11-01', '1222333', '10040 000050/2018', 1, 1, 'MÉDIO', '2018-11-30', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'NÃO APTA', 2, 1, 'ENCERRADA'),
-(16, '16/20181121-T', 'NÃO IDENTIFICADA', 4, 15, NULL, NULL, NULL, NULL, '<p style=\"text-align: justify;\">eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira eu sou judson bandeira&nbsp;</p>', NULL, NULL, NULL, '2018-11-21', '2018-11-23', '10002', '14000 000000/2018', 1, NULL, NULL, NULL, 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'NÃO APTA', 1, 1, 'ENCERRADA'),
-(17, '17/20181128', 'NÃO IDENTIFICADA', 4, 11, NULL, NULL, NULL, NULL, '<div style=\"margin: 0px 14.4px 0px 28.8px; padding: 0px; width: 436.8px; float: left; font-family: \'Open Sans\', Arial, sans-serif;\">\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n</div>\r\n<div style=\"margin: 0px 28.8px 0px 14.4px; padding: 0px; width: 436.8px; float: right; font-family: \'Open Sans\', Arial, sans-serif;\">\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px;\">Why do we use it?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify;\">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n<p>&nbsp;</p>\r\n</div>', 1, 8, 'fulano, sicrano, beltrano', '2018-11-28', '2018-11-28', '050000000', '14000 000005/2018', 1, 4, 'MÉDIO', '2018-12-26', 'AGUARDANDO COMPLEMENTAÇÃO DO DENUNCIANTE', 'APTA', 2, 1, 'PROCEDENTE');
-
 -- --------------------------------------------------------
 
 --
@@ -253,88 +225,6 @@ CREATE TABLE `tb_historico_denuncia` (
   `DS_TIPO_ACAO` enum('CADASTRO','EDIÇÃO','SALVAMENTO DE TRIAGEM','CONCLUSÃO DE TRIAGEM','ANDAMENTO','REMOÇÃO DE ANEXO','REMOÇÃO DE PALAVRA-CHAVE','ENCERRAMENTO') NOT NULL,
   `TX_MENSAGEM` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_historico_denuncia`
---
-
-INSERT INTO `tb_historico_denuncia` (`ID`, `ID_DENUNCIA`, `ID_SERVIDOR`, `DT_ACAO`, `DS_TIPO_ACAO`, `TX_MENSAGEM`) VALUES
-(55, 13, 4, '2018-11-22 07:59:15', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(56, 13, 4, '2018-11-22 07:59:51', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem; Andamento; Situação; Unidade de apuração;'),
-(57, 13, 4, '2018-11-22 08:00:39', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(58, 13, 4, '2018-11-22 08:02:27', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(59, 13, 4, '2018-11-22 08:03:20', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(60, 13, 4, '2018-11-22 08:03:45', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados: '),
-(61, 13, 4, '2018-11-22 08:03:51', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(62, 13, 4, '2018-11-22 08:08:36', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(63, 13, 4, '2018-11-22 08:08:40', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(64, 13, 4, '2018-11-22 08:08:55', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(65, 13, 4, '2018-11-22 08:08:58', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(66, 13, 4, '2018-11-22 08:11:25', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos.'),
-(67, 13, 4, '2018-11-22 08:15:50', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos. Foram adicionadas trilhas.'),
-(68, 14, 4, '2018-11-22 08:49:06', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(69, 14, 4, '2018-11-22 08:57:47', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem; Andamento; Unidade de apuração;'),
-(70, 14, 4, '2018-11-22 08:58:17', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou palavras-chave;'),
-(71, 14, 4, '2018-11-22 08:58:25', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
-(72, 14, 4, '2018-11-22 08:59:35', 'EDIÇÃO', 'EDITOU A DENÚNCIA. Foram alterados os dados: '),
-(73, 14, 4, '2018-11-22 08:59:41', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(74, 14, 4, '2018-11-22 08:59:48', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
-(75, 14, 4, '2018-11-22 09:03:10', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou palavras-chave;'),
-(76, 14, 4, '2018-11-22 09:03:13', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
-(77, 14, 4, '2018-11-22 09:03:31', 'REMOÇÃO DE PALAVRA-CHAVE', 'REMOVEU UMA PALAVRA-CHAVE'),
-(78, 14, 4, '2018-11-22 09:03:49', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou anexos;'),
-(79, 14, 4, '2018-11-22 09:03:53', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(80, 14, 4, '2018-11-22 09:04:39', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Adicionou anexos;'),
-(81, 14, 4, '2018-11-22 09:04:42', 'REMOÇÃO DE ANEXO', 'REMOVEU UM ANEXO'),
-(82, 14, 4, '2018-11-22 09:10:32', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Situação;'),
-(83, 14, 4, '2018-11-22 09:11:00', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(84, 15, 4, '2018-11-23 07:38:28', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(85, 15, 4, '2018-11-23 07:41:31', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem; Andamento; Situação; Unidade de apuração;'),
-(86, 16, 4, '2018-11-23 07:44:37', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(87, 16, 4, '2018-11-23 07:47:10', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Data de término da triagem; Andamento; Unidade de apuração;'),
-(88, 16, 4, '2018-11-23 07:47:39', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Data de término da triagem;'),
-(89, 15, 4, '2018-11-23 07:47:52', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Data de término da triagem; Situação;'),
-(90, 15, 4, '2018-11-23 08:05:00', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem;'),
-(91, 15, 4, '2018-11-23 08:05:10', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Relevância; Data de término da triagem;'),
-(92, 15, 4, '2018-11-23 08:05:26', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Relevância; Data de término da triagem;'),
-(93, 15, 4, '2018-11-23 08:07:36', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Relevância; Data de término da triagem;'),
-(94, 15, 4, '2018-11-23 08:07:53', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(95, 15, 4, '2018-11-23 08:15:58', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(96, 15, 4, '2018-11-23 08:16:44', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(97, 15, 4, '2018-11-23 08:17:51', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(98, 15, 4, '2018-11-23 08:17:58', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(99, 15, 4, '2018-11-23 08:18:11', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(100, 15, 4, '2018-11-23 08:18:26', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(101, 15, 4, '2018-11-23 08:21:41', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(102, 15, 4, '2018-11-23 08:22:14', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(103, 15, 4, '2018-11-23 08:22:26', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(104, 15, 4, '2018-11-23 08:23:53', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(105, 15, 4, '2018-11-23 08:24:44', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Unidade de apuração;'),
-(106, 15, 4, '2018-11-23 08:25:08', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(107, 15, 4, '2018-11-23 08:25:21', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(108, 15, 4, '2018-11-23 08:27:09', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(109, 15, 4, '2018-11-23 11:22:49', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(110, 15, 4, '2018-11-23 11:23:14', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(111, 15, 4, '2018-11-23 11:23:19', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(112, 15, 4, '2018-11-23 11:23:38', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(113, 15, 1, '2018-11-27 08:05:30', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos.'),
-(114, 15, 1, '2018-11-27 08:05:42', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
-(115, 14, 4, '2018-11-27 08:17:21', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
-(116, 16, 5, '2018-11-27 08:31:04', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Responsável pela triagem; Situação;'),
-(117, 16, 5, '2018-11-27 08:32:11', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Responsável pela triagem;'),
-(118, 16, 5, '2018-11-27 08:35:10', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(119, 16, 5, '2018-11-27 08:36:12', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
-(120, 16, 4, '2018-11-27 08:53:11', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos.'),
-(121, 16, 4, '2018-11-27 08:53:14', 'ENCERRAMENTO', 'ENCERROU A DENÚNCIA'),
-(122, 17, 4, '2018-11-28 07:50:25', 'CADASTRO', 'EFETUOU O CADASTRO'),
-(123, 17, 4, '2018-11-28 07:51:11', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Andamento; Situação; Unidade de apuração;'),
-(124, 17, 4, '2018-11-28 07:51:29', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem;'),
-(125, 17, 4, '2018-12-06 10:55:02', 'SALVAMENTO DE TRIAGEM', 'SALVOU A TRIAGEM. Foram alterados os dados:  Acesso restrito; Responsável pela triagem; Relevância; Data de término da triagem;'),
-(126, 17, 4, '2018-12-06 10:55:05', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(127, 17, 4, '2018-12-06 10:57:35', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(128, 17, 4, '2018-12-06 11:02:01', 'CONCLUSÃO DE TRIAGEM', 'CONCLUIU A TRIAGEM'),
-(129, 17, 4, '2018-12-10 11:57:03', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos. Foram adicionadas trilhas.'),
-(130, 17, 4, '2018-12-10 11:59:04', 'ANDAMENTO', 'DEU ANDAMENTO A DENÚNCIA. Foram adicionados anexos. Foram adicionadas trilhas.');
 
 -- --------------------------------------------------------
 
@@ -477,7 +367,6 @@ INSERT INTO `tb_orgaos` (`ID`, `DS_ABREVIACAO`, `DS_NOME`) VALUES
 (3, 'AMGESP', 'AGENCIA DE MODERNIZACAO DA GESTAO DE PROCESSOS'),
 (4, 'ARSAL', 'AGENCIA REGULADORA DE SERVICOS PUBLICOS DO ESTADO DE ALAGOAS'),
 (5, 'ALPREV', 'AL PREVIDENCIA'),
-(6, 'AL-PREV', 'ALAGOAS PREVIDENCIA'),
 (7, 'CARHP', 'COMPANHIA ALAGOANA DE RECUROS HUMANOS E PATRIMONIAIS'),
 (8, 'CGE', 'CONTROLADORIA GERAL DO ESTADO'),
 (9, 'CBMAL', 'CORPO DE BOMBEIROS MILITAR DE ALAGOAS'),
@@ -559,9 +448,9 @@ CREATE TABLE `tb_palavras_chave_denuncia` (
 CREATE TABLE `tb_servidores` (
   `ID` int(20) NOT NULL,
   `DS_NOME` varchar(50) NOT NULL,
-  `DS_MATRICULA` varchar(10) NOT NULL,
-  `DS_EMAIL` varchar(30) NOT NULL,
-  `DS_TELEFONE` varchar(9) NOT NULL,
+  `DS_MATRICULA` varchar(10) DEFAULT NULL,
+  `DS_EMAIL` varchar(30) DEFAULT NULL,
+  `DS_TELEFONE` varchar(10) DEFAULT NULL,
   `ID_ORGAO` int(20) NOT NULL,
   `ID_UNIDADE_APURACAO` int(20) DEFAULT NULL,
   `DS_FOTO` varchar(25) NOT NULL DEFAULT 'default.jpg',
@@ -576,12 +465,13 @@ CREATE TABLE `tb_servidores` (
 --
 
 INSERT INTO `tb_servidores` (`ID`, `DS_NOME`, `DS_MATRICULA`, `DS_EMAIL`, `DS_TELEFONE`, `ID_ORGAO`, `ID_UNIDADE_APURACAO`, `DS_FOTO`, `DS_TIPO`, `DS_CPF`, `SENHA`, `STATUS`) VALUES
-(1, 'Judson Melo Bandeira', '00000-0', 'judson.bandeira@cge.al.gov.br', '3315-3630', 44, 2, 'perfil.jpg', 'UNIDADE DE APURAÇÃO', '062.200.904-46', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
-(4, 'Administrador', '00000-0', 'admin@cge.al.gov.br', '0000-0000', 8, NULL, 'default.jpg', 'ADMINISTRADOR', '000.000.000-00', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
-(5, 'Fabrícia Nunes Soares de Oliveira', '00107-4', 'fabricia.oliveira@cge.al.gov.b', '3315-3631', 8, NULL, 'default.jpg', 'OUVIDORIA', '030.505.524-09', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
-(6, 'Bruna Cansanção de Albuquerque Barbosa', '00094-9', 'bruna.barbosa@cge.al.gov.br', '3315-3631', 8, 1, 'default.jpg', 'UNIDADE DE APURAÇÃO', '051.744.334-11', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
-(7, 'Fulano', '00080-0', 'fulano@detal.com.br', '8888-8888', 3, NULL, 'default.jpg', 'OUVIDORIA', '052.222.022-20', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
-(10, 'Sicrano', '4555-5', 'sicrano@gmail.com', '9966-0222', 2, 2, 'default.jpg', 'UNIDADE DE APURAÇÃO', '000.000.000-02', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO');
+(1, 'Administrador', NULL, NULL, NULL, 8, NULL, 'default.jpg', 'ADMINISTRADOR', '000.000.000-00', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(2, 'Bruna Cansanção de Albuquerque Barbosa', '00094-9', 'bruna.barbosa@cge.al.gov.br', '3315-3631', 8, 1, 'default.jpg', 'UNIDADE DE APURAÇÃO', '051.744.334-11', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(3, 'Fabrícia Nunes Soares de Oliveira', '00107-4', 'fabricia.oliveira@cge.al.gov.b', '3315-3631', 8, NULL, 'default.jpg', 'OUVIDORIA', '030.505.524-09', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(4, 'Jaqueline da Silva Liberal', '23234-3', NULL, '99933-7370', 53, 4, 'default.jpg', 'UNIDADE DE APURAÇÃO', '309.558.074-68', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(5, 'Walesca Maria Cavalcante Paes', '42772-1', NULL, '99997-3377', 53, 5, 'default.jpg', 'UNIDADE DE APURAÇÃO', '986.356.624-15', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(6, 'Ana Virgínia Medeiros Tavares de Melo Ferraz', '28933-7', 'anaferrazjf@gmail.com', '98754-7646', 5, 3, 'default.jpg', 'UNIDADE DE APURAÇÃO', '041.723.164-41', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO'),
+(7, 'Mauro Guilherme Alcantara Marques', '144-4', 'maurojuris@gmail.com', '99648-4892', 5, 3, 'default.jpg', 'UNIDADE DE APURAÇÃO', '745.212.334-49', 'e10adc3949ba59abbe56e057f20f883e', 'ATIVO');
 
 -- --------------------------------------------------------
 
@@ -596,18 +486,8 @@ CREATE TABLE `tb_trilhas` (
   `BL_ALERTA` tinyint(4) NOT NULL,
   `ID_UNIDADE_APURACAO` int(20) NOT NULL,
   `NR_PERIODICIDADE` int(3) NOT NULL,
-  `DT_ALERTA` date DEFAULT NULL
+  `DT_ALERTA` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `tb_trilhas`
---
-
-INSERT INTO `tb_trilhas` (`ID`, `ID_DENUNCIA`, `DS_NOME`, `BL_ALERTA`, `ID_UNIDADE_APURACAO`, `NR_PERIODICIDADE`, `DT_ALERTA`) VALUES
-(6, 17, 'fabricia', 1, 1, 6, '2018-12-10'),
-(7, 17, 'MEDICAMENTO DE HOSPITAL', 1, 2, 5, '0000-00-00'),
-(8, 17, 'HEHEHEHEHEHE', 1, 2, 8, '2018-12-18'),
-(9, 17, 'apuração de medicos', 1, 1, 7, '2018-12-17');
 
 -- --------------------------------------------------------
 
@@ -619,7 +499,7 @@ CREATE TABLE `tb_unidades_apuracao` (
   `ID` int(20) NOT NULL,
   `ID_ORGAO` int(20) NOT NULL,
   `DS_ABREVIACAO` varchar(10) NOT NULL,
-  `DS_NOME` varchar(50) NOT NULL
+  `DS_NOME` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -628,7 +508,10 @@ CREATE TABLE `tb_unidades_apuracao` (
 
 INSERT INTO `tb_unidades_apuracao` (`ID`, `ID_ORGAO`, `DS_ABREVIACAO`, `DS_NOME`) VALUES
 (1, 8, 'SUPAD', 'Superintendencia de Auditagem'),
-(2, 44, 'COR', 'Corregedoria');
+(2, 44, 'COR', 'Corregedoria'),
+(3, 5, 'CP', 'Controladoria Previdenciária'),
+(4, 53, 'CPAD', 'Comissão Permanente de Processo Administrativo Disciplinar'),
+(5, 53, 'CAC', 'Comissão de Acumulação de Cargos');
 
 --
 -- Indexes for dumped tables
@@ -717,62 +600,52 @@ ALTER TABLE `tb_unidades_apuracao`
 -- AUTO_INCREMENT for table `tb_anexos`
 --
 ALTER TABLE `tb_anexos`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tb_assuntos_denuncia`
 --
 ALTER TABLE `tb_assuntos_denuncia`
   MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `tb_denuncias`
 --
 ALTER TABLE `tb_denuncias`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `tb_historico_denuncia`
 --
 ALTER TABLE `tb_historico_denuncia`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 --
 -- AUTO_INCREMENT for table `tb_municipios`
 --
 ALTER TABLE `tb_municipios`
   MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
-
 --
 -- AUTO_INCREMENT for table `tb_orgaos`
 --
 ALTER TABLE `tb_orgaos`
   MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
-
 --
 -- AUTO_INCREMENT for table `tb_palavras_chave_denuncia`
 --
 ALTER TABLE `tb_palavras_chave_denuncia`
   MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `tb_servidores`
 --
 ALTER TABLE `tb_servidores`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tb_trilhas`
 --
 ALTER TABLE `tb_trilhas`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tb_unidades_apuracao`
 --
 ALTER TABLE `tb_unidades_apuracao`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
@@ -826,7 +699,6 @@ ALTER TABLE `tb_trilhas`
 --
 ALTER TABLE `tb_unidades_apuracao`
   ADD CONSTRAINT `tb_unidades_apuracao_ibfk_1` FOREIGN KEY (`ID_ORGAO`) REFERENCES `tb_orgaos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

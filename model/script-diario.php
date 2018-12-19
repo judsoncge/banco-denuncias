@@ -16,45 +16,21 @@ $dataHoje = date('Y-m-d');
 
 $resultadoQuery = mysqli_query($conexao, 
 
-"
-
-SELECT 
-
-t.ID, t.DS_NOME NOME_TRILHA, t.NR_PERIODICIDADE, t.DT_ALERTA,
-
-d.ID ID_DENUNCIA, d.ID_UNIDADE_APURACAO,
-
-s.DS_NOME NOME_SERVIDOR, s.DS_EMAIL
-
-FROM tb_trilhas t 
-
-LEFT JOIN tb_denuncias d ON t.ID_DENUNCIA = d.ID
-LEFT JOIN tb_servidores s ON d.ID_UNIDADE_APURACAO = s.ID_UNIDADE_APURACAO
-
-WHERE 
-
-d.DS_STATUS != 'ENCERRADA'
-
-AND
-
-t.BL_ALERTA = 1
-
-AND 
-
-t.DT_ALERTA = '$dataHoje'
-
-");
+"SELECT t.ID, t.DS_NOME NOME_TRILHA, t.NR_PERIODICIDADE, t.DT_ALERTA, d.ID ID_DENUNCIA, d.ID_UNIDADE_APURACAO, s.DS_NOME NOME_SERVIDOR, s.DS_EMAIL
+FROM tb_trilhas t LEFT JOIN tb_denuncias d ON t.ID_DENUNCIA = d.ID LEFT JOIN tb_servidores s ON d.ID_UNIDADE_APURACAO = s.ID_UNIDADE_APURACAO 
+WHERE d.DS_STATUS != 'ENCERRADA' AND t.BL_ALERTA = 1 AND t.DT_ALERTA = '$dataHoje'");
 
 $idUsado = 0;
 
 while($trilha = mysqli_fetch_array($resultadoQuery)){
 	
-	
-	$nomeTrilha = $trilha['NOME_TRILHA'];
+	$emailDestinatario = $trilha['DS_EMAIL']
 	$nomeServidor = $trilha['NOME_SERVIDOR'];
+	$nomeTrilha = $trilha['NOME_TRILHA'];
+	
 	$id = $trilha['ID'];
 	
-	mail($trilha['DS_EMAIL'], utf8_decode("Banco de Denúncias - Lembrete de trilha"), utf8_decode("$nomeServidor, este é um lembrete para resolução da trilha $nomeTrilha"));
+	mail($emailDestinatario, utf8_decode("Banco de Denúncias - Lembrete de trilha"), utf8_decode("$nomeServidor, este é um lembrete para resolução da trilha $nomeTrilha"));
 	
 	
 	if($idUsado != $id){
@@ -67,11 +43,6 @@ while($trilha = mysqli_fetch_array($resultadoQuery)){
 	$idUsado = $id;
 			
 } 
-
-
-
-
-
 
 
 ?>
